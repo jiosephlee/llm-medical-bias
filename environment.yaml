@@ -1,0 +1,12 @@
+name: llm-medical-bias
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - tqdm
+  - scikit-learn
+  - pip:
+      - openai
+      - together
