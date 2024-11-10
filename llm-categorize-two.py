@@ -5,22 +5,135 @@ import time
 from tqdm import tqdm
 import utils
 
+general_categories = {
+    "high_impact_diseases": [
+        "Cardiovascular Disease",
+        "Hypertension",
+        "Myocardial Infarction (Heart Attack)",
+        "Stroke",
+        "Chronic Obstructive Pulmonary Disease (COPD)",
+        "Asthma",
+        "Type 2 Diabetes Mellitus",
+        "Chronic Kidney Disease",
+        "Liver Cirrhosis",
+        "Hepatitis C",
+        "Sepsis",
+        "Breast Cancer",
+        "Lung Cancer",
+        "Colorectal Cancer",
+        "Prostate Cancer",
+        "Alzheimer's Disease",
+        "Parkinson's Disease",
+        "Major Depression",
+        "Schizophrenia",
+        "Osteoarthritis",
+        "Rheumatoid Arthritis",
+        "Human Immunodeficiency Virus (HIV)",
+        "Obesity",
+        "Anemia",
+        "Dementia",
+        "Congestive Heart Failure",
+        "Acute Kidney Injury",
+        "Other"
+    ],
+    # Discarded: Psychology & Behavioral, Genetic Counseling
+    "question_types": [
+        "Diagnostic",
+        "Treatment",
+        "Prognosis",
+        "Prevention",
+        "Etiology",
+        "Pathophysiology",
+        "Adverse Effects",
+        "Epidemiology",
+        "Anatomy & Physiology",
+        "Ethics",
+        "Other"
+    ],
+    # Discarded: Palliative Care, Critical Care, Sports Medicine
+    "medical_specialties": [
+        "Allergy & Immunology",
+        "Anesthesiology",
+        "Cardiology",
+        "Dentistry & Oral Surgery",
+        "Dermatology",
+        "Emergency Medicine",
+        "Endocrinology",
+        "Family Medicine",
+        "Gastroenterology",
+        "Genetics",
+        "Geriatrics",
+        "Hematology",
+        "Infectious Disease",
+        "Internal Medicine",
+        "Neonatology",
+        "Nephrology",
+        "Neurology",
+        "Obstetrics & Gynecology",
+        "Oncology",
+        "Ophthalmology",
+        "Orthopedics",
+        "Otolaryngology (ENT)",
+        "Pathology",
+        "Pediatrics",
+        "Pharmacology",
+        "Physical Medicine & Rehabilitation",
+        "Preventive Medicine",
+        "Psychiatry",
+        "Pulmonology",
+        "Radiology",
+        "Rheumatology",
+        "Surgery",
+        "Urology",
+        "Other"
+    ],
+    "severity_urgency": [
+        "High",
+        "Moderate",
+        "Low"
+    ],
+    "age": [
+        "Infants (0-1 year)",
+        "Children (2-12 years)",
+        "Adolescents (13-18 years)",
+        "Young Adults (19-40 years)",
+        "Adults (41-64 years)",
+        "Elderly (65+ years)"
+    ],
+    "gender": [
+        "Male",
+        "Female",
+        "Other"
+    ],
+    "ethnicity": [
+        "Caucasian",
+        "African American",
+        "Asian",
+        "Hispanic",
+        "Other"
+    ]
+}
+
 # Global pools for tracking dynamic categories
 global_pools = {
-    "diseases": set(),
+    "high_impact_diseases": set(),
     "question_types": set(),
     "medical_specialties": set(),
     "severity_urgency": set(),
-    "patient_demographics": set()
+    "age": set(),
+    "gender": set(),
+    "ethnicity": set()
 }
 
 # Expected schema for validation
 expected_schema = {
-    "diseases": list,
+    "high_impact_diseases": list,
     "question_types": list,
     "medical_specialties": list,
     "severity_urgency": list,
-    "patient_demographics": list
+    "age": list,
+    "gender": list,
+    "ethnicity": list
 }
 
 def validate_metadata(metadata):
@@ -30,7 +143,7 @@ def validate_metadata(metadata):
     for key, expected_type in expected_schema.items():
         if key not in metadata or not isinstance(metadata[key], expected_type):
             return False
-        metadata[key] = [item.strip().lower() for item in metadata[key]]
+        metadata[key] = [item.strip() for item in metadata[key]]
     return True
 
 def update_global_pools(metadata):
@@ -39,27 +152,51 @@ def update_global_pools(metadata):
         if key in global_pools:
             global_pools[key].update(values)
 
-def extract_metadata_with_gpt(question_text, max_try_num=3, model="gpt-4o-mini", debug=False):
+def extract_metadata_with_gpt(question_text, answer_text, general_categories, max_try_num=3, model="gpt-3.5-turbo", debug=False):
     """Query GPT to extract metadata with retries if validation fails."""
     
+    # Build the prompt with predefined categories
     prompt = f"""
-    Given the following medical question, extract the following metadata and provide it in JSON format:
+Given the following medical question and its answer, extract the following metadata and provide it in JSON format.
 
-    1. Diseases involved: List all diseases or medical conditions mentioned or implied.
-    2. Question types: Identify the types of questions involved (e.g., diagnostic, treatment, prognosis, prevention, etiology, epidemiology, anatomy, physiology).
-    3. Medical specialties: List all relevant medical specialties related to the question.
-    4. Severity and urgency: Assess the severity and urgency level (e.g., high, medium, low).
-    5. Patient demographics: Extract any patient demographic information (e.g., age, gender).
+1. **High-impact diseases**
+Identify if any high-impact diseases are involved. Use these predefined high-impact diseases: {', '.join(general_categories['high_impact_diseases'])}
 
-    Answer in JSON format with keys: "diseases", "question_types", "medical_specialties", "severity_urgency", "patient_demographics". Each value should be a list of strings.
+2. **Question types**
+Identify the types of questions involved. Use these predefined question types: {', '.join(general_categories['question_types'])}
 
-    Question:
-    \"\"\"
-    {question_text}
-    \"\"\"
-    """
+3. **Medical specialties**
+List all relevant medical specialties related to the question. Use these predefined specialties: {', '.join(general_categories['medical_specialties'])}
+
+4. **Severity and urgency**
+Assess the severity and urgency level. Use these predefined levels: High, Moderate, Low.
+
+5. **Age**
+Determine the patient's age group if mentioned or implied. Use these predefined age categories: {', '.join(general_categories['age'])}
+
+6. **Gender**
+Determine the patient's gender if mentioned or implied. Use these predefined gender categories: {', '.join(general_categories['gender'])}
+
+7. **Ethnicity**
+Determine the patient's ethnicity if mentioned or implied. Use these predefined ethnicity categories: {', '.join(general_categories['ethnicity'])}
+
+Answer in JSON format with the following keys:
+- "high_impact_diseases"
+- "question_types"
+- "medical_specialties"
+- "severity_urgency"
+- "age"
+- "gender"
+- "ethnicity"
+
+Each value should be a list of strings from the predefined categories. If none of the entities of a category apply, keep it empty.
+
+\"\"\"Question: {question_text}
+Answer: {answer_text}
+\"\"\"
+"""
     for attempt in range(max_try_num):
-        response = utils.query_gpt(prompt, max_tokens=200, temperature=0, model=model, debug=debug, json=True)
+        response = utils.query_gpt(prompt, max_tokens=500, temperature=0, model=model, debug=debug, json=True)
         if response == -1:
             if debug:
                 print(f"Attempt {attempt + 1}: GPT response failed.")
@@ -71,9 +208,6 @@ def extract_metadata_with_gpt(question_text, max_try_num=3, model="gpt-4o-mini",
             
             # Validate schema and format response if validation passes
             if validate_metadata(metadata):
-                for key in metadata:
-                    metadata[key] = [item.strip().lower() for item in metadata[key]]
-                
                 # Update global pools and return valid metadata
                 update_global_pools(metadata)
                 return metadata
@@ -100,7 +234,8 @@ def add_metadata(data, start_index=0, max_try_num=3, model="gpt-4o-mini", debug=
     print(f"Calling {model}...")
     for i, item in enumerate(tqdm(data[start_index:], desc="Adding metadata")):
         question_text = item.get('question', '')
-        metadata = extract_metadata_with_gpt(question_text, max_try_num=max_try_num, model=model, debug=debug)
+        answer_text = item.get('answer', '')
+        metadata = extract_metadata_with_gpt(question_text, answer_text, general_categories, max_try_num=max_try_num, model=model, debug=debug)
         item.update(metadata)
     return data
 

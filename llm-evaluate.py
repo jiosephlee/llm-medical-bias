@@ -105,12 +105,12 @@ if __name__ == "__main__":
 
     output_dir = "./results/"
     os.makedirs(output_dir, exist_ok=True)
-    save_metrics(metrics, output_dir, f"{args.timestamp}_metrics")
+    save_metrics(metrics, output_dir, f"{args.timestamp}_{args.model}_{args.max_questions}_metrics")
 
     # Category-based evaluation
     if args.has_category_metadata:
         category_metrics = {}
-        category_keys = ["diseases", "question_types", "medical_specialties", "severity_urgency", "patient_demographics"]
+        category_keys = ["high_impact_diseases", "question_types", "medical_specialties", "severity_urgency", "age","gender","ethnicity"]
         
         for category in category_keys:
             print(f"Evaluating by category: {category}")
@@ -118,7 +118,7 @@ if __name__ == "__main__":
             #print(f"Metrics by {category}:", category_metrics[category])
         
         # Save all category metrics in a single JSON file
-        all_metrics_file = os.path.join(output_dir, f"{args.timestamp}_category_metrics.json")
+        all_metrics_file = os.path.join(output_dir, f"{args.timestamp}_{args.model}_{args.max_questions}_category_metrics.json")
         with open(all_metrics_file, 'w') as f:
             json.dump(category_metrics, f, indent=2)
         

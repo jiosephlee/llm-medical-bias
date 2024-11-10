@@ -27,7 +27,6 @@ general_categories = {
     "high_impact_diseases": [
         "Cardiovascular Disease",
         "Hypertension",
-        "Coronary Artery Disease",
         "Myocardial Infarction (Heart Attack)",
         "Stroke",
         "Chronic Obstructive Pulmonary Disease (COPD)",
@@ -48,45 +47,64 @@ general_categories = {
         "Osteoarthritis",
         "Rheumatoid Arthritis",
         "Human Immunodeficiency Virus (HIV)",
-        "Tuberculosis",
-        "Influenza",
         "Obesity",
         "Anemia",
         "Dementia",
         "Congestive Heart Failure",
-        "Atrial Fibrillation",
         "Acute Kidney Injury",
         "Other"
     ],
+    # discared: pyschology & behavioral, genetic counseling
     "question_types": [
-        "Diagnostic",
-        "Treatment",
-        "Prognosis",
-        "Prevention",
-        "Etiology",
-        "Pathophysiology",
-        "Adverse Effects",
-        "Epidemiology",
-        "Anatomy & Physiology",
-        "Other"
+        "Diagnostic",           
+        "Treatment",            
+        "Prognosis",           
+        "Prevention",          
+        "Etiology",           
+        "Pathophysiology",      
+        "Adverse Effects",      
+        "Epidemiology",         
+        "Anatomy & Physiology", 
+        "Ethics",               
+        "Other"                 
     ],
-    "medical_specialties": [
-        "Cardiology",
-        "Pulmonology",
-        "Gastroenterology",
-        "Endocrinology",
-        "Neurology",
-        "Oncology",
-        "Psychiatry",
-        "Dermatology",
-        "Nephrology",
-        "Obstetrics & Gynecology",
-        "Pediatrics",
-        "Surgery",
-        "Emergency Medicine",
-        "General Medicine",
-        "Other"
-    ],
+    # discarded: Palliative Care, Critical Care, Sports medicine
+  "medical_specialties": [
+    "Allergy & Immunology",
+    "Anesthesiology",
+    "Cardiology",
+    "Dentistry & Oral Surgery",
+    "Dermatology",
+    "Emergency Medicine",
+    "Endocrinology",
+    "Family Medicine",
+    "Gastroenterology",
+    "Genetics",
+    "Geriatrics",
+    "Hematology",
+    "Infectious Disease",
+    "Internal Medicine",
+    "Neonatology",
+    "Nephrology",
+    "Neurology",
+    "Obstetrics & Gynecology",
+    "Oncology",
+    "Ophthalmology",
+    "Orthopedics",
+    "Otolaryngology (ENT)",
+    "Pathology",
+    "Pediatrics",
+    "Pharmacology",
+    "Physical Medicine & Rehabilitation",
+    "Preventive Medicine",
+    "Psychiatry",
+    "Pulmonology",
+    "Radiology",
+    "Rheumatology",
+    "Surgery",
+    "Urology",
+    "Other"
+  ],
     "severity_urgency": [
         "High",
         "Moderate",
@@ -119,15 +137,15 @@ def remap_labels(data, general_categories, max_try_num=3, model="gpt-4o-mini", d
     for item in tqdm(data, desc="Remapping labels"):
         # Collect existing metadata labels for the item
         metadata_labels = {}
-        for key in ['diseases', 'question_types', 'medical_specialties', 'severity_urgency', 'patient_demographics']:
+        # Only give 
+        for key in ['diseases', 'question_types', 'medical_specialties', 'patient_demographics']:
             metadata_labels[key] = item.get(key, [])
 
         # Prepare the prompt
-        prompt = f"""
-Given the following specific metadata labels for a medical question, remap them to the predefined general categories. Some specific labels may map to multiple general categories.
-
-Specific Metadata Labels:
-"""
+        prompt = """
+        Given the following specific metadata labels for a medical question, remap them to the predefined general categories. Some specific labels may map to multiple general categories.
+        Specific Metadata Labels:
+        """
         # Add the metadata labels to the prompt
         for category, labels in metadata_labels.items():
             labels_text = ', '.join(labels) if labels else 'None'
@@ -157,7 +175,6 @@ Example Output:
   "ethnicity": ["African American"]
 }
 """
-
         # Query the GPT model
         for attempt in range(max_try_num):
             response = utils.query_gpt(prompt, max_tokens=500, temperature=0, model=model, debug=debug)
@@ -223,7 +240,7 @@ def save_dataset(data, input_filepath):
 def main():
     parser = argparse.ArgumentParser(description='Remap existing labels to general categories using GPT.')
     parser.add_argument("--dataset", type=str, required=True, help="Name of the dataset to remap labels for (e.g., MedQA)")
-    parser.add_argument("--max_questions", type=int, default=200, help="Max number of questions to evaluate")
+    parser.add_argument("--max_questions", type=int, default=500, help="Max number of questions to evaluate")
     parser.add_argument('--max_try_num', type=int, default=3, help='Maximum number of GPT query attempts.')
     parser.add_argument('--model', type=str, default='gpt-4o-mini', help='GPT model to use.')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode.')
