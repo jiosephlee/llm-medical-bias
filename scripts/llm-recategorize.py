@@ -3,7 +3,7 @@ import json
 import argparse
 import time
 from tqdm import tqdm
-import utils
+import utils.utils as utils
 
 # Predefined general categories
 general_categories = {

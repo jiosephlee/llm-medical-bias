@@ -163,3 +163,5 @@ cython_debug/
 
 # Additional Files
 config.py
+NOTEEVENTS.csv
+llm-medical-bias.code-workspace
