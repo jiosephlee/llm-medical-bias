@@ -84,7 +84,7 @@ if __name__ == "__main__":
         raise ValueError(f"Dataset {args.dataset} not found in _DATASETS.")
 
     # Load dataset
-    dataset = utils.load_dataset(dataset_path, max_questions=args.max_questions)
+    dataset = utils.load_jsonl(dataset_path, max_questions=args.max_questions)
     predictions = []
 
     if args.load_predictions:

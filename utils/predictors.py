@@ -1,52 +1,70 @@
 import numpy as np
 import utils.utils as utils
+import inspect
 
 class Predictor:
-    """Prediction strategy with multiple options including CoT, FewShot, ZeroShot, and SelfConsistency."""
-    def __init__(self, model, strategy="ZeroShot", hippa=True, target=None, training_set=None, precomputed_embeddings=None):
+    """
+    The predictor class is soley responsible for handling different prediction strategies. 
+    It does not format the prompt for each task and so 
+    1) task-specific serialization of each sample 
+    2) the task-specific instructions
+    must be provided.
+    """
+    def __init__(self, dataset, strategy="ZeroShot", hippa=False, target=None, training_set=None, precomputed_embeddings=None):
         """
-        Initialize the Predictor.
-
-        :param model: The language model to use for predictions.
+        :param model: The LLM to use for predictions.
         :param strategy: Prediction strategy ("FewShot", "CoT", "ZeroShot", "SelfConsistency").
         :param debug: Whether to enable debug mode.
-        :param training_set: The training dataset for few-shot prompting (list of dictionaries with 'input' and 'output').
+        :param training_set: The training dataset for few-shot prompting.
         """
-        self.model = model
+        self.dataset = dataset
         self.strategy = strategy
         self.target = target
         self.hippa = hippa
-        self.training_set = training_set or []  # List of {'input': str, 'output': str}
+        self.training_set = training_set
         self.embeddings_cache = precomputed_embeddings
-
+    
     def predict(self, *args, **kwargs):
         """
         Route prediction based on strategy.
-
-        :param prompt: The input prompt for prediction.
-        :return: Model response.
         """
         if self.strategy == "FewShot":
             return self.few_shot_prediction(*args, **kwargs)
         if self.strategy == "KATE":
             return self.kate_prediction(*args, **kwargs)
-        elif self.strategy == "CoT":
-            return self.chain_of_thought_prediction(*args, **kwargs)
-        elif self.strategy == "ZeroShot":
+        elif self.strategy == "ZeroShot" or self.strategy == "CoT":
             return self.zero_shot_prediction(*args, **kwargs)
         elif self.strategy == "SelfConsistency":
             return self.self_consistency_prediction(*args, **kwargs)
         else:
             raise ValueError(f"Unsupported strategy: {self.strategy}")
 
-    def few_shot_prediction(self, test_sample, instruction_prompt, format, k=5):
-        if not self.training_set:
+    def zero_shot_prediction(self, prompt, **kwargs):
+        """Zero-shot prediction implementation."""
+        if self.hippa:
+            return utils.query_gpt_safe(prompt, **kwargs)
+        return utils.query_gpt(prompt, **kwargs)
+
+    def _format_prompt_few_shots(self, test_prompt, serialize, instruction_prompt, k_shots):
+
+        formatted_examples = "\n\n".join(
+            f"Input: {serialize(self.dataset,ex)}\nOutput: {ex['acuity']}"
+            for i, ex in k_shots.iterrows()
+        )
+        return f"{instruction_prompt}\n{formatted_examples}\n\nInput:\n{test_prompt}\nOutput:"
+    
+    def few_shot_prediction(self, test_prompt, serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
+        #print(self.training_set)
+        if self.training_set is None:
             raise ValueError("Few-shot strategy requires a training set of examples.")
-        k_shots = utils.stratified_sample_df(self.training_set, target_col=self.target,sample_size=k)
-        prompt = format(instruction_prompt, test_sample, k_shots)
-        response = utils.query_gpt_safe(prompt)
-        
-        
+        _, k_shots = utils.stratified_df(self.training_set, target_col=self.target,test_size=k_shots)
+        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, instruction_prompt, k_shots)
+        if self.hippa:
+            return utils.query_gpt_safe(prompt, **kwargs)
+        else:
+            return utils.query_gpt(prompt, **kwargs)
+
+    
     def kate_prediction(self, prompt, k=5):
         """
         Few-shot prediction using KATE.
@@ -74,8 +92,8 @@ class Predictor:
         embeddings_cache = []
         for example in self.training_set:
             input_text = example['input']
-            embedding = get_embedding(input_text, model="text-embedding-ada-002")
-            embeddings_cache.append(embedding)
+            #embedding = get_embedding(input_text, model="text-embedding-ada-002")
+            #embeddings_cache.append(embedding)
         return embeddings_cache
 
     def _retrieve_top_k_examples(self, prompt, k):
@@ -87,22 +105,22 @@ class Predictor:
         :return: List of top K examples.
         """
         # Compute the embedding for the prompt
-        prompt_embedding = get_embedding(prompt, model="text-embedding-ada-002")
+       # prompt_embedding = get_embedding(prompt, model="text-embedding-ada-002")
         
         # Compute similarity scores
-        similarities = [
-            cosine_similarity(prompt_embedding, example_embedding)
-            for example_embedding in self.embeddings_cache
-        ]
+        # similarities = [
+        #     cosine_similarity(prompt_embedding, example_embedding)
+        #     for example_embedding in self.embeddings_cache
+        # ]
         
         # Get indices of top K most similar examples
-        top_k_indices = np.argsort(similarities)[-k:][::-1]
+        # top_k_indices = np.argsort(similarities)[-k:][::-1]
         
-        # Retrieve the corresponding examples
-        top_k_examples = [self.training_set[i] for i in top_k_indices]
-        if self.debug:
-            print(f"Retrieved top {k} examples based on similarity scores.")
-        return top_k_examples
+        # # Retrieve the corresponding examples
+        # top_k_examples = [self.training_set[i] for i in top_k_indices]
+        # if self.debug:
+        #     print(f"Retrieved top {k} examples based on similarity scores.")
+        return None
 
     def _format_prompt_with_kate(self, prompt, examples):
         """
@@ -125,34 +143,23 @@ class Predictor:
             print(formatted_prompt)
         return utils.query_gpt(formatted_prompt, model=self.model, debug=self.debug)
 
-    def chain_of_thought_prediction(self, prompt):
-        """Chain-of-thought prediction implementation."""
-        # Add CoT-specific logic here
-        pass
-
-    def zero_shot_prediction(self, prompt, **kwargs):
-        """Zero-shot prediction implementation."""
-        if self.hippa:
-            return utils.query_gpt_safe(prompt, model=self.model, **kwargs)
-        return utils.query_gpt(prompt, model=self.model, **kwargs)
-
     def self_consistency_prediction(self, prompt):
         """Self-consistency prediction implementation."""
         # Add Self-Consistency-specific logic here
         pass
     
-if __name__ == "__main__":
-    # Example usage of the Predictor class
-    model = "gpt-3.5-turbo"
-    strategy = "FewShot"
-    target = "output"
-    training_set = [
-        {"input": "What is the capital of France?", "output": "Paris"},
-        {"input": "What is the capital of Germany?", "output": "Berlin"},
-        {"input": "What is the capital of Italy?", "output": "Rome"},
-    ]
-    prompt = "What is the capital of Spain?"
+# if __name__ == "__main__":
+#     # Example usage of the Predictor class
+#     model = "gpt-3.5-turbo"
+#     strategy = "ZeroShot"
+#     target = "output"
+#     training_set = [
+#         {"input": "What is the capital of France?", "output": "Paris"},
+#         {"input": "What is the capital of Germany?", "output": "Berlin"},
+#         {"input": "What is the capital of Italy?", "output": "Rome"},
+#     ]
+#     prompt = "What is the capital of Spain?"
     
-    predictor = Predictor(model, strategy, target=target, training_set=training_set)
-    response = predictor.predict(prompt)
-    print(response) 
+#     predictor = Predictor(strategy, target=target, training_set=training_set)
+#     response = predictor.predict(prompt, model=model)
+#     print(response) 

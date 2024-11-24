@@ -1,11 +1,14 @@
-import os
 import re
 import pandas as pd
 import json
 from tqdm import tqdm
-import numpy as np
-from collections import Counter
+import utils.predictors as predictors
+import argparse
 import utils.utils as utils
+import marshal
+from datetime import datetime
+import time
+import os
   
 def extract_num(answer_text):
     # Use regex to find all floats and integers in the answer text
@@ -21,30 +24,33 @@ def extract_num(answer_text):
     else:
         return "Error: No acuity number found" 
     
-def extract_acuity_from_text(text):
+def extract_acuity_from_text(text, debug):
     # Call another model to extract the acuity if necessary
-    answer = utils.client_safe.chat.completions.create(
-        model="openai-gpt-4o-chat",
-        messages=[{"role": "user", "content": f"Extract the estimated acuity from the following information and output the number alone. If the estimate is uncertain, provide the mean of the two numbers it's considering and provide the mean alone.\n\n\"\"\"{text}.\"\"\""}],
-        temperature=0,
-        top_p=0
-    )
-    answer_text = answer.choices[0].message.content.strip()
+    time.sleep(1)
+    answer_text = utils.query_gpt_safe(f"Extract the estimated acuity from the following information and output the number alone. If the estimate is uncertain, just choose one that is best.\n\n\"\"\"{text}.\"\"\"", 
+                                       model= "openai-gpt-35-turbo-chat", debug=debug)
     num = extract_num(answer_text)
+    time.sleep(1)
     if type(num) == str and 'Error' in num:
-        answer = utils.client_safe.chat.completions.create(
-        model="openai-gpt-4o-chat",
-        messages=[{"role": "user", "content": f"Extract the final estimated acuity from the following information and output the number alone. If the estimate is uncertain, provide the mean of the two numbers it's considering and provide the mean alone.\n\n\"\"\"{answer_text}.\"\"\""}],
-        temperature=0,
-        top_p=0
-        )  
-        return extract_num(answer.choices[0].message.content.strip()) 
+        return utils.query_gpt_safe(f"Extract the estimated acuity from the following information and output the number alone. If the estimate is uncertain, just choose one that is best.\n\n\"\"\"{text}.\"\"\"", 
+                                       model= "openai-gpt-35-turbo-chat", debug=debug)
     else:
         return num
 
+def serialization(dataset, row):
+    if 'Triage' in dataset:
+        return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
+{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
 
-# Function to create the prompt based on the patient's data
-def create_prompt(row,strategy=None, json=False, detailed_instructions = False, bias=False):
+def instruction_prompt(dataset, return_json=False):
+    json_instruction = "Answer in valid JSON format, providing acuity as a single numeric value in the key 'acuity'."
+    if 'Triage' in dataset:
+        return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"
+
+def create_prompt(row,strategy=None, return_json=False, detailed_instructions = False, bias=False):
+    if strategy == 'FewShot':
+        return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
+{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
     if detailed_instructions:
         task_description = """Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. The levels are: 
 1: When Level 1 condition or patient meets ED Trigger Criteria, the triage process stops, the patient is taken directly to a room and immediate physician intervention requested. Patient conditions which trigger level 1 include being unresponsive, intubated, apneic, pulseless, requiring a medication/intervention to alter ESI level e.g. narcan/adenosine/cardioversion, trauma, stroke, stemi
@@ -55,13 +61,13 @@ def create_prompt(row,strategy=None, json=False, detailed_instructions = False, 
     else: 
         task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
     if bias:
-        starting_prompt = "Here is the profile of a patient"
+        starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
     else:
-        starting_prompt = "Here is the profile of a {row['Race']} {row['Sex']} patient" 
-    cot = ""
+        starting_prompt = "Here is the profile of a patient"
+    cot, reasoning = "", ""
     if strategy=='CoT':
-        cot = "Let's think step by step" 
-    if json:
+        cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
+    if return_json:
         return f"""{starting_prompt}:
 
 temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
@@ -69,7 +75,7 @@ temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
 
 Estimate their acuity from 1 to 5 based on the following guidelines: {task_description}. {cot}
 
-Answer in valid JSON format, providing acuity as a single numeric value in the key "acuity" and a concise explanation of your reasoning in the key "reasoning"."""
+Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
     else:    
         return f"""{starting_prompt}:
 
@@ -78,66 +84,67 @@ temperature   heartrate   resprate    o2sat   sbp   dbp   pain chiefcomplaint
 
 Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
         """
-
-def predict(df, model, predictive_strategy, start_index=0, end_index=500, json_param=False, detailed_instructions=False, bias=False, debug=False):
-    print(f"Calling {model}...")
-    predictions = []
-    for index, row in tqdm(df.loc[start_index:end_index].iterrows(), desc="Triaging Patients"):
-        # Generate the prompt & query the model
-        prompt = create_prompt(row, strategy=predictive_strategy, json=json_param, detailed_instructions=detailed_instructions, bias=bias)
-        response = utils.query_gpt_safe(prompt, model=model, json=json_param, debug=debug)
-        if json_param:
+        
+# Handles structuring the response
+def predict(index, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, instruction_prompt, debug):
+    # The logic for splitting strategy is partially handled here by passing the right parameters
+    if strategy == 'FewShot':
+        response = predictor.predict(prompt, model=model, k_shots = k_shots, return_json=return_json, serialization_func = serialization_func, instruction_prompt=instruction_prompt, debug=debug)
+    elif strategy == 'ZeroShot' or strategy == 'CoT':
+        response = predictor.predict(prompt, model=model, return_json=return_json, debug=debug)
+    if return_json:
+        try:
             response_data = json.loads(response)
-            predictions.append({
+        except json.JSONDecodeError as e:
+            print("Error decoding JSON:", e)
+            print("Raw response causing error:", response)
+            response_data = {'acuity':None, "reasoning":None}
+        if index==0:
+            return {
+                "prompt": prompt,
                 "Estimated_Acuity": response_data['acuity'],
-                "Reasoning": response_data['reasoning'],
+                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
                 **row.to_dict()  # Include the original row's data for reference
-            })
-        else: 
-            predictions.append({
-                "Estimated_Acuity": extract_acuity_from_text(response),
-                "Reasoning": response,
+            }
+        else:
+            return {
+                "Estimated_Acuity": response_data['acuity'],
+                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
                 **row.to_dict()  # Include the original row's data for reference
-            })
-            
- 
-    # Create a DataFrame from the predictions list
-    predictions_df = pd.DataFrame(predictions)
-    return predictions_df
-  
-
-## These functions' argument conventions are specific to this experiment
-def save_csv(df, predictive_strategy, model, start_index, end_index, json_param, detailed_instructions):
-    output_filepath = f"./data/triage_dataset_{predictive_strategy}_{model}_{start_index}_{end_index}"
+            }
+    else: 
+        if index==0:
+            return {
+                "prompt": prompt,
+                "Estimated_Acuity": extract_acuity_from_text(response, debug=debug),
+                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
+                **row.to_dict()  # Include the original row's data for reference
+            }
+        else:
+            return {
+                "Estimated_Acuity": extract_acuity_from_text(response, debug=debug),
+                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
+                **row.to_dict()  # Include the original row's data for reference
+            }
+        
+def save_csv(df, savepath, model, predictive_strategy, json_param, detailed_instructions,  start_index, end_index, timestamp):
+    output_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         output_filepath = output_filepath + "_json"
     if detailed_instructions:
         output_filepath = output_filepath + "_detailed"
-    output_filepath = output_filepath + ".csv"
+    output_filepath = output_filepath + f"{start_index}_{end_index}_{timestamp}.csv"
     # Save the DataFrame to a CSV file
     df.to_csv(output_filepath, index=False)
     print(f"DataFrame saved to {output_filepath}")
     
-def load_csv(predictive_strategy, model, start_index, end_index, json_param, detailed_instructions):
-    """
-    Load a DataFrame from a CSV file saved using the save_csv function.
-
-    Args:
-        predictive_strategy (str): The strategy used for prediction (e.g., "ZeroShot").
-        start_index (int): The starting index of the dataset.
-        end_index (int): The ending index of the dataset.
-        json_param (bool): Whether the data was saved with JSON output format.
-        detailed_instructions (bool): Whether detailed instructions were included in the saved data.
-
-    Returns:
-        pd.DataFrame: The loaded DataFrame.
-    """
-    input_filepath = f"./data/triage_dataset_{predictive_strategy}_{model}_{start_index}_{end_index}"
+def load_csv(savepath, model, predictive_strategy, start_index, end_index, json_param, detailed_instructions):
+    input_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
-        input_filepath += "_json"
+        input_filepath = input_filepath + "_json"
     if detailed_instructions:
-        input_filepath += "_detailed"
-    input_filepath += ".csv"
+        input_filepath = input_filepath + "_detailed"
+    input_filepath = input_filepath + f"{start_index}_{end_index}_{timestamp}.csv"
     
     try:
         df = pd.read_csv(input_filepath)
@@ -146,3 +153,106 @@ def load_csv(predictive_strategy, model, start_index, end_index, json_param, det
     except FileNotFoundError:
         print(f"File not found: {input_filepath}")
         return None
+    
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Make predictions on medical QA dataset using LLMs.")
+    parser.add_argument("--dataset", type=str, required=True, choices=utils._DATASETS.keys(), help="Name of the dataset to evaluate")
+    parser.add_argument("--start", required=True, type=int, help="Start index of the samples to evaluate")
+    parser.add_argument("--end", required=True, type=int, help="End index of the samples to evaluate")
+    parser.add_argument("--model", required=True, type=str, default="gpt-4o-mini", help="LLM model to use.")
+    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot',"CoT", "USC"], default="standard", help="Prediction strategy to use")
+    parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+    parser.add_argument("--num_trials", type=int, default=5, help="Number of trials for USC strategy")
+    parser.add_argument("--k_shots", type=int, default=5, help="Number of shots for Few-Shot")
+    parser.add_argument("--load_predictions", type=str, help="Timestamp & model_name & # of questions to existing predictions to load")
+    parser.add_argument("--json", action="store_true", help="Turns on internal usage of json formats for the LLM API")
+    parser.add_argument("--detailed_instructions", action="store_true", help="Turns on detailed instructions")
+    parser.add_argument("--bias", action="store_true", help="Enables bias prompt")
+    args = parser.parse_args()
+
+    print("Loading Dataset...")
+    filepath= utils._DATASETS[args.dataset]['filepath']
+    format = utils._DATASETS[args.dataset]['format']
+    dataset = utils.load_dataset(filepath, format, args.start, args.end)
+
+    print("Potentially loading existing predictions...")
+    predictions = []
+    if args.load_predictions:
+        predictions = utils.load_predictions(args.load_predictions)
+        num_existing_predictions = len(predictions)
+        print(f"Loaded {num_existing_predictions} existing predictions.")
+    else:
+        num_existing_predictions = 0
+    num_new_predictions_needed = args.end - num_existing_predictions
+
+    if args.k_shots:
+        training_df = pd.read_csv(utils._DATASETS[args.dataset]['training_set_filepath'])
+
+    print(f"Making {num_new_predictions_needed} new predictions...")
+    predictor = predictors.Predictor(args.dataset,
+                                     strategy=args.strategy, 
+                                     hippa=utils._DATASETS[args.dataset]['hippa'],
+                                     target = utils._DATASETS[args.dataset]['target'],
+                                     training_set= training_df if args.k_shots else None)
+
+    # Initialize counter for saving progress
+    new_predictions_since_last_save = 0
+    total_predictions_made = num_existing_predictions
+
+    if num_new_predictions_needed > 0:
+        if utils._DATASETS[args.dataset]['format'] == 'csv':
+            for i, row in tqdm(dataset.loc[num_existing_predictions:args.end].iterrows()):
+                prompt = create_prompt(row, 
+                                       strategy=args.strategy,
+                                       return_json=args.json, 
+                                       detailed_instructions=args.detailed_instructions, 
+                                       bias=args.bias)
+                prediction = predict(i, 
+                                     prompt, 
+                                     predictor, 
+                                     args.model, 
+                                     args.strategy, 
+                                     args.json, 
+                                     args.k_shots, 
+                                     serialization,
+                                     instruction_prompt(args.dataset, args.json),
+                                     args.debug)
+                predictions.append(prediction)
+                new_predictions_since_last_save += 1
+                total_predictions_made += 1
+
+                if new_predictions_since_last_save >= 100:
+                    # Save predictions to disk
+                    predictions_df = pd.DataFrame(predictions)
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    save_path = "./results/" + args.dataset + '/' 
+                    os.makedirs(save_path, exist_ok=True)
+                    save_path = save_path + f'{args.dataset}'
+                    save_csv(predictions_df, save_path, 
+                             args.model, 
+                             args.strategy, 
+                             args.json, 
+                             args.detailed_instructions,
+                             args.start,
+                             args.end, 
+                             timestamp)
+                    new_predictions_since_last_save = 0
+                    print(f"Saved progress after {len(predictions)} predictions.")
+            predictions_df = pd.DataFrame(predictions)
+    else:
+        print("No new predictions needed.")
+
+    # Save combined predictions one last time
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    save_path = "./results/" + args.dataset + f'/{args.dataset}'
+    os.makedirs(save_path, exist_ok=True)
+    save_csv(predictions_df, save_path, 
+                     args.model, 
+                     args.strategy, 
+                     args.json, 
+                     args.detailed_instructions,
+                     args.start,
+                     args.end, 
+                    timestamp)
+
+    print("Processing complete. Predictions saved.")
