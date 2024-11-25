@@ -183,10 +183,10 @@ if __name__ == '__main__':
         print(f"Loaded {num_existing_predictions} existing predictions.")
     else:
         num_existing_predictions = 0
-    num_new_predictions_needed = args.end - num_existing_predictions
+    num_new_predictions_needed = args.end + 1 - num_existing_predictions
 
     if args.k_shots:
-        training_df = pd.read_csv(utils._DATASETS[args.dataset]['training_set_filepath'])
+        training_df = utils.load_dataset(utils._DATASETS[args.dataset]['training_set_filepath'], format, 0, 1000000)
 
     print(f"Making {num_new_predictions_needed} new predictions...")
     predictor = predictors.Predictor(args.dataset,

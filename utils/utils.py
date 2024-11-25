@@ -42,14 +42,14 @@ _DATASETS = {
         {'filepath': "./data/mimic-iv-public/triage_counterfactual.csv",
         'format': 'csv',
         'target': 'acuity',
-        'hippa': False,
+        'hippa': True,
         'training_set_filepath':'./data/mimic-iv-public/triage_public.csv',
         },
     "Triage-Private": 
         {'filepath': "./data/mimic-iv-private/triage.csv",
         'format': 'csv',
         'target': 'acuity',
-        'training_set_filepath':'./data/mimic-iv-public/triage_public.csv',
+        'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
         'hippa': True,
         },
     "Triage-Private-Stratified": 
@@ -67,8 +67,11 @@ def load_dataset(filepath, format, start_index, end_index):
     if format == 'jsonl':
         data = load_jsonl(filepath, start_index, end_index)
     elif format == 'csv':
+
         dataset = pd.read_csv(filepath).loc[start_index:end_index]
+
         data = dataset.dropna()
+
     else:
         raise ValueError(f"Unsupported format: {format}")
     return data
@@ -78,10 +81,14 @@ def load_jsonl(filepath, start_index, end_index):
         data = [json.loads(line) for i, line in enumerate(f) if i <= end_index and i >= start_index]
     return data
 
-def load_predictions(filename, save_path="./results/"):
-    predictions_file = os.path.join(save_path, f"{filename}_predictions.txt")
-    with open(predictions_file, 'r') as f:
-        predictions = [json.loads(line.strip()) for line in f]
+def load_predictions(filename, format='txt', save_path="./results/"):
+    if format == 'csv':
+        predictions_file = os.path.join(save_path, f"{filename}.csv")
+        predictions = pd.read_csv(predictions_file)
+    else: 
+        predictions_file = os.path.join(save_path, f"{filename}_predictions.txt")
+        with open(predictions_file, 'r') as f:
+            predictions = [json.loads(line.strip()) for line in f]
     return predictions
 
 def stratified_df(df, target_col, test_size, seed=0):
@@ -138,10 +145,10 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
             if cls_correct and cls_predicted:
                 class_metrics[cls] = {
                     "accuracy": accuracy_score(cls_correct, cls_predicted),
-                    "precision": precision_score(cls_correct, cls_predicted, average='binary', zero_division=0),
-                    "recall": recall_score(cls_correct, cls_predicted, average='binary', zero_division=0),
-                    "f1_score": f1_score(cls_correct, cls_predicted, average='binary', zero_division=0)
-                }
+                    "precision": precision_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0),
+                    "recall": recall_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0),
+                    "f1_score": f1_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0)
+            }
 
     # Consolidate results
     results = {
