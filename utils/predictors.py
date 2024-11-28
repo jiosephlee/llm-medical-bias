@@ -28,7 +28,7 @@ class Predictor:
         """
         Route prediction based on strategy.
         """
-        if self.strategy == "FewShot":
+        if self.strategy == "FewShot" or self.strategy=="FewShotCoT":
             return self.few_shot_prediction(*args, **kwargs)
         if self.strategy == "KATE":
             return self.kate_prediction(*args, **kwargs)

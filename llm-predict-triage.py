@@ -42,13 +42,16 @@ def serialization(dataset, row):
         return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
 {row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
 
-def instruction_prompt(dataset, return_json=False):
-    json_instruction = "Answer in valid JSON format, providing acuity as a single numeric value in the key 'acuity'."
+def instruction_prompt(dataset, strategy, return_json=False):
+    cot_instruction = "your reasoning in the key 'reasoning' and "
+    json_instruction = f"Answer in valid JSON format, providing {cot_instruction if 'CoT' in strategy else ''}acuity as a single numeric value in the key 'acuity'."
     if 'Triage' in dataset:
+        if 'CoT' in strategy:
+            return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. Let's think step by step. {json_instruction if return_json else ''}"
         return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"
 
 def create_prompt(row,strategy=None, return_json=False, detailed_instructions = False, bias=False):
-    if strategy == 'FewShot':
+    if 'FewShot' in strategy:
         return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
 {row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
     if detailed_instructions:
@@ -88,7 +91,7 @@ Estimate their acuity from 1-5 based on the following guidelines: {task_descript
 # Handles structuring the response
 def predict(index, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, instruction_prompt, debug):
     # The logic for splitting strategy is partially handled here by passing the right parameters
-    if strategy == 'FewShot':
+    if strategy == 'FewShot' or strategy=='FewShotCoT':
         response = predictor.predict(prompt, model=model, k_shots = k_shots, return_json=return_json, serialization_func = serialization_func, instruction_prompt=instruction_prompt, debug=debug)
     elif strategy == 'ZeroShot' or strategy == 'CoT':
         response = predictor.predict(prompt, model=model, return_json=return_json, debug=debug)
@@ -127,12 +130,14 @@ def predict(index, prompt, predictor, model, strategy, return_json, k_shots, ser
                 **row.to_dict()  # Include the original row's data for reference
             }
         
-def save_csv(df, savepath, model, predictive_strategy, json_param, detailed_instructions,  start_index, end_index, timestamp):
+def save_csv(df, savepath, model, predictive_strategy, json_param, detailed_instructions,  start_index, end_index, timestamp, k_shots=None):
     output_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         output_filepath = output_filepath + "_json"
     if detailed_instructions:
         output_filepath = output_filepath + "_detailed"
+    if k_shots is not None:
+        output_filepath = output_filepath + f"_{k_shots}"
     output_filepath = output_filepath + f"{start_index}_{end_index}_{timestamp}.csv"
     # Save the DataFrame to a CSV file
     df.to_csv(output_filepath, index=False)
@@ -160,7 +165,7 @@ if __name__ == '__main__':
     parser.add_argument("--start", required=True, type=int, help="Start index of the samples to evaluate")
     parser.add_argument("--end", required=True, type=int, help="End index of the samples to evaluate")
     parser.add_argument("--model", required=True, type=str, default="gpt-4o-mini", help="LLM model to use.")
-    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot',"CoT", "USC"], default="standard", help="Prediction strategy to use")
+    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot', "CoT","FewShotCoT", "USC"], default="standard", help="Prediction strategy to use")
     parser.add_argument("--debug", action="store_true", help="Enable debug mode")
     parser.add_argument("--num_trials", type=int, default=5, help="Number of trials for USC strategy")
     parser.add_argument("--k_shots", type=int, default=5, help="Number of shots for Few-Shot")
@@ -215,7 +220,7 @@ if __name__ == '__main__':
                                      args.json, 
                                      args.k_shots, 
                                      serialization,
-                                     instruction_prompt(args.dataset, args.json),
+                                     instruction_prompt(args.dataset, args.strategy, args.json),
                                      args.debug)
                 predictions.append(prediction)
                 new_predictions_since_last_save += 1
@@ -234,7 +239,7 @@ if __name__ == '__main__':
                              args.json, 
                              args.detailed_instructions,
                              args.start,
-                             args.end, 
+                             args.start + total_predictions_made , 
                              timestamp)
                     new_predictions_since_last_save = 0
                     print(f"Saved progress after {len(predictions)} predictions.")
@@ -253,6 +258,6 @@ if __name__ == '__main__':
                      args.detailed_instructions,
                      args.start,
                      args.end, 
-                    timestamp)
+                    timestamp,k_shots=args.k_shots)
 
     print("Processing complete. Predictions saved.")

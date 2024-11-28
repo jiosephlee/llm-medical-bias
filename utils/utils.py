@@ -54,7 +54,7 @@ _DATASETS = {
         },
     "Triage-Private-Stratified": 
         {'filepath': "./data/mimic-iv-private/triage_stratified_2500.csv",
-         'training_set_filepath':'./data/mimic-iv-public/triage_public.csv',
+         'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
         'format': 'csv',
         'target': 'acuity',
         'hippa': True,
