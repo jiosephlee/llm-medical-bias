@@ -51,7 +51,7 @@ def instruction_prompt(dataset, strategy, return_json=False):
         return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"
 
 def create_prompt(row,strategy=None, return_json=False, detailed_instructions = False, bias=False):
-    if 'FewShot' in strategy:
+    if 'FewShot' in strategy or strategy=='KATE':
         return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
 {row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
     if detailed_instructions:
@@ -89,10 +89,10 @@ Estimate their acuity from 1-5 based on the following guidelines: {task_descript
         """
         
 # Handles structuring the response
-def predict(index, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, instruction_prompt, debug):
+def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, instruction_prompt, debug):
     # The logic for splitting strategy is partially handled here by passing the right parameters
-    if strategy == 'FewShot' or strategy=='FewShotCoT':
-        response = predictor.predict(prompt, model=model, k_shots = k_shots, return_json=return_json, serialization_func = serialization_func, instruction_prompt=instruction_prompt, debug=debug)
+    if strategy == 'FewShot' or strategy=='FewShotCoT' or strategy =='KATE':
+        response = predictor.predict(prompt, row, model=model, k_shots = k_shots, return_json=return_json, serialization_func = serialization_func, instruction_prompt=instruction_prompt, debug=debug)
     elif strategy == 'ZeroShot' or strategy == 'CoT':
         response = predictor.predict(prompt, model=model, return_json=return_json, debug=debug)
     if return_json:
@@ -166,7 +166,7 @@ if __name__ == '__main__':
     parser.add_argument("--start", required=True, type=int, help="Start index of the samples to evaluate")
     parser.add_argument("--end", required=True, type=int, help="End index of the samples to evaluate")
     parser.add_argument("--model", required=True, type=str, default="gpt-4o-mini", help="LLM model to use.")
-    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot', "CoT","FewShotCoT", "USC"], default="standard", help="Prediction strategy to use")
+    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot', "CoT","FewShotCoT", "USC", "KATE"], default="standard", help="Prediction strategy to use")
     parser.add_argument("--debug", action="store_true", help="Enable debug mode")
     parser.add_argument("--num_trials", type=int, default=5, help="Number of trials for USC strategy")
     parser.add_argument("--k_shots", type=int, default=5, help="Number of shots for Few-Shot")
@@ -214,6 +214,7 @@ if __name__ == '__main__':
                                        detailed_instructions=args.detailed_instructions, 
                                        bias=args.bias)
                 prediction = predict(i, 
+                                     row,
                                      prompt, 
                                      predictor, 
                                      args.model, 

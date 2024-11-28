@@ -1,5 +1,6 @@
 from utils.config import OPENAI_API_KEY, TOGETHER_API_KEY, DATABRICKS_TOKEN, ANTHROPIC_KEY
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, cohen_kappa_score
+from sklearn.metrics import (accuracy_score, f1_score, precision_score, recall_score, cohen_kappa_score, 
+                             classification_report, mean_absolute_error, mean_squared_error)
 from collections import defaultdict
 from sklearn.model_selection import StratifiedShuffleSplit
 from openai import OpenAI
@@ -125,23 +126,12 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
     adjusted_recall = recall_score(correct_answers, adjusted_predictions, average='weighted')
     adjusted_f1 = f1_score(correct_answers, adjusted_predictions, average='weighted')
 
+    # Error metrics (MAE and MSE)
+    mae = mean_absolute_error(correct_answers, predicted_answers)
+    mse = mean_squared_error(correct_answers, predicted_answers)
     # Metrics by class
-    class_metrics = defaultdict(dict)
     if by_class:
-        unique_classes = set(correct_answers)
-        for cls in unique_classes:
-            # Filter predictions and correct answers for the current class
-            cls_indices = [i for i, true in enumerate(correct_answers) if true == cls]
-            cls_correct = [correct_answers[i] for i in cls_indices]
-            cls_predicted = [predicted_answers[i] for i in cls_indices]
-            
-            if cls_correct and cls_predicted:
-                class_metrics[cls] = {
-                    "accuracy": accuracy_score(cls_correct, cls_predicted),
-                    "precision": precision_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0),
-                    "recall": recall_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0),
-                    "f1_score": f1_score(cls_correct, cls_predicted, labels=[cls], average=None, zero_division=0)
-            }
+        report = classification_report(correct_answers, predicted_answers, output_dict=True)
 
     # Consolidate results
     results = {
@@ -154,13 +144,15 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
             "adjusted_precision": adjusted_precision,
             "adjusted_recall": adjusted_recall,
             "adjusted_f1": adjusted_f1,
+            "mae": mae,
+            "mse": mse
         }
     }
     if ordinal:
         qwk = cohen_kappa_score(correct_answers, predicted_answers, weights="quadratic")
         results['overall']["quadratic_kappa"] = qwk
     if by_class:
-        results["by_class"] = class_metrics
+        results["by_class"] = report
 
     return results
 

@@ -1,6 +1,6 @@
 import numpy as np
 import utils.utils as utils
-import inspect
+from sentence_transformers import SentenceTransformer
 
 class Predictor:
     """
@@ -10,7 +10,7 @@ class Predictor:
     2) the task-specific instructions
     must be provided.
     """
-    def __init__(self, dataset, strategy="ZeroShot", hippa=False, target=None, training_set=None, precomputed_embeddings=None):
+    def __init__(self, dataset, strategy="ZeroShot", hippa=False, target=None, training_set=None):
         """
         :param model: The LLM to use for predictions.
         :param strategy: Prediction strategy ("FewShot", "CoT", "ZeroShot", "SelfConsistency").
@@ -22,7 +22,10 @@ class Predictor:
         self.target = target
         self.hippa = hippa
         self.training_set = training_set
-        self.embeddings_cache = precomputed_embeddings
+        if training_set is not None:
+            model_name = 'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb'
+            self.symptom_encoder = SentenceTransformer(model_name)
+            self.embeddings_cache = np.load('./data/mimic-iv-private/symptom_embeddings.npy',allow_pickle=True)
     
     def predict(self, *args, **kwargs):
         """
@@ -65,16 +68,24 @@ class Predictor:
             return utils.query_llm(prompt, **kwargs)
 
     
-    def kate_prediction(self, row, test_prompt, serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
+    def kate_prediction(self, test_prompt, row ,serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
         #print(self.training_set)
         if self.training_set is None:
             raise ValueError("Few-shot strategy requires a training set of examples.")
-        _, k_shots = self._retrieve_top_k_examples(row, k_shots)
+        k_shots = self._retrieve_top_k_examples(row, k_shots)
         prompt = self._format_prompt_few_shots(test_prompt, serialization_func, instruction_prompt, k_shots)
         if self.hippa:
             return utils.query_gpt_safe(prompt, **kwargs)
         else:
             return utils.query_llm(prompt, **kwargs)
+
+    def get_top_k_similar(self, embedding, embeddings, k):
+        """
+        Find the top-k most similar samples to a given embedding.
+        """
+        similarities = np.dot(embeddings, embedding)
+        top_k_indices = np.argsort(similarities)[-k:][::-1]
+        return top_k_indices, similarities[top_k_indices]
 
     def _retrieve_top_k_examples(self, row, k):
         """
@@ -84,29 +95,21 @@ class Predictor:
         :param k: Number of examples to retrieve.
         :return: List of top K examples.
         """
-
-        return None
-
-    def _format_prompt_with_kate(self, prompt, examples):
-        """
-        Format the prompt by incorporating examples following the KATE approach.
-
-        :param prompt: The input prompt.
-        :param examples: List of examples retrieved for few-shot prompting.
-        :return: Formatted prompt string.
-        """
-        formatted_examples = "\n\n".join(
-            f"Example {i + 1}:\nInput: {ex['input']}\nOutput: {ex['output']}"
-            for i, ex in enumerate(examples)
-        )
-        return f"{formatted_examples}\n\nTask:\n{prompt}"
-
-    def _predict_kate(self, formatted_prompt):
-        """Internal method to call the model API with the formatted KATE prompt."""
-        if self.debug:
-            print("Executing KATE prediction with the following prompt:")
-            print(formatted_prompt)
-        return utils.query_llm(formatted_prompt, model=self.model, debug=self.debug)
+        symptom = row['chiefcomplaint']
+        symptom_embedding = self.symptom_encoder.encode(symptom, batch_size=1, convert_to_numpy=True)
+        # First narrow down to k*3 samples by symptom
+        top_k_indices, _ = self.get_top_k_similar(symptom_embedding, self.embeddings_cache, k)
+        
+        # Then, narrow down to k by vitals 
+        vital_sign_columns = ['temperature', 'heartrate', 'resprate', 'o2sat', 'sbp', 'dbp', 'pain']
+        query_vital_signs = row[vital_sign_columns].values.astype(float) 
+        top_25_vital_signs = self.training_set.loc[top_k_indices, vital_sign_columns].values.astype(float)
+        query_vital_signs_normalized = query_vital_signs / np.linalg.norm(query_vital_signs)
+        top_25_vital_signs_normalized = top_25_vital_signs / np.linalg.norm(top_25_vital_signs, axis=1, keepdims=True)
+        vital_signs_similarity = np.dot(top_25_vital_signs_normalized, query_vital_signs_normalized)
+        top_k_vital_indices = np.argsort(vital_signs_similarity)[-5:][::-1]
+        top_k_vital_samples = self.training_set.loc[top_k_indices[top_k_vital_indices]]
+        return top_k_vital_samples
 
     def self_consistency_prediction(self, prompt):
         """Self-consistency prediction implementation."""
