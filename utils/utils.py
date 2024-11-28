@@ -1,14 +1,15 @@
-from utils.config import OPENAI_API_KEY, TOGETHER_API_KEY, DATABRICKS_TOKEN 
+from utils.config import OPENAI_API_KEY, TOGETHER_API_KEY, DATABRICKS_TOKEN, ANTHROPIC_KEY
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, cohen_kappa_score
 from collections import defaultdict
 from sklearn.model_selection import StratifiedShuffleSplit
 from openai import OpenAI
 import pandas as pd
+import anthropic
 from together import Together
 import os
 import time 
+import re
 import json 
-import marshal
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
@@ -21,8 +22,7 @@ client_safe = OpenAI(
     base_url="https://adb-4750903324350629.9.azuredatabricks.net/serving-endpoints"
 )
 
-def format_prompt_triage(row):
-    return """f"""
+claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
 # We store unanimously required & unique characteristics of the datasets here. Otherwise, edge cases will be handled elsewhere.
 _DATASETS = {
@@ -42,15 +42,8 @@ _DATASETS = {
         {'filepath': "./data/mimic-iv-public/triage_counterfactual.csv",
         'format': 'csv',
         'target': 'acuity',
-        'hippa': True,
+        'hippa': False,
         'training_set_filepath':'./data/mimic-iv-public/triage_public.csv',
-        },
-    "Triage-Private": 
-        {'filepath': "./data/mimic-iv-private/triage.csv",
-        'format': 'csv',
-        'target': 'acuity',
-        'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
-        'hippa': True,
         },
     "Triage-Private-Stratified": 
         {'filepath': "./data/mimic-iv-private/triage_stratified_2500.csv",
@@ -196,27 +189,26 @@ def query_gpt_safe(prompt, model="openai-gpt-4o-chat", return_json=False,tempera
         print(response)
     return response
 
-def query_gpt(prompt, max_tokens=100, temperature=0, top_p = 0, max_try_num=10, model="gpt-4o-mini", debug=False, return_json=False, logprobs=False):
+def query_claude(message: str, model: str, temperature: float, max_tokens: int):
+    try:
+        response = claude_client.messages.create(
+            model=model,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            messages=[{"role": "user", "content": message}]
+        )
+        return response.content[0].text
+    except Exception as e:
+        print(f"Error calling Claude: {e}")
+        return None
+    
+def query_llm(prompt, max_tokens=1000, temperature=0, top_p = 0, max_try_num=10, model="gpt-4o-mini", debug=False, return_json=False, logprobs=False):
     if debug:
         print(prompt)
     curr_try_num = 0
     while curr_try_num < max_try_num:
         try:
-            # Together API
-            if 'gpt' not in model and 'o1' not in model:
-                response = client_tog.chat.completions.create(
-                    messages=[
-                        {"role": "user", "content": prompt}
-                    ],
-                model=model,
-                max_tokens=max_tokens,
-                temperature=temperature,
-                top_p=top_p,
-                top_k=1,
-                repetition_penalty=1,
-                stop=["<|eot_id|>","<|eom_id|>"],
-                )
-            else:
+            if 'gpt' in model:
                 if return_json:
                     response = client.chat.completions.create(
                     model=model,
@@ -248,6 +240,24 @@ def query_gpt(prompt, max_tokens=100, temperature=0, top_p = 0, max_try_num=10, 
                         temperature=temperature,
                         top_p = top_p,
                         seed = 0)
+            elif 'claude' in model:
+                response = query_claude(prompt, model, temperature, max_tokens)
+                if return_json:
+                    return re.sub(r'(?<!\\)\n', '', response)
+                return response
+            else:
+                response = client_tog.chat.completions.create(
+                    messages=[
+                        {"role": "user", "content": prompt}
+                    ],
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                top_k=1,
+                repetition_penalty=1,
+                stop=["<|eot_id|>","<|eom_id|>"],
+                )
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
@@ -257,7 +267,7 @@ def query_gpt(prompt, max_tokens=100, temperature=0, top_p = 0, max_try_num=10, 
             if 'gpt' in model:
                 print(f"Error making OpenAI API call: {e}")
             else: 
-                print(f"Error making Together API call: {e}")
+                print(f"Error making API call: {e}")
             curr_try_num += 1
             if curr_try_num >= max_try_num:
                 return (-1)

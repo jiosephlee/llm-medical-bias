@@ -101,7 +101,8 @@ def predict(index, prompt, predictor, model, strategy, return_json, k_shots, ser
         except json.JSONDecodeError as e:
             print("Error decoding JSON:", e)
             print("Raw response causing error:", response)
-            response_data = {'acuity':None, "reasoning":None}
+            response = utils.query_llm(response + "\n\nCan you format the above in proper JSON", model ='gpt-4o-mini',return_json=True)
+            response_data = json.loads(response)
         if index==0:
             return {
                 "prompt": prompt,

@@ -43,7 +43,7 @@ class Predictor:
         """Zero-shot prediction implementation."""
         if self.hippa:
             return utils.query_gpt_safe(prompt, **kwargs)
-        return utils.query_gpt(prompt, **kwargs)
+        return utils.query_llm(prompt, **kwargs)
 
     def _format_prompt_few_shots(self, test_prompt, serialize, instruction_prompt, k_shots):
 
@@ -51,7 +51,7 @@ class Predictor:
             f"Input: {serialize(self.dataset,ex)}\nOutput: {ex['acuity']}"
             for i, ex in k_shots.iterrows()
         )
-        return f"{instruction_prompt}\n{formatted_examples}\n\nInput:\n{test_prompt}\nOutput:"
+        return f"{instruction_prompt}\n\n{formatted_examples}\n\nInput: {test_prompt}\nOutput:"
     
     def few_shot_prediction(self, test_prompt, serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
         #print(self.training_set)
@@ -62,41 +62,21 @@ class Predictor:
         if self.hippa:
             return utils.query_gpt_safe(prompt, **kwargs)
         else:
-            return utils.query_gpt(prompt, **kwargs)
+            return utils.query_llm(prompt, **kwargs)
 
     
-    def kate_prediction(self, prompt, k=5):
-        """
-        Few-shot prediction using KATE.
-
-        :param prompt: The input prompt.
-        :param k: Number of examples to retrieve for few-shot context.
-        :return: Model response.
-        """
-        if not self.training_set:
+    def kate_prediction(self, row, test_prompt, serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
+        #print(self.training_set)
+        if self.training_set is None:
             raise ValueError("Few-shot strategy requires a training set of examples.")
-        
-        # Retrieve top K similar examples
-        top_k_examples = self._retrieve_top_k_examples(prompt, k)
-        
-        # Format the prompt with the retrieved examples
-        formatted_prompt = self._format_prompt_with_kate(prompt, top_k_examples)
-        
-        # Call the KATE-specific prediction function
-        return self._predict_kate(formatted_prompt)
+        _, k_shots = self._retrieve_top_k_examples(row, k_shots)
+        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, instruction_prompt, k_shots)
+        if self.hippa:
+            return utils.query_gpt_safe(prompt, **kwargs)
+        else:
+            return utils.query_llm(prompt, **kwargs)
 
-    def _precompute_embeddings(self):
-        """Precompute embeddings for the training set using Ada embeddings."""
-        if self.debug:
-            print("Precomputing embeddings for the training set...")
-        embeddings_cache = []
-        for example in self.training_set:
-            input_text = example['input']
-            #embedding = get_embedding(input_text, model="text-embedding-ada-002")
-            #embeddings_cache.append(embedding)
-        return embeddings_cache
-
-    def _retrieve_top_k_examples(self, prompt, k):
+    def _retrieve_top_k_examples(self, row, k):
         """
         Retrieve the top K most similar examples to the prompt based on Ada embeddings.
 
@@ -104,22 +84,7 @@ class Predictor:
         :param k: Number of examples to retrieve.
         :return: List of top K examples.
         """
-        # Compute the embedding for the prompt
-       # prompt_embedding = get_embedding(prompt, model="text-embedding-ada-002")
-        
-        # Compute similarity scores
-        # similarities = [
-        #     cosine_similarity(prompt_embedding, example_embedding)
-        #     for example_embedding in self.embeddings_cache
-        # ]
-        
-        # Get indices of top K most similar examples
-        # top_k_indices = np.argsort(similarities)[-k:][::-1]
-        
-        # # Retrieve the corresponding examples
-        # top_k_examples = [self.training_set[i] for i in top_k_indices]
-        # if self.debug:
-        #     print(f"Retrieved top {k} examples based on similarity scores.")
+
         return None
 
     def _format_prompt_with_kate(self, prompt, examples):
@@ -141,7 +106,7 @@ class Predictor:
         if self.debug:
             print("Executing KATE prediction with the following prompt:")
             print(formatted_prompt)
-        return utils.query_gpt(formatted_prompt, model=self.model, debug=self.debug)
+        return utils.query_llm(formatted_prompt, model=self.model, debug=self.debug)
 
     def self_consistency_prediction(self, prompt):
         """Self-consistency prediction implementation."""
