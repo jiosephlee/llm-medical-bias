@@ -50,6 +50,34 @@ def instruction_prompt(dataset, strategy, return_json=False):
             return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. Let's think step by step. {json_instruction if return_json else ''}"
         return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"
 
+def create_prompt_bias(row,strategy=None, return_json=False, vitals_off=False):
+    task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
+    starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
+    cot, reasoning = "", ""
+    if strategy=='CoT':
+        cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
+    if vitals_off:
+        serialization_prompt=f"""pain   chiefcomplaint
+{row['pain']}   {row['chiefcomplaint']}"""
+    else:
+        serialization_prompt=f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
+{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
+    if return_json:
+        return f"""{starting_prompt}:
+
+{serialization_prompt}
+
+Estimate their acuity from 1 to 5 based on the following guidelines: {task_description}. {cot}
+
+Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
+    else:    
+        return f"""{starting_prompt}:
+
+{serialization_prompt}
+
+Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
+        """
+        
 def create_prompt(row,strategy=None, return_json=False, detailed_instructions = False, bias=False):
     if 'FewShot' in strategy or strategy=='KATE':
         return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
@@ -174,6 +202,8 @@ if __name__ == '__main__':
     parser.add_argument("--json", action="store_true", help="Turns on internal usage of json formats for the LLM API")
     parser.add_argument("--detailed_instructions", action="store_true", help="Turns on detailed instructions")
     parser.add_argument("--bias", action="store_true", help="Enables bias prompt")
+    parser.add_argument("--vitals_off", action="store_true", help="Turns on vitals off ablation prompt")
+
     args = parser.parse_args()
 
     print("Loading Dataset...")
@@ -208,7 +238,13 @@ if __name__ == '__main__':
     if num_new_predictions_needed > 0:
         if utils._DATASETS[args.dataset]['format'] == 'csv':
             for i, row in tqdm(dataset.loc[num_existing_predictions:args.end].iterrows()):
-                prompt = create_prompt(row, 
+                if args.bias:
+                    prompt = create_prompt_bias(row, 
+                                       strategy=args.strategy,
+                                       return_json=args.json, 
+                                       vitals_off = args.vitals_off)
+                else:
+                    prompt = create_prompt(row, 
                                        strategy=args.strategy,
                                        return_json=args.json, 
                                        detailed_instructions=args.detailed_instructions, 
