@@ -1,7 +1,6 @@
-from utils.config import OPENAI_API_KEY, TOGETHER_API_KEY, DATABRICKS_TOKEN, ANTHROPIC_KEY
+from utils.config import OPENAI_API_KEY, TOGETHER_API_KEY, DATABRICKS_TOKEN, ANTHROPIC_KEY, GEMINI_KEY
 from sklearn.metrics import (accuracy_score, f1_score, precision_score, recall_score, cohen_kappa_score, 
                              classification_report, mean_absolute_error, mean_squared_error)
-from collections import defaultdict
 from sklearn.model_selection import StratifiedShuffleSplit
 from openai import OpenAI
 import pandas as pd
@@ -11,6 +10,12 @@ import os
 import time 
 import re
 import json 
+from google import genai
+from google.genai import types
+import base64
+from pydantic import BaseModel
+
+
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
@@ -24,6 +29,12 @@ client_safe = OpenAI(
 )
 
 claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+
+gemini_client = genai.Client(api_key=GEMINI_KEY)
+
+class Acuity(BaseModel):
+    acuity: int
+
 
 # We store unanimously required & unique characteristics of the datasets here. Otherwise, edge cases will be handled elsewhere.
 _DATASETS = {
@@ -48,6 +59,13 @@ _DATASETS = {
         },
     "Triage-Private-Stratified": 
         {'filepath': "./data/mimic-iv-private/triage_stratified_2500.csv",
+         'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
+        'format': 'csv',
+        'target': 'acuity',
+        'hippa': True,
+        },
+    "Triage-Private-Sex-Race": 
+        {'filepath': "./data/mimic-iv-private/full_triage_2500.csv",
          'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
         'format': 'csv',
         'target': 'acuity',
@@ -80,7 +98,7 @@ def load_predictions(filename, format='txt', save_path="./results/"):
         predictions_file = os.path.join(save_path, f"{filename}.csv")
         predictions = pd.read_csv(predictions_file)
     else: 
-        predictions_file = os.path.join(save_path, f"{filename}_predictions.txt")
+        predictions_file = os.path.join(save_path, f"{filename}.txt")
         with open(predictions_file, 'r') as f:
             predictions = [json.loads(line.strip()) for line in f]
     return predictions
@@ -157,6 +175,7 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
     return results
 
 def query_gpt_safe(prompt, model="openai-gpt-4o-chat", return_json=False,temperature=0.0, max_tokens=1000, debug=False):
+    time.sleep(2)
     if debug:
         print(prompt)
     if return_json:
@@ -193,10 +212,26 @@ def query_claude(message: str, model: str, temperature: float, max_tokens: int):
     except Exception as e:
         print(f"Error calling Claude: {e}")
         return None
-    
+
+def query_gemini(message, model, temperature=0, max_tokens=1000):
+    response = gemini_client.models.generate_content(
+        model=model,
+        contents=message,
+        config=types.GenerateContentConfig(
+            temperature=temperature,
+            seed=0,
+            max_output_tokens=max_tokens,
+            response_mime_type="application/json",
+            response_schema=Acuity,
+        ),
+    )
+
+    return response.text
+ 
 def query_llm(prompt, max_tokens=1000, temperature=0, top_p = 0, max_try_num=10, model="gpt-4o-mini", debug=False, return_json=False, logprobs=False):
     if debug:
         print(prompt)
+        print(f"Model: {model}")
     curr_try_num = 0
     while curr_try_num < max_try_num:
         try:
@@ -237,6 +272,8 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p = 0, max_try_num=10,
                 if return_json:
                     return re.sub(r'(?<!\\)\n', '', response)
                 return response
+            elif 'gemini' in model:
+                return query_gemini(prompt, model, temperature, max_tokens)
             else:
                 response = client_tog.chat.completions.create(
                     messages=[

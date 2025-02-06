@@ -1,6 +1,7 @@
 import numpy as np
 import utils.utils as utils
 from sentence_transformers import SentenceTransformer
+import pandas as pd
 
 class Predictor:
     """
@@ -48,10 +49,10 @@ class Predictor:
             return utils.query_gpt_safe(prompt, **kwargs)
         return utils.query_llm(prompt, **kwargs)
 
-    def _format_prompt_few_shots(self, test_prompt, serialize, instruction_prompt, k_shots):
+    def _format_prompt_few_shots(self, test_prompt, serialize, serialization_strategy, instruction_prompt, k_shots):
 
         formatted_examples = "\n\n".join(
-            f"Input: {serialize(self.dataset,ex)}\nOutput: {ex['acuity']}"
+            f"Input: {serialize(ex, serialization_strategy)}\nOutput: {ex['acuity']}"
             for i, ex in k_shots.iterrows()
         )
         return f"{instruction_prompt}\n\n{formatted_examples}\n\nInput: {test_prompt}\nOutput:"
@@ -68,12 +69,12 @@ class Predictor:
             return utils.query_llm(prompt, **kwargs)
 
     
-    def kate_prediction(self, test_prompt, row ,serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
+    def kate_prediction(self, test_prompt, row ,serialization_func = None, serialization_strategy = 'spaces', instruction_prompt='', k_shots=5, **kwargs):
         #print(self.training_set)
         if self.training_set is None:
             raise ValueError("Few-shot strategy requires a training set of examples.")
         k_shots = self._retrieve_top_k_examples(row, k_shots)
-        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, instruction_prompt, k_shots)
+        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, serialization_strategy, instruction_prompt, k_shots)
         if self.hippa:
             return utils.query_gpt_safe(prompt, **kwargs)
         else:
@@ -91,24 +92,39 @@ class Predictor:
         """
         Retrieve the top K most similar examples to the prompt based on Ada embeddings.
 
-        :param prompt: The input prompt.
+        :param row: The input row containing chief complaint and vital signs.
         :param k: Number of examples to retrieve.
-        :return: List of top K examples.
+        :return: DataFrame of top K examples.
         """
         symptom = row['chiefcomplaint']
         symptom_embedding = self.symptom_encoder.encode(symptom, batch_size=1, convert_to_numpy=True)
-        # First narrow down to k*3 samples by symptom
-        top_k_indices, _ = self.get_top_k_similar(symptom_embedding, self.embeddings_cache, k)
         
-        # Then, narrow down to k by vitals 
+        # First narrow down to k*3 samples by symptom
+        top_k_indices, _ = self.get_top_k_similar(symptom_embedding, self.embeddings_cache, k*3)
+        
+        # Then, narrow down to k by vitals
         vital_sign_columns = ['temperature', 'heartrate', 'resprate', 'o2sat', 'sbp', 'dbp', 'pain']
-        query_vital_signs = row[vital_sign_columns].values.astype(float) 
-        top_25_vital_signs = self.training_set.loc[top_k_indices, vital_sign_columns].values.astype(float)
+        numeric_vital_signs = [col for col in vital_sign_columns if pd.api.types.is_numeric_dtype(row[col])]
+
+        query_vital_signs = row[numeric_vital_signs].values.astype(float)
+        top_25_vital_signs = self.training_set.loc[top_k_indices, numeric_vital_signs]
+        top_25_vital_signs = top_25_vital_signs.apply(pd.to_numeric, errors='coerce')  # Coerce invalid values to NaN
+        top_25_vital_signs = top_25_vital_signs.dropna()  # Drop rows with NaN values
+        
+        # Ensure the resulting values are numpy floats
+        top_25_vital_signs = top_25_vital_signs.values.astype(float)
         query_vital_signs_normalized = query_vital_signs / np.linalg.norm(query_vital_signs)
         top_25_vital_signs_normalized = top_25_vital_signs / np.linalg.norm(top_25_vital_signs, axis=1, keepdims=True)
+        
         vital_signs_similarity = np.dot(top_25_vital_signs_normalized, query_vital_signs_normalized)
-        top_k_vital_indices = np.argsort(vital_signs_similarity)[-5:][::-1]
+        top_k_vital_indices = np.argsort(vital_signs_similarity)[-k:][::-1]
+        
+        # Retrieve top-k samples
         top_k_vital_samples = self.training_set.loc[top_k_indices[top_k_vital_indices]]
+        
+        # Add the 'pain' column back to the result (unchanged)
+        top_k_vital_samples['pain'] = self.training_set.loc[top_k_indices[top_k_vital_indices], 'pain']
+        
         return top_k_vital_samples
 
     def self_consistency_prediction(self, prompt):
