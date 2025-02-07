@@ -15,8 +15,6 @@ from google.genai import types
 import base64
 from pydantic import BaseModel
 
-
-
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
 
@@ -34,7 +32,6 @@ gemini_client = genai.Client(api_key=GEMINI_KEY)
 
 class Acuity(BaseModel):
     acuity: int
-
 
 # We store unanimously required & unique characteristics of the datasets here. Otherwise, edge cases will be handled elsewhere.
 _DATASETS = {
@@ -56,6 +53,13 @@ _DATASETS = {
         'target': 'acuity',
         'hippa': False,
         'training_set_filepath':'./data/mimic-iv-public/triage_public.csv',
+        },
+    "Triage-MIMIC-Private-Official": 
+        {'filepath': "./data/mimic-iv-private/triage_stratified_2500.csv",
+         'training_set_filepath':'./data/mimic-iv-private/triage_stratified_training.csv',
+        'format': 'csv',
+        'target': 'acuity',
+        'hippa': True,
         },
     "Triage-Private-Stratified": 
         {'filepath': "./data/mimic-iv-private/triage_stratified_2500.csv",
@@ -301,4 +305,53 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p = 0, max_try_num=10,
             if curr_try_num >= max_try_num:
                 return (-1)
             time.sleep(10)
+
+###################
+## Prompting
+###################
+
+def convert_arrival(arrival_transport):
+    mapping = {
+        "WALK IN": " via walk-in",
+        "AMBULANCE": " via ambulance",
+        "UNKNOWN": "",
+        "EMS": " via EMS transport",
+        "PRIVATE VEHICLE": " via private vehicle",
+    }
+    return mapping.get(arrival_transport.upper(), "")
+
+def format_row(row, dataset='triage-mimic'):
+    # Create a natural language description of the patient.
+    if dataset == 'triage-mimic':
+        # Handle missing values
+        race = row.get("race").lower()+', ' if pd.notna(row.get("race")) else ""
+        age = str(int(row.get("anchor_age"))) + '-year-old ' if pd.notna(row.get("anchor_age")) else ""
+        gender = row.get("gender", "person")
+        gender_str = "man" if gender == "M" else "woman" if gender == "F" else "person"
+        pronoun = "He has" if gender == "M" else "She has" if gender == "F" else "They have"
+
+        # Handle vitals with fallback values
+        vitals = {
+            "temperature": f" temperature of {row['temperature']}°F" if pd.notna(row.get("temperature")) else "",
+            "heartrate": f", a heartrate of {row['heartrate']} bpm" if pd.notna(row.get("heartrate")) else "",
+            "resprate": f", a respiratory rate of {row['resprate']} breaths per minute" if pd.notna(row.get("resprate")) else "",
+            "o2sat": f", oxygen saturation at {row['o2sat']}%" if pd.notna(row.get("o2sat")) else "",
+            "sbp": f", systolic blood pressure of {row['sbp']} mmHg" if pd.notna(row.get("sbp")) else "",
+            "dbp": f", diastolic blood pressure of {row['dbp']} mmHg" if pd.notna(row.get("dbp")) else "",
+            "pain": f", pain level reported as '{row['pain']}'" if pd.notna(row.get("pain")) else "",
+            "chiefcomplaint": f" a chief complaint described as '{row["chiefcomplaint"]}'" if pd.notna(row.get("chiefcomplaint")) else "",
+        }
+        missing_vitals = [key for key, value in vitals.items() if value == ""]
+
             
+        # Construct the formatted description
+        description = (
+            f"A {race}{age}{gender_str} arrives at the emergency department"
+            f"{convert_arrival(row.get('arrival_transport'))}. "
+            f"{pronoun}{''.join(vitals.values())}."
+        )
+        if missing_vitals:
+            missing_str = ", ".join(missing_vitals).replace("_", " ")  # Replace underscores for better readability
+            description += f" Data on {missing_str} is missing."
+
+        return description

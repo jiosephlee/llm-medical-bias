@@ -1,0 +1,2957 @@
+# Emergency Severity Index, Version 4: Implementation Handbook
+
+### Note from the Director
+
+The Agency for Healthcare Research and Quality is pleased to bring you the Emergency Severity
+_Index, Version 4: Implementation Handbook. This manual covers all details of the Emergency_
+Severity Index (ESI)—a five-level emergency department triage algorithm that provides
+clinically relevant stratification of patients into five groups from 1 (most urgent) to 5 (least
+urgent) on the basis of acuity and resource needs.
+
+After emergency physicians Richard Wuerz and David Eitel developed the ESI in 1998 and
+pilot testing yielded favorable results, the ESI Triage Group was formed. Further work on the
+initial development of ESI was carried out under an AHRQ grant. The ESI Triage Group, which
+consisted of medical clinicians, managers, educators, and researchers, further refined the
+algorithm to what it is today.
+
+In keeping with our mission to improve the quality, safety, efficiency, and effectiveness of
+health care for all Americans, one of AHRQ's areas of emphasis is training. Along with the
+accompanying set of two DVDs, this handbook will provide invaluable assistance to
+emergency department nurses, physicians, and administrators in the implementation of a
+comprehensive ESI educational program. These materials are based on ESI Version 4, which
+updates the algorithm with a particular emphasis on the expansion of ESI level 1 criteria and
+refinement of the pediatric fever criteria.
+
+A well-implemented ESI program will help hospital emergency departments rapidly identify
+patients in need of immediate attention, better identify patients who could safely and more
+efficiently be seen in a fast-track or urgent care center rather than the main ED, and more
+accurately determine thresholds for diversion of ambulance patients from the ED.
+
+We hope that you find this tool useful in your ongoing efforts to improve the quality of care
+provided by your emergency department.
+
+### Chapter 2.Triage Acuity Systems
+
+##### Standardization of Triage Acuity
+
+Although there are more than 110 million visits to
+U.S. emergency departments (EDs) each year
+(McCaig & Burt, 2004) there are very little aggregate
+data about those visits on the local, regional or
+national level. It is difficult to answer important
+questions such as “Which EDs see the sickest
+patients?” and “How does patient acuity affect ED
+overcrowding?” There is growing interest in the
+establishment of standards for ED data in the United
+States to support clinical care, ED surveillance,
+benchmarking, and research activities (Barthell,
+Coonan, Finnell, Pollock, & Cochrane, 2004; Gilboy,
+Travers & Wuerz, 1999; Handler et al., 2004;
+National Center for Injury Prevention and Control
+
+[NCIPC], 1997; Zimmermann, 2001). One important
+ED data element is triage acuity, which has been
+defined by the Data Elements for Emergency
+Department Systems Task Force as: “Classification of
+patient acuity that characterizes the degree to which
+the patient's condition is life- or limb-threatening,
+and whether immediate treatment is needed to
+alleviate symptoms” (NCIPC, 1997, p. 94).
+
+Unfortunately, there is great variability in ED triage
+acuity systems, particularly in the United States
+(Emergency Nurses Association [ENA], 1997). The
+various systems describe triage categories using
+different labels, and the definitions for each level are
+not universally agreed upon. Examples of acuity
+rating systems are listed in Table 2-1. Given the lack
+of standardization of triage acuity data in the U.S., it
+is not surprising that the ED has been described as a
+“black box” of vital public health information that
+is largely inaccessible in present forms (Martinez,
+1995).
+
+The Emergency Severity Index (ESI) is a promising
+new tool for triage acuity assessment in the ED. It
+has been shown to be reproducible across EDs, 
+including urban and rural settings and academic and
+community hospitals (Eitel, Travers, Rosenau, Gilboy
+& Wuerz, 2003). If implemented widely in U.S. EDs,
+the ESI has the potential to become a standard for
+triage acuity assessment. In this chapter, we describe
+the types of triage systems traditionally used in EDs
+in the United States, and then present a review of
+the research on those systems. Next, a brief
+description of recent triage methods that have been
+developed in Australia, Canada and the United
+Kingdom is presented. The chapter concludes with a
+review of the research on the new ESI triage system
+and discusses the potential benefits of the ESI.
+
+##### Triage Systems in the United States
+
+Though many U.S. hospitals still use a three- or fourlevel triage system, the trend is toward the use of
+five-level systems. The National Center for Health
+Statistics plans to replace four-level triage data with
+five-level triage data in future national
+benchmarking surveys of U.S. EDs. This decision was
+based upon the growing evidence that five-level
+triage acuity data are more reliable and valid than
+three-level systems (personal communication, Linda
+McCaig, National Center for Health Statistics,
+October 6, 2004).
+
+Both ENA and the American College of Emergency
+Physicians (ACEP) have come out in support of fivelevel triage systems for U.S. EDs. A joint ENA-ACEP
+task force was convened in 2003 to study the
+evidence on five-level triage systems. The task force's
+work is ongoing at present. The ACEP and ENA
+issued the following joint statement in 2003:
+
+_ACEP and ENA believe that quality of patient_
+_care would benefit from implementing a_
+_standardized emergency department (ED) triage_
+_scale and acuity categorization process. Based on_
+_expert consensus of currently available evidence,_
+_ACEP and ENA support the adoption of a_
+_reliable, valid five-level triage scale (ACEP,_
+_2003; ENA, 2003)._
+
+In a paper published by the task force in 2005, both
+the ESI and Canadian Triage and Acuity Scale (CTAS)
+were recommended as valid and reliable triage
+systems. (Fernandes et al., 2005) In light of the
+growing evidence supporting five-level triage
+systems, it is likely that more U.S. hospitals are now
+using some form of five-level triage. The ENA plans
+to collect data about U.S. hospitals' use of the
+various triage systems in their upcoming ED survey.
+
+##### Research on Triage Systems in the United States
+
+There is a growing body of research on triage acuity
+systems. The research has focused on two key
+features of acuity ratings by triage nurses: reliability
+and validity (Pedhazur & Schmelkin, 1991; Waltz,
+Strickland & Lenz, 1991). Reliability is the
+consistency, or agreement, among those using a
+rating system. There are two types of reliability that
+pertain to ED triage acuity ratings. First, interrater
+reliability is a measure of reproducibility: Will two
+different nurses rate the same patient with the same
+triage acuity level? Intrarater reliability is an
+indication of whether the same nurse, over time,
+will rate the same patient with the same acuity level.
+Several studies in the United States have
+demonstrated poor inter- and intrarater reliability of
+conventional three-level triage systems (Gill, Reese &
+Diamond, 1996; Travers, Waller, Bowling, Flowers &
+Tintinalli, 2002; Wuerz, Fernandes & Alarcon, 1998).
+In one study, 305 triage ratings were reviewed after
+all triage nurses attended a mandatory refresher
+course on the hospital's three-level triage scale
+(Travers et al., 2002). The original triage nurses'
+ratings were compared with retrospective ratings
+assigned by an expert panel of ED triage nurses, and
+there was agreement in approximately half of the
+cases.
+
+Validity is the accuracy of the rating system, and
+assesses how well the system measures what it is
+intended to measure. The validity of acuity ratings is
+an indication of whether or not the rating, for
+example, of “nonurgent” is an accurate assessment
+of the lack of urgency of an ED patient's problem.
+Validity has proven difficult to assess for triage
+acuity, and has not been reported in research studies
+
+on conventional three-level triage in the United
+States. Unlike the urine culture, which is the gold
+standard for the correct clinical diagnosis of a
+urinary tract infection, there is no clear gold
+standard against which the validity of triage acuity
+ratings can be measured. However, proxy measures
+that have been used to evaluate five-level systems
+include admission rates, resource utilization and 6month mortality.
+
+##### Triage Acuity Research on Five- Level Systems Abroad
+
+There are well-validated and reliable five-level triage
+systems that have become the standard in other
+countries. Three of those systems are described in
+Table 2-2.
+
+The Australasian Triage Scale (ATS), a system
+developed in Australia, has been used throughout
+Australia and New Zealand since the early 1990s
+(Australasian College for Emergency Medicine, 1994,
+2002; Cameron, Bradt & Ashby, 1996). The
+Australian Council on Healthcare Standards has
+adopted the ATS as a basis of ED assessment and
+quality of care, and triage ratings are subject to
+regular review. Australian EDs are expected to treat
+patients according to standards based on the triage
+category. For example, an emergency patient must
+be seen within 10 minutes, whereas a nonurgent
+patient must be seen within 2 hours.
+
+Validity and reliability of the ATS have been
+evaluated in several studies. In the absence of a true
+gold standard for triage acuity assessment,
+researchers have compared the five-level scale to
+other severity of illness scales and outcomes
+(Cameron et al., 1996; Cleary, Ashby, Jelinek &
+Lagaida, 1994, Erwich, Bond, Phillips, & Baggoley,
+1997). Triage levels correlated highly with disease
+and population-specific scales including the Injury
+Severity Scales, trauma score, and cardiac, asthma
+and pediatric scales. The ATS has been shown to
+correlate strongly with resource consumption and
+outcome data, such as admission rates, ED length of
+stay and mortality rates. Research has also shown
+that the ATS has a fair to moderate degree of
+interrater reliability in studies in which triage nurses
+were asked to rate the acuity of patients described in
+case study format (Dilley & Standen, 1998, Jelinek
+& Little, 1996).
+
+Five-level triage systems have also been
+implemented in the United Kingdom (U.K.) and
+Canada. The Manchester Triage Scale is used in the
+
+U.K., and utilizes a presentational flow-chart based
+format (Manchester Triage Group, 1997). Nurses first
+identify the patient's chief complaint, and then
+choose one of 52 flow charts to conduct a structured
+interview and then assign a triage level from 1
+(immediate care needed) to 5 (care within 4 hours).
+The system has been endorsed by the Accident and
+Emergency Nurses Association (Zimmermann, 2001).
+There is limited research on the Manchester system.
+In one study of reliability, triage nurse ratings were
+compared retrospectively to senior medical staff
+ratings; agreement was only fair to moderate
+(Goodacre, Gillett, Harris & Houlihan, 1999).
+
+The Canadian Triage and Acuity Scale (CTAS) was
+developed by a group of Canadian emergency
+physicians. (Beveridge & Ducharme, 1997; Canadian
+Association for Emergency Physicians [CAEP], 2002).
+The National Emergency Nurses' Affiliation, Inc.
+(NENA) and the Canadian Association for
+Emergency Physicians (CAEP) have endorsed the
+CTAS as the national standard for ED triage.
+Canadian hospitals are required to submit data to
+the Canadian government, including CTAS ratings,
+on all ED visits. The Canadian five-level scale has
+also been shown to have good interrater reliability
+in studies in which clinicians rated the acuity of
+written scenarios taken from actual patient cases
+
+##### History of the Emergency Severity Index (ESI)
+
+The Emergency Severity Index (ESI) is a five-level
+triage scale developed by ED physicians Richard
+Wuerz and David Eitel in the United States (Gilboy
+et al., 1999; Wuerz, Milne, Eitel, Travers & Gilboy,
+2000). The two originators believed that a principal
+role for an emergency department triage instrument
+is to facilitate the prioritization of patients based on
+the urgency of the patients' conditions. The triage
+nurse determines priority by posing the question,
+“Who should be seen first?” Drs. Wuerz and Eitel
+realized, however, that when more than one top
+priority patient is present simultaneously, the
+operating question becomes, “How long can
+everybody wait?” The ESI was developed around a
+new conceptual model of ED triage. In addition to
+asking which patient should be seen first, triage
+nurses use the ESI to also consider what resources
+are necessary to get the patient through to an ED
+disposition. The ESI retains the traditional
+foundation of patient urgency, and then seeks to
+accomplish a second goal, not just patient sorting
+but also patient streaming: Getting the right patient
+to the right resources at the right place and at the
+right time.
+
+Version 1 (v. 1) of the ESI was originally
+implemented at two university-based EDs in the
+spring of 1999. By the fall of 2000, the ESI was
+revised with input from ED clinicians to include
+pediatric patient triage criteria, and then version 2
+(v. 2) was implemented in five additional hospitals
+(including non-university teaching and community
+settings). Based on feedback from nurses and
+physicians using the ESI at these sites, along with
+the best available scientific evidence, the ESI was
+further refined as version 3 (v. 3) in 2001 (Wuerz et
+al., 2001). Recent work has led to additional
+revisions to the tool, which is introduced in this
+edition of the ESI handbook as version 4 (v. 4)
+(Tanabe et al., in press).
+
+Emergency physicians and nurses in the United
+States and Canada have conducted several research
+studies in which the reliability and validity of the
+ESI has been assessed. The ESI has been directly
+compared to conventional three-level triage and to
+the five-level CTAS. These studies will be described
+later in the chapter. Like the Australasian, Canadian
+and U.K. scales, ESI triage has five levels. However, it
+is different in both its conceptual approach and
+practical application. The underlying assumption of
+the triage scales from Australia, Canada and the U.K.
+is that the purpose of triage is to determine how
+long the patient can wait for care in the ED. Clear
+definitions of time to physician evaluation are an
+integral part of both algorithms. This represents a
+major difference between ESI and CTAS and the ATS.
+ESI does not define expected time intervals to
+physician evaluation.
+
+The ESI is unique in that it also requires the triage
+nurse to anticipate expected resource needs (e.g.,
+diagnostic tests and procedures), in addition to
+acuity, to determine a triage category for less acute
+patients. The ESI triage levels are outlined in Figure
+2-1. The process of categorizing ED patients using
+the ESI will be described in detail in subsequent
+chapters. Briefly, acuity judgments are addressed first
+based on the stability of the patient's vital functions
+and the likelihood of an immediate life or organ
+threat. Then expected resource needs are addressed
+for stable patients based on the experienced triage
+nurse's prediction of the resources needed to get the
+patient to an emergency department disposition.
+Resource needs can range from none to two or
+more.
+
+##### Research on the Emergency Severity Index
+
+In a pilot study of ESI v.1 ratings for 493 triage
+encounters at two Boston hospitals in 1998,
+researchers found that the system was both valid
+and reliable (Wuerz et al., 2000). The patients were
+triaged simultaneously by the triage nurse using the
+traditional three-level scale and by the research
+nurse who used the initial version of the ESI. Then,
+an investigator triaged the patients again using the
+ESI. The investigator was blinded to the research
+nurses' ESI rating, and used only the written triage
+note to make the triage decision. Triage levels were
+strongly associated with resources used in the ED
+and with outcomes such as hospitalization. Higher
+acuity patients (ESI levels 1 and 2) consumed more
+resources and were more likely to be admitted to the
+hospital than low resource patients (ESI levels 4 and
+5). Interrater reliability between the research nurse
+and the investigator was found to be good, with 77
+percent exact agreements and 22 percent within one
+triage level.
+
+The reliability of the ESI has been evaluated in
+several studies, using the kappa statistic to measure
+inter-rater reliability. Kappas can range from 0 (no
+agreement) to 1 (perfect agreement). At one of the
+two original ESI sites, a time series design was used
+to compare the reliability of triage ratings using a
+three-level scale, then ESI v.1 was implemented and
+triage ratings were re-examined (Travers et al., 2002).
+Reliability improved from a weighted kappa of 0.53
+for the three-level system to 0.68 for the five-level
+ESI. In another study, researchers examined the
+reliability and validity of ESI v.2 during and after
+implementation of the system into triage practice at
+seven hospitals in the northeast and southeast.
+During the ESI triage education program, more than
+200 triage nurses at the seven sites were asked to rate
+40 case studies using the ESI (Eitel et al., 2003). The
+study results indicated substantial interrater
+reliability with kappas ranging from 0.70 to 0.80.
+Three hundred eighty-six triage decisions on actual
+patients were also evaluated and found to have high
+interrater reliability, with weighted kappas ranging
+from 0.69 to 0.87. In another study at a Midwestern,
+urban ED, researchers evaluated the reliability of the
+ESI v.3 for 403 actual patient triages and found a
+kappa of 0.89 (Tanabe, Gimbel, Yarnold, Kyriacou &
+Adams, 2004).
+
+Canadian and American researchers have also
+directly compared the inter-rater reliability of the ESI
+and the CTAS in a randomized trial (Worster et al.,
+2004). They studied the triage assignments of ten
+Canadian triage nurses experienced with CTAS. The
+nurses were randomly assigned to initial ESI v.3 or
+CTAS refresher training, and then rated 200 case
+studies with the ESI or CTAS, respectively. Both
+groups had excellent inter-rater reliability, with
+kappas of 0.89 (ESI) and 0.91 (CTAS).
+
+The validity of the ESI has been evaluated by
+examination of outcomes for several thousand
+patients. The studies found consistent, strong
+correlations of the ESI with hospitalization, ED
+length of stay, and mortality (Eitel et al., 2003;
+Tanabe, et al., 2004; Wuerz, 2001; Wuerz et al.,
+2001). The ESI has also been found to have
+moderate correlations with physician evaluation and
+management codes and nursing workload measures
+(Travers et al., 2002). The ESI has been shown to
+facilitate meaningful comparisons of case mix
+between hospitals. A stratified random sample of
+200 patients was selected from each of the seven
+initial ESI hospitals, and case mix was compared
+(Eitel et al., 2003). As expected, there was a higher
+percentage of high acuity patients at the tertiary care
+centers, compared with a higher percentage of low
+resource patients at the community hospitals.
+
+In a survey of nursing staff at the two original
+university teaching hospitals, responses to the
+implementation of the ESI were positive (Wuerz et
+al., 2001). The nurses reported that the ESI was
+easier to use and more useful in prioritizing patients
+for treatment than the former three-level systems in
+use at the two sites.
+
+In the most recent study of the ESI, the validity of
+ESI level 2 was examined in detail (Tanabe et al., in
+press). In an evaluation of outcomes for 571 ESI
+level-2 patients at five hospitals, it was found that
+20 percent of level-2 patients received immediate,
+life-saving interventions. The authors concluded
+that such patients would benefit from being
+classified as ESI level 1. The updated ESI v. 4
+presented in later chapters of this book reflects the
+revisions made to the ESI based upon this recent
+study.
+
+##### Benefits of the Emergency Severity Index
+
+To date, the ESI has been implemented by hospitals
+in different regions of the country, by university and
+community hospitals, and by teaching and nonteaching sites. The ED clinicians, managers and
+researchers at those sites have identified several
+benefits of ESI triage over conventional three-level
+scales. One benefit of the ESI is the rapid
+identification of patients that need immediate
+attention. The focus of ESI triage is on quick sorting
+of patients in the setting of constrained resources. In
+part, ESI triage returns to the fundamental purpose
+of triage as it was originally defined in the days of
+Napoleon's army. ESI triage is a rapid sorting into
+five groups with clinically meaningful differences in
+projected resource needs and therefore, associated
+operational needs. Use of the ESI for this rapid
+sorting can lead to improved flow of patients
+through the ED. Once an ESI triage level is assigned,
+the patient can be directed to a more complete
+assessment, registration, initial treatment, or waiting
+based on their acuity and their presumed resource
+needs. For example, level-1 and 2 patients can be
+taken directly to the treatment area for rapid
+evaluation and treatment, while level-4 and 5
+patients can go to registration and then be sent to
+the waiting room to await an available bed.
+
+An important issue that is independent of ESI triage
+is the timing of the complete nursing assessment.
+Many believe that a complete assessment need not
+be done at the initial triage station, but rather can
+occur in the main treatment area or secondary triage
+area as appropriate to the needs of each patient and
+the current activity level of the ED (Gilboy et al.,
+1999). Only the assessment necessary to make an
+ESI assignment is required at triage in order to
+facilitate the initial sorting of patients.
+Comprehensive clinical assessments take significant
+time to complete and, when done at triage, can
+delay care and reduce satisfaction for patients with
+more minor emergencies. With increasing patient
+volumes and complexity contributing to ED
+overcrowding, it is time to reconsider conventional
+processes of care to increase efficiency and
+effectiveness. However, it is always important to
+gain sufficient information to be able to determine
+the correct triage category. This is especially true
+when waits are long to see the physician, as is
+frequently the case with increased volumes. Triage
+has become even more crucial with extended
+waiting room times. Assignment of an inappropriate
+low triage category can increase the risk of a bad
+outcome due to the associated long wait.
+
+Other benefits of the ESI include discrimination of
+patients who do not need to be seen in the main
+ED, but could safely and more efficiently be seen in
+a fast-track or urgent care center. For example, in
+many hospitals, the triage policy stipulates that all
+ESI level 4 and 5 patients can be sent to either the
+medical urgent care or minor trauma areas of the
+ED. The triage policy also allows for some level-3
+patients to be sent to urgent care (UC), such as
+patients needing simple migraine headache
+treatment. ESI level-3 patients triaged to UC and all
+patients sent to the acute area from UC for more
+serious conditions are monitored in the quality
+improvement program. Nurses using the ESI have
+reported that the tool facilitates communication of
+patient acuity more effectively than the former
+three-level triage scales used at the sites (Wuerz et
+al., 2001). For example, the triage nurse can tell the
+charge nurse, “I need a bed for a level 2 patient,”
+and through this common language, the charge
+nurse understands what is needed without a detailed
+explanation of the patient by the triage nurse.
+
+The ESI has also been used as the foundation for ED
+policies that address specific populations. For
+example, the psychiatric service at one site is
+expected to provide consults for level 2 and 3
+patients within 30 minutes and for level 4 and 5
+patients within one hour of notification. At another
+site, the ESI has been incorporated into a policy for
+patients greater than 20-weeks pregnant who
+present to the ED. Patients rated at ESI levels 1 and 2
+are treated in the ED by emergency medicine with
+an obstetrical consult. Those rated 3, 4, or 5 are
+triaged to the labor and delivery area of the hospital.
+
+The ESI is also a useful tool for determination of
+thresholds for diversion of ambulance patients from
+the ED. The ED Diversion Policy and Guidelines at
+Brigham and Women's Hospital in Boston defines
+maximum capacity as 100 percent of RN-staffed ED
+beds occupied. ESI is used to determine overcapacity.
+
+Research has shown that the ESI is a reliable, valid
+tool for rating triage acuity. The system has been
+adopted by a variety of EDs in different regions of
+the United States and in both academic and
+community settings. The participating hospitals
+have demonstrated the value of the ESI for
+improved ED operations and patient care. Wider
+adoption of the ESI by U.S. hospitals could lead to
+the establishment of a standard for triage acuity
+assessment, which will facilitate benchmarking,
+public health surveillance and research.
+
+### Chapter 3. Introduction to the Emergency Severity Index
+
+The Emergency Severity Index (ESI) is a simple to
+use, five-level triage instrument that categorizes
+emergency department patients by evaluating both
+patient acuity and resources. Initially the triage
+nurse assesses only acuity level. If a patient does not
+meet high acuity level criteria (ESI level 1 or 2), the
+triage nurse then evaluates expected resource needs
+to help determine a triage level (ESI level 3, 4, or 5).
+Inclusion of resource needs in the triage rating is a
+unique feature of the ESI in comparison with other
+triage systems. Acuity is determined by the stability
+of vital functions and potential for life, limb, or
+organ threat. The triage nurse estimates resource
+needs based on previous experience with patients
+presenting with similar injuries or complaints.
+Resource needs are defined as the number of
+resources a patient is expected to consume in order
+for a disposition decision to be reached. Once
+appropriately oriented to the algorithm, the triage
+nurse will be able to rapidly and accurately triage
+patients into one of five explicitly defined and
+mutually exclusive levels. The ESI provides
+emergency departments with a valid, reliable triage
+system (Eitel, Travers, Rosenau, Gilboy & Wuerz,
+2003; Travers, Waller, Bowling, Flowers & Tintinalli,
+2002; Wuerz, Travers, Gilboy, Eitel, Rosenau &
+Yazhari, 2001; Tanabe, Gimbel, Yarnold, Kyriacou, &
+Adams, 2004; Tanabe, Gimbel, Yarnold, & Adams,
+2004).
+
+In this chapter, we present a step-by-step description
+of how to triage with the ESI algorithm. Subsequent
+chapters explain key concepts in more detail and
+provide numerous examples to clarify the finer
+points of ESI application.
+
+Algorithms are frequently used in emergency care.
+Most emergency clinicians are familiar with the
+algorithms used in courses such as Basic Life
+Support, Advanced Cardiac Life Support, and the
+Trauma Nursing Core Course. These courses present
+a step-by-step approach to clinical decision making
+that the clinician is able to internalize with practice.
+Each step of the algorithm tells the user what
+questions to ask or what information to gather.
+Based on the data or answers obtained, a decision is
+made and the algorithm directs the user to the next
+step, and ultimately to an outcome.
+
+Triage with the ESI algorithm requires the
+experienced ED nurse to start at the top of the
+algorithm. A conceptual overview of the ESI
+algorithm is presented in Figure 3-1 to illustrate the
+major ESI decision points. The actual ESI algorithm
+is described in detail later in this chapter (Figure
+3-1a). The algorithm uses four decision points (A, B,
+C, and D) to sort patients into one of the five triage
+levels (Figure 3-1). With practice, the triage nurse
+will be able to rapidly move from one ESI decision
+point to the next.
+
+##### Decision Point A: Is the Patient Dying?
+
+Simply stated, at decision point A (Figure 3-2) the
+triage nurse asks if this patient is dying. If the
+answer is “yes,” the triage process is complete and
+the patient is automatically triaged as ESI level 1. A
+“no” answer moves the user to the next step in the
+algorithm, decision point B.
+
+The following question is used to determine
+whether the patient is dying (conceptual algorithm):
+Does the patient require immediate life-saving
+intervention? The following questions are helpful in
+determining whether the patient meets level-1
+criteria:
+
+- Does the patient require an immediate airway,
+medication, or other hemodynamic
+intervention?
+
+- Does the patient meet any of the following
+criteria: already intubated, apneic, pulseless,
+severe respiratory distress, SpO2 < 90 percent,
+acute mental status changes, or unresponsive?
+
+Research has demonstrated that the triage nurse is
+able to accurately predict the need for immediate
+interventions (Tanabe et al., in press). Table 3-1 lists
+interventions that are considered life saving and
+those that are not, for the purposes of ESI triage.
+
+Interventions not considered life saving include
+some interventions that are diagnostic or
+therapeutic, but none that would “save a life.” Lifesaving interventions are aimed at securing an
+airway, maintaining breathing, or supporting
+circulation. Listed below are additional questions
+that may be helpful in determining whether the
+patient requires a life-saving intervention.
+
+- Does this patient have a patent airway?
+
+- Is the patient breathing?
+
+- Does the patient have a pulse?
+
+- Is the nurse concerned about the pulse rate,
+rhythm, and quality?
+
+- Was this patient intubated pre-hospital because
+of concerns about the patient's ability to
+maintain a patent airway, spontaneously breathe,
+or maintain oxygen saturation?
+
+- Is the nurse concerned about this patient's ability
+to deliver adequate oxygen to the tissues?
+
+The ESI level-1 patient always presents to the
+emergency department with an unstable condition.
+Because the patient could die without immediate
+care a team response is initiated; the physician is at
+the bedside, and nursing is providing intensive care.
+ESI level-1 patients are seen immediately because
+timeliness of interventions can affect morbidity and
+mortality.
+
+Immediate physician involvement in the care of the
+patient is a key difference between ESI level-1 and 2
+patients. Level-1 patients are critically ill and require
+immediate physician evaluation and interventions.
+Conversely, while level-2 patients are also very ill,
+the emergency nurse can initiate care through
+protocols without a physician at the bedside. The
+nurse recognizes that the patient needs
+interventions but is confident that the patient's
+clinical condition will not deteriorate. The
+emergency nurse can initiate intravenous access,
+administer supplemental oxygen, obtain an ECG,
+and place the patient on a cardiac monitor, all
+before a physician presence is needed.
+
+When considering the need for immediate lifesaving interventions, the triage nurse also carefully
+evaluates the patients' respiratory status and oxygen
+saturation (SpO2). A patient in severe respiratory
+distress or with an SpO2 < 90 percent may still be
+breathing, but is in need of immediate intervention
+to maintain an airway and oxygenation status. This
+is the patient who will require the physician in the
+room ordering medications such as those used for
+rapid sequence intubation or preparing for other
+interventions for airway and breathing.
+
+Patients with chest pain must also be evaluated
+using the same criteria. Some patients presenting
+with chest pain are very stable. Although they may
+require a diagnostic ECG, these patients do not meet
+level-1 criteria. However, patients who are pale,
+diaphoretic, in acute respiratory distress or
+hemodynamically unstable will require immediate
+life-saving interventions and do meet level-1 criteria.
+Each patient with chest pain must still be evaluated
+within the context of the level-1 criteria to
+determine whether the patient requires an
+immediate life-saving intervention.
+
+When determining whether the patient requires
+immediate life-saving intervention, the triage nurse
+must also assess the patient's level of consciousness.
+The ESI algorithm uses the AVPU (alert, verbal, pain,
+unresponsive) scale, (see Table 3-2). The goal for this
+part of the algorithm is to identify the patient who
+has an acute change in level of consciousness. The
+triage nurse needs to assess this patient for a change
+from baseline and the critical concern is the
+formerly alert patient who is now labeled a P (pain)
+or U (unresponsive). Unresponsiveness is assessed in
+the context of acute changes in neurological status,
+not for the patient who has known developmental
+delays, documented dementia, or aphasia. Any
+patient who is unresponsive, including the
+intoxicated patient unresponsive to painful stimuli
+meets level-1 criteria and should receive immediate
+evaluation. An example of an acute mental status
+change that would require immediate intervention
+would be a patient with decreased mental status
+who is unable to maintain an airway or has severe
+respiratory distress.
+
+Previous users of ESI version 3 (v. 3) will note a
+major change in the ESI level-1 criteria. The key
+difference between ESI v. 3 and ESI version 4 (v. 4) is
+the identification and re-classification of some of the
+sickest, previously ESI level-2 patients. Patients
+requiring immediate life-saving intervention are
+now classified as ESI level 1. In the previous ESI
+version, a patient in severe respiratory distress who
+required intubation but was still breathing was
+categorized as ESI level 2. In the current version, this
+patient meets level-1 criteria. Other examples of
+patients now classified as ESI level 1 include a weak
+and dizzy patient with a heart rate of 30 or 200.
+Although this change may not affect a large number
+of patients, it will result in the accurate
+categorization of the most acutely ill patients. Prior
+to v. 4, triage nurses were frequently confronted
+with two distinct levels of ESI level-2 patients;
+patients who required immediate evaluation and
+patients who could wait a brief time (10 minutes or
+so) without clinical deterioration. This dilemma led
+to a large, multi-center, prospective study that was
+conducted to identify characteristics of ESI level-2
+patients who actually received immediate
+interventions (Tanabe et al., in press). Results from
+that multicenter study were the impetus for
+modifying the ESI system. This updated edition of
+the ESI handbook presents the changes and
+describes ESI v. 4.
+
+An ESI level-1 patient is not always brought to the
+emergency department by ambulance. The patient
+with a drug overdose or acute alcohol intoxication
+may be dropped at the front door. Children may be
+brought by car and carried into the emergency
+department. The experienced triage nurse is able to
+instantly identify this critical patient. With a brief,
+across-the-room assessment the triage nurse
+recognizes the patient that is in extremis. This
+patient is taken immediately to the treatment area
+and resuscitation efforts are initiated.
+
+Patients assessed as an ESI level 1 constitute
+approximately 1 percent to 3 percent of all ED
+patients (Eitel et al., 2003; Wuerz, Milne, Eitel,
+Travers & Gilboy, 2000; Wuerz et al., 2001). Upon
+arrival, the patient's condition requires immediate
+resuscitation from either the emergency physician
+and nurse or the trauma or code team. From ESI
+research we know that most ESI level-1 patients are
+admitted to intensive care units, while some die in
+the emergency department (Eitel et al., 2003; Wuerz,
+2001). A few ESI level-1 patients are discharged from
+the ED, if they have a reversible change in level of
+consciousness or vital functions such as
+hypoglycemia, seizures, alcohol intoxication, or
+anaphylaxis.
+
+Examples of ESI level 1:
+
+- Cardiac arrest.
+
+- Respiratory arrest.
+
+- Severe respiratory distress.
+
+- SpO2 < 90.
+
+- Critically injured trauma patient who presents
+unresponsive.
+
+- Overdose with a respiratory rate of 6.
+
+Three broad questions are used to determine
+whether the patient meets level-2 criteria.
+
+1. Is this a high-risk situation?
+
+2. Is the patient confused, lethargic or disoriented?
+
+3. Is the patient in severe pain or distress?
+
+The triage nurse obtains pertinent subjective and
+objective information to quickly answer these
+questions. A brief introduction to ESI level-2 criteria
+is presented here, while a more detailed explanation
+of patients who meet ESI level-2 criteria will be
+presented in Chapter 4.
+
+- Severe respiratory distress with agonal or gaspingtype respirations.
+
+- Severe bradycardia or tachycardia with signs of
+hypoperfusion.
+
+- Hypotension with signs of hypoperfusion.
+
+- Trauma patient who requires immediate
+crystalloid and colloid resuscitation.
+
+- Chest pain, pale, diaphoretic, blood pressure
+70/palp.
+
+- Weak and dizzy, heart rate = 30.
+
+- Anaphylactic reaction.
+
+- Baby that is flaccid.
+
+- Unresponsive with strong odor of ETOH.
+
+- Hypoglycemia with a change in mental status.
+
+##### Decision Point B: Should the Patient Wait?
+
+Once the triage nurse has determined that the
+patient does not meet the criteria for ESI level 1, the
+triage nurse moves to decision point B (see Figure 33). At decision point B the nurse needs to decide
+whether this patient should wait to be seen. If the
+patient should not wait, the patient is triaged as ESI
+level 2. If the patient can wait, then the user moves
+to the next step in the algorithm.
+
+###### Is This a High-risk Situation?
+
+Based on a brief patient interview, gross
+observations, and finally the “sixth sense” that
+comes from experience, the triage nurse identifies
+the patient who is high risk. Frequently the patient's
+age and past medical history influence the triage
+nurse's determination of risk. A high-risk patient is
+one whose condition could easily deteriorate or a
+patient who presents with symptoms suggestive of a
+condition requiring time-sensitive treatment. This is
+a patient who has a potential major life or organ
+threat. A high-risk patient does not require a
+detailed physical assessment or even a full set of
+vital signs in most cases. The patient may describe a
+clinical portrait that the experienced triage nurse
+recognizes as a high-risk situation. An example of
+such a portrait is the patient who states, “I never get
+headaches and I lifted this heavy piece of furniture
+and now I have the worst headache of my life.” The
+triage nurse would triage this patient as ESI level 2
+because the symptoms suggest the possibility of a
+subarachnoid hemorrhage.
+
+When the patient is an ESI level 2, the triage nurse
+has determined that it would be unsafe for the
+patient to remain in the waiting room for any
+length of time. While ESI does not suggest specific
+time intervals, ESI level-2 patients remain a high
+priority and generally placement and treatment
+should be initiated within 10 minutes of arrival. It is
+important to remember that while the level-1
+criteria have expanded with v. 4 of the algorithm,
+ESI level-2 patients are still considered very ill and at
+high risk. The need for care is immediate and an
+appropriate bed needs to be found. Usually, rather
+than move to the next patient, the triage nurse feels
+that this patient is so sick that the charge nurse or
+staff in the patient care area should be immediately
+alerted that they have an ESI level 2.
+
+Examples of high-risk situations:
+
+- Active chest pain, suspicious for coronary
+syndrome, but does not require an immediate
+life-saving intervention, stable.
+
+- A needle stick in a health care worker.
+
+- Signs of a stroke, but does not meet level-1
+criteria.
+
+- A rule-out ectopic pregnancy, hemodynamically
+stable.
+
+- A patient on chemotherapy, and therefore
+immunocompromised, with a fever.
+
+- A suicidal or homicidal patient.
+
+Chapter 4 contains additional information on highrisk situations.
+
+###### Is the Patient Confused, Lethargic, or Disoriented?
+
+This is the second question to be asked at decision
+point B. Again the concern is whether the patient is
+demonstrating an acute change in level of
+consciousness. Patients with a baseline mental status
+of confusion do not meet level-2 criteria.
+
+- Confused: Inappropriate response to stimuli,
+decrease in attention span and memory.
+
+- Lethargic: Drowsy, sleeping more than usual,
+responds appropriately when stimulated.
+
+- Disoriented: The patient is unable to answer
+questions correctly about time, place or person.
+
+Examples of patients who are confused, lethargic, or
+disoriented:
+
+- New onset of confusion in an elderly patient.
+
+- The 3-month-old whose mother reports the child
+is sleeping all the time.
+
+- The adolescent found confused and disoriented.
+
+Each of these examples indicates that the brain may
+be either structurally or chemically compromised.
+
+###### Is This Patient in Severe Pain or Distress?
+
+The third question the triage nurse needs to answer
+at decision point B is whether this patient is
+currently in pain or distress. If the answer is “no,”
+the triage nurse is able to move to the next step in
+the algorithm. If the answer is “yes,” the triage nurse
+needs to assess the level of pain or distress. This is
+determined by clinical observation and/or a selfreported pain rating of 7 or higher on a scale of 0 to
+10. When patients report pain ratings of 7/10 or
+greater, the triage nurse may triage the patient as ESI
+level 2, but is not required to assign a level-2 rating.
+Pain is one of the most common reasons for an ED
+visit and clearly all patients reporting pain 7/10 or
+greater do not need to be assigned an ESI level-2
+triage rating. A patient with a sprained ankle and
+pain of 8/10 is a good example of an ESI level-4
+patient. It is not necessary to rate this patient as a
+level 2 based on pain alone.
+
+In some patients, pain can be assessed by clinical
+observation: distressed facial expression, diaphoresis,
+body posture, and changes in vital signs. The triage
+nurse observes physical responses to acute pain that
+support the patient's rating. For example, the patient
+with abdominal pain who is diaphoretic,
+tachycardic, and has an elevated blood pressure; or
+the patient with severe flank pain, vomiting, pale
+skin, and a history of renal colic are both good
+examples of patients that meet ESI level-2 criteria.
+Chapter 4 provides additional information on ESI
+level 2 and pain.
+
+Severe distress can be physiological or psychological.
+Examples of distress include the sexual assault
+victim, the combative patient, or the bipolar patient
+who is currently manic.
+
+ESI level-2 patients constitute a relatively low
+volume, high-risk group that comprise 20 percent to
+30 percent of emergency department patients
+(Travers et al., 2002; Wuerz et al., 2001, Tanabe,
+Gimbel et al., 2004). Once an ESI level-2 patient is
+identified, the triage nurse needs to ensure that the
+patient is cared for in a timely manner. Registration
+can be completed by a family member or at the
+bedside. ESI level-2 patients need vital signs and a
+comprehensive nursing assessment but not
+necessarily at triage. Placement should not be
+delayed to finish obtaining vital signs. ESI research
+has shown that 50 to 60 percent of ESI level-2
+patients are admitted from the ED (Wuerz et al.,
+2001).
+
+##### Decision Point C: Resource Needs
+
+If the answers to the questions at the first two
+decision points are “no,” then the triage nurse
+moves to decision point C (see Figure 3-4). The
+triage nurse should ask, “How many different
+resources do you think this patient is going to
+consume in order for the physician to reach a
+disposition decision?” The disposition decision
+could be to send the patient home, admit to the
+observation unit, admit to the hospital, or even to
+transfer to another institution. This decision point
+again requires the triage nurse to draw from past
+experiences in caring for similar emergency
+department patients. ED nurses need to clearly
+understand that the estimate of resources has to do
+with standards of care and is independent of type of
+hospital (i.e., teaching or non-teaching) and
+location. A patient presenting to any emergency
+department should consume the same general
+resources in order for a disposition to be reached.
+Considering the patient's brief subjective and
+objective assessment, past medical history, allergies,
+medications, age, and gender, how many different
+resources will be used in order for the physician to
+reach a disposition? In other words, what is typically
+done for the patient who presents to the emergency
+department with this common complaint? The
+triage nurse is asked to do this based on his or her
+assessment of the patient and should not consider
+individual practice patterns, but rather the routine
+practice in the particular ED.
+
+To identify resource needs the triage nurse must be
+familiar with emergency department standards of
+care. The triage nurse must be knowledgeable about
+the concept of “prudent and customary.” One easy
+way to think about this concept is to ask the
+question “Given this patient's chief complaint or
+injury, what resources is the emergency physician
+likely to utilize?” Resources can be hospital services,
+tests, procedures, consults or interventions that are
+above and beyond the physician history and
+physical, or very simple emergency department
+interventions such as applying a bandage. Further
+explanations and examples are provided in Chapter 5.
+
+A list of what is and what is not considered a
+resource for purposes of ESI triage classification can
+be found in Table 3-3. ESI level-3 patients are
+predicted to require two or more resources; ESI level4 patients are predicted to require one resource; and
+ESI level-5 patients are predicted to require no
+resources (Table 3-4).
+
+Research has shown that ESI level-3 patients make
+up 30 percent to 40 percent of patients seen in the
+emergency department (Eitel et al., 2003; Wuerz et
+al., 2001). They often require a more in-depth
+evaluation but are felt to be stable in the short term,
+and certainly may have a longer length of stay in
+the ED. ESI level 4 and ESI level 5 make up between
+20 percent and 35 percent of ED volume, perhaps
+even more in a community with poor primary care
+access. Appropriately trained mid-level providers
+with the right skills mix could care for these patients
+in a fast-track or express care setting, recognizing
+that a high proportion of these patients have a
+trauma-related presenting complaint. Since their
+physical condition is stable, these patients could
+safely wait several hours to be seen.
+
+##### Decision Point D:The Patient's Vital Signs
+
+Before assigning a patient to ESI level 3, the nurse
+needs to look at the patient's vital signs and decide
+whether they are outside the accepted parameters
+for age and are felt by the nurse to be meaningful. If
+the vital signs are outside accepted parameters, the
+triage nurse should consider upgrading the triage
+level to ESI level 2. However, it is the triage nurse’s
+decision as to whether or not the patient should be
+upgraded to an ESI level 2 based on vital sign
+abnormalities. This is decision point D.
+
+Vital sign parameters are outlined by age (see Figure
+3-5). The vital signs used are pulse, respiratory rate,
+and oxygen saturation and, for any child under age
+three, body temperature. Using the vital sign criteria,
+the triage nurse can upgrade an adult patient who
+presents with a heart rate of 104, or this patient can
+remain ESI level 3. A 6-month-old baby with a cold
+and a respiratory rate of 48 could be triaged ESI level
+2 or 3. Based on the patient's history and physical
+assessment, the nurse must ask if the vital signs are
+enough of a concern to say that the patient is high
+risk and cannot wait to be seen. Chapter 6 explains
+vital signs in detail and gives examples.
+
+Temperature is only included with children under
+age three. Significant fever may exclude young
+children from categories 4 and 5. This will help
+identify potentially bacteremic children and avoid
+sending them to a fast track setting or waiting a
+prolonged time. Pediatric fever guidelines will be
+described in detail in Chapter 6.
+
+###### Does Time to Treatment Influence ESI Triage Categories?
+
+An estimate of how long the patient can wait to be
+seen by a physician is an important component of
+most triage systems. The Australasian and Canadian
+Triage Systems require patients to be seen by a
+physician within a specific time period, based on
+their triage category. ESI does not mandate specific
+time standards in which patients must be evaluated
+by a physician. However, patients who meet criteria
+for ESI level 2 should be seen as soon as possible; it
+is up to the individual institution to determine a
+policy. Frequently, there may be confusion between
+institutional policy and “flow or process of patient
+care” and ESI triage level.
+
+We will describe four patient scenarios in which
+flow and triage category may seem to conflict. Often
+trauma patients present to the triage nurse after
+sustaining a significant mechanism of injury, such as
+an unrestrained passenger in a high-speed motor
+vehicle crash. The patient may have left the crash
+scene in some way other than by ambulance, and
+then presents to triage with localized right upper
+quadrant pain with stable vital signs. This patient is
+physiologically stable, walked into the ED and does
+not meet ESI level-1 criteria. However, the patient is
+at high risk for a liver laceration and other
+significant trauma, so should be triaged as ESI level
+2. Frequently, EDs have trauma policies and trauma
+response level categorization that will require rapid
+initiation of care. Triage and trauma response level
+are both important and should be recorded as two
+different scores. While the triage nurse recognizes
+this is a physiologically stable trauma patient and
+correctly assigns ESI level 2, she should facilitate
+patient placement and trauma care as outlined by
+the trauma policy. The patient is probably stable for
+another 10 minutes and does not require immediate
+life-saving interventions. If the same patient
+presented with a blood pressure of 80 palpable, they
+would be triaged as ESI level 1 and require
+immediate hemodynamic, life-saving interventions.
+
+Another example of policies that may affect triage
+level is triage of the patient with stable chest pain. If
+the patient is physiologically stable but experiencing
+chest pain that is potentially an acute coronary
+syndrome, the patient meets ESI level-2 criteria.
+They do not require immediate life-saving
+interventions but they are a high-risk patient. Their
+care is time-sensitive, an ECG should be performed
+within 10 minutes of patient arrival. Often, EDs will
+have a policy related to rapid initiation of an ECG.
+While care of these patients should be rapidly
+initiated, the ECG is not a life-saving intervention, it
+is a diagnostic procedure. If the triage nurse were to
+triage all chest pain patients as ESI level 1, it would
+be difficult to prioritize the care for true ESI level-1
+patients who require immediate life-saving
+interventions. But the patient with chest pain who
+presents to triage diaphoretic, with a blood pressure
+of 80 palpable would meet ESI level-1 criteria.
+
+The third example of time-sensitive care is patients
+who present with signs of an acute stroke. Again, if
+physiologically stable, a 10 minute wait to initiate
+care will probably not further compromise the
+patient. However, the patient with signs of stroke
+that is unable to maintain an airway meets ESI level1 criteria.
+
+Finally, a somewhat different scenario is an elderly
+patient that fell, may have a fractured hip, arrives by
+private car with family, and is in pain. The patient
+does not really meet ESI level-2 criteria but is very
+uncomfortable. The triage nurse would categorize
+the patient as ESI level 3 and probably place the
+patient in an available bed before other ESI level-3
+patients. Ambulance patients may also present with
+a similar scenario. Arriving by ambulance is not a
+criterion to assign a patient ESI level 1 or 2. The ESI
+criteria should always be used to determine triage
+level without regard to method of arrival.
+
+In general, care of ESI level-2 patients should be
+rapidly facilitated and patients should ideally wait
+no longer than 10 minutes to be placed in the
+treatment area. It is important to remember that
+while ESI v. 4 has expanded level-1 criteria to
+include patients requiring immediate interventions
+that were previously ESI level 2, all level-2 patients
+are still potentially very ill and require rapid
+initiation of care and evaluation. The triage nurse
+has determined that it is unsafe for these patients to
+wait. Patients may currently be stable, but also have
+a condition that can easily deteriorate, and/or
+initiation of diagnostic treatment may be time
+sensitive (stable chest pain requires an ECG in 10
+minutes of arrival), or the patient has a potential
+major life or organ threat. ESI level-2 patients are
+still considered to be very high risk.
+
+In the current atmosphere of ED overcrowding, it is
+not uncommon for the triage nurse to be in a
+situation of triaging many ESI level-2 patients with
+no open ED beds in which to place the patients. In
+these situations, the triage nurse may be tempted to
+“undertriage.” This can lead to serious, negative
+patient outcomes and an under-representation of
+the ED's overall case mix. When faced with multiple
+ESI level-2 patients simultaneously, the triage nurse
+must evaluate each patient according to the ESI
+algorithm. Then, the nurse can “triage” all level-2
+patients to determine which patient(s) are at highest
+risk, in order to facilitate patient placement based on
+this evaluation.
+
+##### Summary
+
+In summary, the ESI is a five-level triage system that
+is simple to use and divides patients by acuity and
+resource needs. The ESI triage algorithm is based on
+four key decision points. The experienced ED RN
+will be able to rapidly and accurately triage patients
+using this system.
+
+### Chapter 4. ESI Level 2
+
+This chapter expands on the introduction to the ESI
+based on the experienced ED nurse's sound clinical
+judgment. During the ESI triage educational 
+program, a considerable amount of time should be
+devoted to explaining which types of patients
+should be categorized ESI level 2. In this chapter, we
+highlight common patient presentations that meet
+ESI level-2 criteria.
+
+After the triage nurse has determined that the
+patient does not require immediate life-saving
+intervention, he or she must then decide whether
+the patient should wait. When making this decision,
+the triage nurse should consider the following
+question “Would I use my last open bed for this
+patient?” The following three questions listed in
+Figure 4-1 should be answered and are key
+components of ESI level-2 criteria:
+
+1. Is this a high-risk situation?
+
+2. Is the patient experiencing new onset confusion,
+lethargy, or disorientation?
+
+3. Is the patient experiencing severe pain or
+distress?
+
+The remainder of this chapter discusses the decision
+points of ESI level 2 in detail. Many examples are
+provided that are based on the potential medical
+diagnoses associated with patients' chief complaints
+and presenting symptoms. An experienced triage
+nurse will always assess the patient's chief
+complaint, presenting signs and symptoms,
+demographics, and medical history to attempt to
+identify a high-risk situation. While the purpose of
+nurse triage is not to make a medical diagnosis,
+these situations are based on the experienced triage
+nurse's knowledge of possible medical diagnoses that
+are associated with specific chief complaints. A good
+source of information about the signs and
+symptoms of various medical diagnoses is the
+Emergency Nursing Core Curriculum[©] or other
+emergency nursing textbooks. The following
+discussion provides some selected examples of highrisk situations. This discussion is not intended to be
+an exhaustive list. The examples are summarized in
+Table 4-1.
+
+##### High-risk Situations
+
+The ability to recognize a high-risk situation is a
+critical element of the triage decisionmaking
+process, regardless of the particular triage system
+used. ESI highlights the importance of recognizing
+high-risk situations and uses the triage nurse's
+expertise and experience to identify patients at high
+risk.
+
+Little has been written about how ED triage nurses
+make decisions. Knowledge and experience are
+necessary but not sufficient. The other factor that we
+have found to be important is gut instinct or the
+sixth sense. Novice triage nurses should be taught
+rules of thumb which they can use until they have
+the confidence and experience upon which to make
+rapid, accurate decisions. Examples of these rules of
+thumb include “all women of childbearing age are
+pregnant until proven otherwise” or “all chest pain
+is cardiac until proven otherwise.” Novice triage
+nurses are also taught symptom clustering such as
+the cardiac cluster of chest pain with nausea,
+shortness of breath, and diaphoresis. From prior
+clinical situations ED nurses put together what have
+been referred to as clinical portraits. The nurse puts
+into long-term memory particular patient scenarios
+in which they were involved in some way. For
+example, the patient with fever, stiff neck, and a
+meningococcal rash will always come to mind when
+a patient with a similar complaint presents to triage.
+The triage nurse needs to draw on all of his or her
+knowledge and experience with each triage
+encounter. High-risk situations should be easy for
+the experienced triage nurse to identify.
+
+Vital signs are often not helpful in the identification
+of high-risk patients. The patient typically presents
+to the ED with a chief complaint, signs and
+symptoms, or history suggestive of a problem or
+condition that is serious and, unless dealt with
+promptly, can deteriorate rapidly. Often patient age,
+past medical history, and current medications
+influence the perceived severity of the chief
+complaint. For example, a frail elderly patient with
+severe abdominal pain is at a much higher risk of
+morbidity and mortality than a 20-year-old. The
+elderly patient with abdominal pain should be
+classified as ESI level 2, while the 20-year-old with
+stable vital signs will usually be classified as ESI level
+3. It is common for the triage nurse to identify a
+high-risk situation which may then be confirmed by
+finding abnormal vital signs. For example, a patient
+who complains of a fever and productive cough may
+be found to have a respiratory rate of 32 and an
+oxygen saturation of 90 percent. The experienced
+triage nurse uses knowledge and expertise to
+recognize that this patient probably has pneumonia,
+is at risk for desaturating and is therefore high risk.
+Inexperienced ED nurses are not likely to have the
+knowledge and expertise to consistently identify
+high-risk situations and make accurate triage
+decisions. For this reason, the inexperienced triage
+nurse is, in fact, a liability at triage, regardless of the
+particular triage system used. They have not
+incorporated symptom clustering, clinical portraits,
+or “gut instinct” into their practice; such approaches
+are key in identifying the high-risk patient situation.
+The next section will provide specific examples of
+high-risk situations.
+
+###### Abdominal and Gastrointestinal
+
+Abdominal pain is a frequent chief complaint in the
+ED. What makes it high risk? A good history and
+assessment of current pain rating, respiratory rate,
+and heart rate are important elements to consider
+and will help determine the presence of a high-risk
+situation. Pain rating is only one of many factors to
+consider. Tachycardia or respiratory distress that
+accompanies severe abdominal pain can represent
+shock and would place the patient at high risk. The
+elderly patient with severe abdominal pain presents
+another potentially risky situation. Often the elderly
+experience bowel obstructions, gastrointestinal
+bleeds, and other abdominal complications
+associated with significantly higher morbidity and
+mortality than younger patients. Signs and
+symptoms of an acute abdomen are important to
+assess for in all patients with abdominal pain. How
+long has the patient had the pain? What made the
+patient come to the ED today? Has the patient had
+severe nausea, vomiting, or diarrhea? Is the patient
+dehydrated? Patients with severe “ripping”
+abdominal pain radiating to the back should be
+considered to potentially have an abdominal aortic
+aneurysm. Patients describe the pain as severe,
+constant, and sudden in onset and may have a
+history of hypertension.
+
+Patients with abdominal pain are often initially
+considered ESI level 3 at the beginning of the triage
+interview, and after the discovery of tachycardia or
+other risk factors, the triage nurse may determine
+that the patient is indeed high risk.
+
+Vomiting blood or a chief complaint of blood per
+rectum should be seriously considered and evaluated
+in the context of vital signs. A 30-year-old with
+bright red blood per rectum, normal vital signs, and
+no other risk factors does not meet criteria for ESI
+level 2. But the elderly patient who called an
+ambulance because he started vomiting blood and
+has a heart rate of 117 and a respiratory rate of 24 is
+high risk and does meet ESI level-2 criteria.
+
+###### Cardiovascular
+
+Chest pain is also a very common chief complaint.
+The presentation of acute coronary syndromes (ACS)
+is not always specific, and it is sometimes difficult to
+determine the risk of ACS at triage. Patients who
+have an episode of chest or epigastric discomfort,
+with or without accompanying symptoms, usually
+will need an ECG performed rapidly to determine
+the presence of ACS and need to be identified as
+high risk-ESI level 2. It is important for the triage
+nurse to incorporate into his or her knowledge of
+women and presentational symptoms characteristic
+of heart disease. The 54-year-old obese female who
+presents to the ED with epigastric pain and fatigue is
+at risk of ACS and should be assigned to ESI level 2high risk. Patients with chest pain that are
+physiologically unstable and require immediate
+intervention such as intubation or hemodynamic
+support should be triaged as ESI level 1. All chest
+pain patients do not meet level-1 or 2 criteria. For
+example, a 20-year-old healthy patient with chest
+pain, cough, and fever of 101° is at low risk for ACS
+and does not meet ESI level-1 or 2 criteria. Each
+patient must be assessed individually. Other highrisk cardiovascular situations would include the
+possibility of a hypertensive crisis, acute vascular
+arterial occlusions, and patients who present with a
+fever post valve replacement.
+
+###### Dental, Ear, Nose, and Throat
+
+Although less common, epiglottitis still exists and
+represents a potential airway threat. Patients with a
+peritonsilar abscess are another example of potential
+airway compromise and both conditions represent a
+high-risk situation. If a patient with either of these
+complaints is in immediate danger of airway
+compromise and requires immediate intervention,
+level-1 criteria are met. For patients with epistaxis,
+the triage nurse should obtain a blood pressure,
+although this is not in the ESI algorithm. Epistaxis
+could be caused by a posterior nosebleed due to a
+hypertensive crisis, nose picking by the patient on
+Coumadin®, or recent cocaine use. In any case, such
+patients should be classified as ESI level 2, as they
+represent a high-risk situation.
+
+###### Environmental
+
+Patients with inhalation injuries should be
+considered high risk for potential airway
+compromise. If the patient presents with significant
+airway distress and requires immediate intervention,
+they meet level-1 criteria.
+
+###### Facial
+
+Patients with trauma to the face should be evaluated
+for possible facial fractures. When present, facial
+fractures are often associated with other severe
+trauma and may potentially lead to airway
+compromise and should therefore be triaged as high
+risk. Facial trauma with actual airway compromise
+should be triaged as ESI level 1 to facilitate airway
+management High-risk of airway compromise
+should be triaged as ESI level 2.
+
+###### General Medical
+
+There are several other general medical complaints
+that need to be considered for possible high-risk
+situations. These medical complications include
+diabetic ketoacidosis, hyper- or hypoglycemia,
+sepsis, complaints of syncope or near syncope, and a
+variety of other electrolyte disturbances that may
+need to be treated immediately. Hyperkalemia in
+particular is a very high-risk situation that can lead
+to serious cardiac dysrhythmias. Hyperkalemia
+might be suspected in a renal dialysis patient
+exhibiting weakness. Finally, oncology patients with
+a fever who are undergoing chemotherapy are at risk
+for sepsis and should be identified as high risk and
+rapidly evaluated.
+
+###### Genitourinary
+
+Males with testicular torsion will complain of severe
+pain, are easily recognized, and require rapid
+evaluation and surgical intervention, in addition to
+rapid pain control. Renal dialysis patients unable to
+complete dialysis are another example of a high-risk
+genitourinary emergency, since a variety of
+electrolyte disturbances may be present. Females,
+and more commonly males, can present to the
+triage nurse with acute urinary retention. Males over
+age 65 often present with benign prostatic
+hypertrophy and the inability to urinate. Males and
+females can present postoperatively with the
+inability to void. These patients are in acute distress
+and require emergency urinary catheterization.
+These are examples of patients in severe distress who
+should be categorized as ESI level 2.
+
+###### Mental Health
+
+Many patients that present with mental health
+problems are at high risk if they are a danger either
+to themselves, others, or the environment. Patients
+who are suicidal, homicidal, psychotic, violent, or
+present an elopement risk should be considered high
+risk. Intoxication without signs of trauma or
+associated risk of aspiration does not represent a
+high-risk criterion. The intoxicated patient needs to
+be carefully assessed for signs of trauma or
+behavioral issues related to alcohol use or past
+medical history. Either could represent a high-risk
+situation and the patient would be categorized ESI
+level 2.
+
+###### Neurological
+
+Patients with severe headache associated with
+mental status changes, high blood pressure, lethargy,
+fevers, or a rash should be considered high risk. Any
+patient with sudden onset of speech deficits or
+motor weakness should also be assigned ESI level 2.
+Patients with these symptoms may be experiencing
+an acute stroke and immediate evaluation is critical.
+Time from onset of symptoms is a critical factor in
+determining treatment options, in particular
+fibrinolytic or other therapies. A patient with no
+past medical history of headaches that presents to
+the emergency department with the sudden onset of
+a headache should be identified as high risk for a
+subarrachnoid bleed. The patient will often describe
+exactly what they were doing when the headache
+began, typically after lifting, having a bowel
+movement, or after sexual intercourse.
+
+###### Obstetrical and Gynecological
+
+Females with abdominal pain or vaginal bleeding
+should be carefully assessed and vital signs obtained
+if there is no obvious life threat. Pregnancy history
+and last menstrual period should always be
+ascertained from all females of childbearing age. The
+triage nurse should assess for signs and symptoms of
+the following conditions in late pregnancy: abruptio
+placentae and placenta previa. In early pregnancy
+the triage nurse should assess for signs and
+symptoms of ectopic pregnancy and spontaneous
+abortion. All pregnant patients 14 to 20 weeks and
+over should be seen by a physician rapidly,
+according to individual institutional policy. A
+postpartum patient with a chief complaint of heavy
+vaginal bleeding should also be seen by a physician
+urgently. Any female patient, whether pregnant or
+postpartum, who presents with significant
+hemodynamic instability and is in need of
+immediate life-saving interventions should be
+triaged as ESI level 1.
+
+###### Ocular
+
+Patients with trauma to the eye, sudden partial or
+full loss of vision, or a chemical splash to the eye are
+at high risk for permanent damage to the eye and
+should be triaged at ESI level 2. Conditions
+associated with some type of visual loss include
+central retinal artery occlusion, acute narrow-angle
+glaucoma, and retinal detachment. Trauma to the
+eye can result in a globe rupture and hyphema.
+Chemical splashes to the eye, particularly alkali,
+necessitate immediate flushing to prevent further
+damage to the cornea. All of these conditions
+require immediate evaluation and treatment to
+prevent further complications or deterioration.
+These patients meet ESI level-2 criteria. While
+immediate irrigation is necessary, it is not
+considered life-saving and thus these patients do not
+meet ESI level-1 criteria.
+
+###### Orthopedic
+
+Patients with signs and symptoms of compartment
+syndrome are at high risk for extremity loss and
+should be assigned ESI level 2. Other patients with
+high-risk orthopedic injuries include any extremity
+injury with compromised neurovascular function,
+partial or complete amputations, or trauma
+mechanisms identified as having a high-risk such as
+serious acceleration or deceleration. Patients with
+possible fractures of the pelvis, femur, or hip and
+other extremity dislocations should be carefully
+evaluated and vital signs considered. These fractures
+can be associated with significant blood loss. Again,
+the need for immediate life-saving intervention in
+hemodynamically unstable patients will meet ESI
+level-1 criteria.
+
+###### Pediatrics
+
+It is not uncommon for the triage nurse to be
+uncomfortable when making triage acuity decisions
+about children, especially infants. It is important to
+obtain an accurate history from the caregiver and
+evaluate the activity level of the child. The child
+who is inconsolable or withdrawn may be at high
+risk of serious illness. The following conditions are
+examples of high-risk situations for children:
+
+- Seizures.
+
+- Sepsis, severe dehydration.
+
+- Diabetic ketoacidosis.
+
+- Child abuse, burns.
+
+- Head trauma.
+
+- Vitamins/iron or other overdoses/ingestions.
+
+- Infant less than 28 days of age with a fever of
+100.4° F or 38° C, or greater.
+
+###### Transplant
+
+Patients who are status post organ transplant are
+usually ill and considered high risk. They can
+present with organ rejection, sepsis, or other
+complications. Patients who are on a transplant list
+are also usually considered high risk.
+
+###### Respiratory
+
+There are many respiratory complaints that place
+patients at high risk. Patients with mild-to-moderate
+distress should be further evaluated for respiratory
+rate and pulse oximetry to determine whether they
+should be categorized ESI level 2. Patients in severe
+respiratory distress that require immediate lifesaving intervention such as intubation meet level-1
+criteria. The high-risk patient is one who is currently
+ventilating and oxygenating adequately but is in
+respiratory distress and has the potential to rapidly
+deteriorate. Potential etiologies of respiratory distress
+may include asthma, pulmonary embolus, pleural
+effusion, pneumothorax, foreign body aspiration,
+toxic smoke inhalation, or shortness of breath
+associated with chest pain.
+
+###### Toxicological
+
+Most patients who present with an overdose should
+be rapidly evaluated and represent a high-risk
+situation. It is often difficult to determine which
+drugs were taken and the quantities actually
+consumed. If the patient has taken an intentional
+overdose, and admits to suicidal ideation, this meets
+criteria for a high-risk situation. A patient who is
+apneic on arrival or requires other immediate lifesaving interventions should be categorized an ESI
+level 1; all other admitted overdoses should be
+considered ESI level 2.
+
+###### Trauma
+
+Frequently, patients who have been involved in a
+traumatic event are at high risk for injury, although
+no obvious injuries may be apparent. Any
+mechanism of injury associated with a high risk of
+injury should be categorized ESI level 2, unless they
+present with unstable vital signs and require
+immediate intervention. These patients should be
+triaged as ESI level 1. Serious injury results from the
+transfer of mechanical or kinetic energy and is
+caused by acceleration forces, deceleration forces, or
+both. Motor vehicle and motorcycle crashes, victims
+of falls, and gunshot and stab wounds are examples
+of blunt and penetrating trauma, which should be
+assessed carefully for potential for serious injury. The
+triage nurse should obtain the following details
+regarding the injury: age of the patient, pre-existing
+conditions of the patient and environment, distance
+the patient fell or jumped, how fast the vehicle was
+moving, history of loss of consciousness, location of
+penetrating injury, and type of weapon. Again, the
+nurse will draw from his or her knowledge of
+biomechanics and mechanism of injury to assess the
+patient and decide whether they meet ESI level-2
+criteria. Gunshot wounds to the head, neck, chest,
+or groin usually require trauma team evaluation and
+immediate interventions and should be triaged as
+ESI level 1.
+
+###### Wound Management
+
+What makes a wound high risk? Is there
+uncontrolled bleeding? Is there arterial bleeding? Is
+this a partial amputation? How was the wound
+sustained and does the mechanism of injury leave
+the patient at high risk for other traumatic
+complications? Most wounds do not meet the
+criteria for ESI level 2. A patient with a stab wound
+to the subcutaneous tissue of the thigh with
+controlled bleeding and good distal neurological
+function can be classified as ESI level 4. Any
+uncontrolled bleeding that requires immediate lifesaving intervention to stabilize the patient meets
+level-1 criteria.
+
+##### Confusion/Lethargy/ Disorientation
+
+The second question to consider when determining
+whether a patient meets level-2 criteria is “Does the
+patient have new onset confusion, lethargy, or
+disorientation?” Altered mental status is another
+frequent chief complaint. Family members, friends,
+or paramedics may accompany these patients to the
+ED. At decision point B of the ESI algorithm, the
+presence of confusion, lethargy, or disorientation
+refers to new onset or an acute alteration in level of
+consciousness (LOC). Chronic dementia and
+confusion do not meet criteria for ESI level 2.
+Confusion, lethargy, or disorientation may be caused
+by a variety of serious medical conditions including
+stroke, transient ischemic attack, and other
+structural pathology to the brain, metabolic, and
+electrolyte imbalances such as hypoglycemia or
+hyponatremia and toxicological conditions.
+
+This portion of the algorithm is usually very clear
+and leaves very little open to interpretation. If the
+patient's history is unknown and the patient
+presents to triage confused, lethargic or disoriented,
+the triage nurse should assume this condition is new
+and select ESI level 2 as the triage category. Again, if
+the patient has new onset confusion, lethargy or
+disorientation and requires an immediate life-saving
+intervention as previously described, the patient
+then meets ESI level-1 criteria.
+
+##### Severe Pain/Distress
+
+The final question to address when determining
+whether the patient meets level-2 criteria is “Does
+the patient have severe pain or distress?” The patient
+should be assessed for the presence of severe pain or
+distress. All patients who have a pain rating of 7/10
+or greater should be considered for meeting ESI level2 criteria.
+
+_Considered is a very important word. It is up to the_
+discretion of the triage nurse to determine whether
+the clinical condition and pain rating in
+combination warrant a rating of ESI level 2. For
+example, a patient who had a heavy metal object
+fall on his toe may rate the pain a 10/10. Indeed, the
+patient may have a fracture and is experiencing
+severe pain. The patient probably has done nothing
+to try to relieve the pain prior to arrival in the ED.
+The correct triage level for this patient would be ESI
+level 4. Only one resource will be needed (an x-ray).
+The triage nurse should implement comfort
+measures at triage including ice, elevation, and
+analgesics (if standing orders are in place) to reduce
+the pain. The triage nurse should believe the
+patient's pain is 10/10 and address the pain at triage.
+However, this patient can wait to be seen and you
+would certainly not use your last open bed for this
+patient. In summary, the triage nurse assesses not
+only the pain intensity rating provided by the
+patient, but also the chief complaint, past medical
+history and physiologic appearance of the patient
+when determining a triage category. Examples of
+patients for whom the triage nurse could use severe
+pain criteria to justify an ESI level-2 rating include:
+
+- A patient with 10/10 flank pain who is writhing
+at triage.
+
+- An 80-year-old female with 7/10 generalized
+abdominal pain with severe nausea.
+
+- A 30-year-old patient in acute sickle cell pain
+crisis.
+
+- An oncology patient with severe pain.
+
+- Any full- or partial-thickness burn that will
+require immediate pain control.
+
+All ED patients are to be assessed for pain and asked
+to rate their pain using a scale such as the visual
+analog scale. Many triage nurses are uncomfortable
+with documenting a patients pain rating and then
+having them wait to be seen. It is important for the
+triage nurse to understand that the patients self
+reported pain rating is only one piece of the pain
+assessment. For example, all ED triage nurses have
+triaged patients who are laughing, talking on their
+cell phone or eating chips but report their pain is
+10+. Triage nurses should assign ESI level 2 if the
+patient reports a pain rating of 7/10 or greater and
+the triage nurse's subjective and objective assessment
+confirms that the patient's pain requires
+interventions that are beyond the scope of triage.
+The triage nurse concludes that it would be
+inappropriate for this patient to wait and they
+would assign this patient to the last open bed.
+
+Finally, in determining whether a patient meets ESI
+level-2 criteria, the triage nurse must assess for severe
+distress, which is defined as either physiological or
+psychological. In addition to pain, patients
+experiencing severe respiratory distress meet criteria
+for ESI level 2 for physiological disturbances.
+Examples of severe psychological distress include
+patients who are:
+
+- Distraught after experiencing a sexual assault.
+
+- Exhibiting behavioral outbursts at triage.
+
+- Combative.
+
+- Victims of domestic violence.
+
+- Experiencing an acute grief reaction.
+
+These are patients that the triage nurse usually
+prefers to have placed in the treatment area
+immediately so as to have the patient avoid the
+waiting room.
+
+##### Summary
+
+We have reviewed the key components and
+questions that need to be answered to determine
+whether a patient meets ESI level-2 criteria. It is
+critical that the triage nurse consider these questions
+as he or she triages each patient. “Missing” a highrisk situation may result in an extended waiting
+period and potentially negative patient outcomes.
+
+### Chapter 5. Expected Resource Needs
+
+Traditionally, triage systems have been based solely
+upon the acuity of the patient. Such systems require
+the nurse to assign an acuity level by making a
+judgment about how long the patient can wait to be
+seen by a provider. The Emergency Severity Index
+(ESI) triage system uses a novel approach to triage
+level assignment by including not only judgments
+about who should be seen first, but also for the less
+acute patients, adding predictions of the resources
+that are likely to be used to make a disposition for
+the patient. This chapter includes background
+information on why resource predictions were
+included in the ESI and a description of what
+constitutes a resource. Also included are examples of
+patients rated ESI level 3 to 5 and the resources that
+each patient is predicted to need.
+
+Historically, comprehensive triage has been the
+dominant model for triage acuity assignment in U.S.
+emergency departments (Emergency Nurses
+Association [ENA], 1997, p. 3-10; Gilboy, Travers &
+Wuerz, 1999). Triage systems have been based on
+the nurse’s assessment of vital signs, subjective and
+objective information, past medical history, allergies,
+and medications to determine triage acuity.
+
+Resource prediction is an integral part of the ESI for
+patients identified as ESI level 3, 4, or 5. It is
+important to understand that resource allocation
+does not have a role for patients of high acuity, e.g.
+ESI level 1 or 2. Resource prediction distinguishes
+the ESI from other triage systems that are based only
+on acuity. When Drs. Wuerz and Eitel created the
+ESI triage system, they added resource utilization to
+provide additional data and allow a better, more
+accurate triage decision. They believed that an
+experienced emergency department (ED) triage
+nurse was able to predict the nature and number of
+tests, therapeutic interventions, and consultations
+that a patient would need during his/her ED stay.
+This has been verified in recent studies of ESI
+implementation and validation, which have shown
+that triage nurses are able to predict ED patients'
+resource needs (Eitel, Travers, Rosenau, Gilboy &
+Wuerz, 2003; Tanabe, Gimbel, Yarnold & Adams,
+2004). One study was conducted at seven EDs
+representing varied regions of the country, urban
+and rural areas, and academic and community
+hospitals. Nurses using the ESI were able to predict
+how many resources the ED patients required 70
+percent of the time. That is, ESI classification by
+experienced triage nurses reasonably predicts at
+triage how many resources patients will require to
+reach ED disposition, but, more importantly,
+discriminates at presentation low versus high
+resource intensity patients. This differentiation by
+resource requirements allows for much more
+effective streaming of patients at ED presentation
+into alternative operational pathways within the ED,
+that is, the parallel processing of patients. Research
+has also established that ESI triage levels correlate
+with important patient outcomes, including
+admission and mortality rates (Eitel et al., 2003).
+
+Again, it is important to note that resource
+prediction is only used for less acute patients. At
+decision points A and B on the ESI algorithm (Figure
+5-1), the nurse decides which patients meet criteria
+for ESI levels 1 and 2 based only on patient acuity.
+However, at decision point C, the nurse assigns ESI
+levels 3 to 5 by assessing both acuity and predicted
+resource needs. Thus, the triage nurse only considers
+resources when the answers to decision points A and
+B are “no.”
+
+To identify ED patients' resource needs, the triage
+nurse must be generally familiar with emergency
+department standards of care, and, specifically, what
+constitutes prudent and customary emergency care.
+An easy way to think about this concept is to ask
+the question, “Given this patient's chief complaint,
+what resources are the emergency providers likely to
+utilize?”
+
+The triage nurse uses information from the brief
+subjective and objective triage assessment, as well as
+past medical history, medications, age, and gender,
+to determine how many different resources will be
+needed for the ED provider to reach a disposition.
+For example, a healthy teenage patient with a
+simple leg laceration and no prior medical history
+would need only one resource: Suturing. On the
+other hand, an older adult with multiple chronic
+medical problems and no history of dizziness who
+presents with a head laceration from a fall will
+clearly need multiple resources: suturing, plus
+blood/urine tests, ECG, and x-rays or consultations
+with specialists. Accurate use of ESI triage is
+contingent on the nurses' ability to predict resources
+and as such is best performed by an experienced
+emergency nurse. In general, we believe that no
+matter what triage system is used, an experienced
+emergency nurse is needed to safely perform triage.
+
+Guidelines for the categorization of resources in the
+ESI triage system are shown in Table 5-1 (repeat of
+Table 3-1). ESI levels 3, 4, and 5 are differentiated by
+the nurse's determination of how many resources
+are needed to make a patient disposition. On the
+basis of the triage nurse's predictions, patients who
+are expected to consume no resources are classified
+as level 5, those who are likely to require one
+resource are level 4, and those who are expected to
+need two or more resources are designated as ESI
+level 3. Patients who need two or more resources
+have been shown to have higher rates of hospital
+admission and mortality and longer lengths of stay
+in the ED (Eitel et al., 2003; Tanabe et al., 2004
+Reliability and validity).
+
+Though the list of resources in Table 5-1 is not
+exhaustive, it provides general guidance on the
+types of diagnostic tests, procedures, and therapeutic
+treatments that constitute a resource in the ESI
+system. Emergency nurses who use the ESI are
+cautioned not to become overly concerned about
+the definitions of individual resources. It is
+important to remember that ESI requires the triage
+nurse to merely estimate resources that the patient
+will need while in the ED. The most common
+resources are listed in Table 5-1; however a
+comprehensive list of every possible ED resource is
+neither practical nor necessary. In fact, all that is
+really necessary for accurate ESI rating is to predict
+whether the patient will need no resources, one, or
+two or more resources. Once a triage nurse has
+identified two probable resources, there is no need
+to continue to estimate resources. The essence of the
+ESI resource component is to separate more complex
+(resource-intensive) patients from those with simpler
+problems. The interventions considered as resources
+for the purposes of ESI triage are those that indicate
+a level of assessment or procedure beyond an exam
+or brief interventions by ED staff and/or involve
+personnel outside of the ED. Resources that require
+significant ED staff time (such as intravenous
+medication administration or chest tube insertion)
+and those that require staff or resources outside the
+ED (such as x-rays by the radiology staff or surgical
+consults) increase the patient's ED length of stay and
+indicate that the patient's complexity, and,
+therefore, triage level is higher.
+
+There are some common questions about what is
+considered an ESI resource. First, there is often a
+question about the number of blood or urine tests
+and x-rays that constitute a resource. In the ESI
+triage method, the triage nurse should count the
+number of different types of resources needed to
+determine the patient's disposition, not the number
+of individual tests.
+
+- A complete blood count (CBC) and electrolyte
+panel comprise one resource (lab test).
+
+- A CBC and chest x-ray are two resources (lab test,
+x-ray).
+
+- A CBC and a urinalysis are both lab tests and
+together count as only one resource.
+
+- A chest x-ray and plain skull films are one
+resource (x-ray).
+
+- A cervical-spine films and a computerized
+tomography (CT) scan of the head are two
+resources (x-ray and CT scan).
+
+Another resource frequently questioned is the
+application of a splint, which does not count as a
+resource. If a splint did count, patients with sprained
+ankles would be triaged as ESI level 3 (x-ray and
+splint application). While the application of a splint
+can certainly be resource intensive, it is important to
+remember the only purpose of resource prediction is
+to sort patients into distinct groups and help get the
+right patient to the right area of the ED. In many
+EDs, ESI level-3 patients are not appropriate for a
+fast track or urgent care area. Triage scores are not a
+measure of total nursing workload intensity.
+
+Another common question about ESI resources
+relates to the fact that eye irrigation is also
+considered a resource. Patients with a chemical
+splash usually meet ESI level-2 criteria because of the
+high-risk nature of the splash, so eye irrigation is not
+a key factor in their ESI rating. However, if the eye
+problem was due to dust particles in the eye, the
+patient would not necessarily be high risk. In this
+type of patient, the eye irrigation would count as a
+resource and the patient would meet ESI level-4
+criteria. The eye exam does not count as a resource
+because it is considered part of the physical exam.
+Other common questions about resources are
+addressed in the Chapter 5 Frequently Asked
+Questions section of Appendix A.
+
+Another frequent question posed by clinicians is
+related to the items listed as “not resources” in Table
+5-1. The purpose of the list is to assist triage nurses
+with quick, accurate sorting of patients into five
+clinically distinct levels (Wuerz, Milne, Eitel, Travers
+& Gilboy, 2000). As such, items listed as not being
+resources include physical exams, point-of-care tests,
+and interventions that tend not to lead to increased
+length of stay in the ED or indicate a higher level of
+complexity. Since the standard of care is that all ED
+patients undergo a basic history and physical exam,
+an exam and even a pelvic exam does not constitute
+a resource for ESI classification. The beauty of the
+ESI is its simplicity; the true goal of the resource
+determination is to differentiate the more
+complicated patients needing two or more resources
+(level 3 or above) from those with simpler problems
+who are likely to need fewer than two resources
+(level 4 or 5). Emergency nurses should not try to
+complicate ESI by concentrating overly on resource
+definitions. Usually, a patient requires either no
+resources, one, or two or more resources.
+
+Though resource consumption may vary by site,
+provider, and even individual patient, triage nurses
+are urged to make the ESI resource prediction by
+thinking about the common approaches to the most
+common presenting problems. Ideally, a patient
+presenting to any emergency department should
+consume the same general resources. For example, a
+provider seeing an 82-year-old nursing home
+resident who has an in-dwelling urinary catheter
+and a chief complaint of fever and cough will most
+likely order blood and urine tests and a chest x-ray.
+The triage nurse can accurately predict that the
+patient needs two or more resources and therefore
+classify the patient as ESI level 3.
+
+There may be minor variations in operations at
+different EDs, but this will rarely affect the triage
+rating. For example, some departments do
+pregnancy tests in the ED (not a resource by ESI)
+and others send them to the lab (a resource by ESI).
+However, patients rarely have the pregnancy test as
+their only resource, so most of those patients tend to
+have two or more resources in addition to the
+pregnancy test. One ED practice variation that may
+result in different ESI levels for different sites is the
+evaluation of patients with an isolated complaint of
+sore throat. At some hospitals it is common practice
+to obtain throat cultures (one resource, ESI level 4),
+while at others it is not (no resources, ESI level 5).
+Another example of different site practice variation
+is the use of the Ottowa Ankle Rules. These are
+validated rules used to determine the need for an xray of the ankle for patients that present with ankle
+injuries. Institutional adoption of these rules into
+practice varies. Institutions that use these rules at
+triage may obtain fewer x-rays when compared with
+institutions that do not routinely use these rules.
+
+Temperature is an important assessment parameter
+for determining the number of resources for very
+young children. This subject will be covered in
+Chapter 6.
+
+From a clinical standpoint, ESI level 4 and 5 patients
+can wait several hours to be seen by a provider.
+However, from a customer service standpoint, these
+patients are perhaps better served in a fast-track or
+urgent care setting. Mid-level practitioners with the
+appropriate skills mix and supervision could care for
+level-4 and 5 patients. The ESI provides yet another
+operational advantage, in that level-5 patients can
+sometimes be “worked in” for a quick exam and
+disposition by the provider, even if the department
+is at capacity. Often triage policies clearly state ESI
+level-4 or 5 patients can be triaged to an urgent care
+or fast-track area.
+
+In summary, the ESI provides an innovative
+approach to ED triage with the inclusion of
+predictions about the number of resources needed to
+make a patient disposition. Consideration of
+resources is included in the triage level assignment
+for ESI level-3, 4, and 5 patients, while ESI level-1
+and 2 decisions are based only on patient acuity.
+Examples of ESI level-3, 4, and 5 patients are shown
+in Table 5-2. Practical experience has demonstrated
+that resource estimation is very beneficial in helping
+sort the large number of patients with non-acute
+presentations.
+
+### Chapter 6.The Role of Vital Signs in ESI Triage
+
+##### Introduction Figure 6-1. Danger Zone Vital Signs
+
+In this chapter, we focus on decision point D—the
+patient's vital signs. To reach this point in the ESI 
+algorithm, the triage nurse has already determined 
+that the patient does not meet ESI level-1 or 2 
+criteria, and that he or she will require two or more 
+resources. Since the patient requires two or more
+resources, he or she meets the criteria for at least an 
+ESI level 3. It is at this point in the algorithm that 
+vital signs data are considered, so the triage nurse's
+next step is to assess the patient's heart rate,
+respiratory rate, and oxygen saturation, and, when
+appropriate (for children under age 3), temperature.
+If the danger zone vital sign limits are exceeded (as
+illustrated in decision point D, Figure 6-1), the triage
+nurse must strongly consider up-triaging the patient
+from a level 3 to a level 2.
+
+During the ESI triage educational program, a
+considerable amount of time should be devoted to
+exploring the importance of vital signs in the
+decision to move a patient from ESI level 3 to an ESI
+level 2. It should be stressed that it is always the
+decision of the experienced triage nurse to determine
+whether the patient meets criteria for ESI level 2,
+based upon their past medical history, current
+medications, and subjective and objective assessment
+that includes general appearance. This decision is
+based on the triage nurse's clinical judgment and
+knowledge of normal vital sign parameters for all
+ages and the influence of factors such as medications,
+past medical history, and pain level.
+
+##### What Are Vital Signs?
+
+Vital signs traditionally include simple measurements
+of physiological parameters including temperature,
+blood pressure, pulse, and respiratory rate as well as
+pulse oximetry (see Table 6-1). They frequently
+prompt a health care worker to follow a particular
+path of action. Recently, the nursing literature has
+placed increased emphasis on pain. The American
+Pain Society adopted the phrase “Pain: the fifth vital
+sign” to increase healthcare workers' awareness of
+the importance of assessment and management of
+pain. Pain assessment is an important component of
+ESI and is actually assessed earlier in the algorithm.
+So, for the purpose of ESI, heart rate, respiratory rate,
+oxygen saturation and temperature in children
+under age 3 are the vital sign parameters considered
+in decision point D. Vital signs represent a set of
+objective data for use in determining general
+parameters of patients' health and viability. The
+values we obtain influence our interpretation of a
+patient's overall condition and, therefore, the path
+we take in establishing a diagnosis and treatment for
+the patient. However, vital signs alone do not paint
+a complete picture of the patient's condition. Vital
+signs may be affected by a variety of factors
+including prescription medications, herbals, and
+recreational drugs. For example, beta-blockers cause
+bradycardia and blunt the tachycardic response to
+shock. Hypothyroidism, common in the elderly,
+may lead to the finding of low temperature, even in
+the face of sepsis. A young adult may have an
+elevated body temperature due to recreational drug
+use.
+
+Vital signs are variable, dynamic indicators that are
+an adjunct to a patient's evaluation. Vital sign
+measurements may also be operator dependent, and
+the definition of normal vital signs varies according
+to the reference consulted. Even under the best
+conditions, vital signs are not always reliable or
+accurate (Edmonds, Mower, Lovato & Lomeli, 2002).
+The patient's general appearance and clinical picture
+frequently prove to be of the most value. However,
+if in a triage nurse's judgment, knowing a patient's
+vital signs would help with risk analysis, then vital
+signs should be measured. For example, if the
+patient is using immunosuppressive medications or
+chemotherapy or is immunosuppressed by an illness
+such as AIDS, then the body temperature should be
+measured.
+
+##### Are Vital Signs Necessary at Triage?
+
+Prior to the advent of five-level triage in the United
+States, tradition dictated that every patient
+presenting to an emergency department should have
+a set of vital signs taken before triage level
+assignment. Vital signs were considered an integral
+component of the initial nursing assessment and
+were often used as a decisionmaking tool. In a
+traditional three-level triage system, vital signs
+helped determine how long a patient could wait for
+treatment (i.e., if no abnormal vital signs were
+present, in many cases, the patient could wait a
+longer period of time). Vital signs, therefore, in the
+past weighted heavily in the patient triage
+assessment, with variable emphasis placed on the
+clinical presentation.
+
+More recently, newer triage models advocate
+selective use of vital signs at triage (Gilboy, Travers &
+Wuerz, 2000). Initial vital signs are not a mandatory
+component of other five-level triage systems and in
+general are not reported during the triage phase of a
+level-1 or 2 patient (i.e., those patients with the
+highest acuity). For example, the Guidelines for
+_Implementation of the Australasian Triage Scale in_
+_Emergency Departments states that “vital signs should_
+only be measured at triage if required to estimate
+urgency, or if time permits” (Australasian College for
+Emergency Medicine, 2000). Similarly, the Canadian
+Triage and Acuity Scale (CTAS) upholds the need for
+vital signs if, and only if, they are necessary to
+determine a triage level (in the cases of levels 3, 4,
+and 5) as time permits (Beveridge et al., 2002. The
+Manchester Triage Group uses specific vital sign
+parameters as discriminators within a presentational
+flow chart. The vital sign parameter is one of the
+factors that help the triage nurse assign an acuity
+level.
+
+Vital signs may not always be the most appropriate
+tool to determine triage acuity. At least one study
+has suggested that vital signs are not always
+necessary in the initial assessment of the patient at
+triage. In 2002, Cooper, Flaherty, Lin, and Hubbell
+examined the use of vital signs to determine a
+patient's triage status. They considered age and
+communication ability as factors. Twenty-four
+different U.S. emergency departments and more
+than 14,000 patients participated in that study. Final
+results demonstrated that vital signs changed the
+level of triage acuity status in only eight percent of
+the cases. When further examining individual age
+groups, pediatric patients age 2 or younger showed
+the largest variation in triage decision with an 11.4
+percent change once vital signs were collected.
+
+##### Vital Signs and ESI Triage
+
+Using ESI triage, the only absolute requirement for
+vital signs assessment is for patients who don't
+initially meet ESI level-1 or 2 criteria, but who are
+predicted to need two or more resources. Assessment
+of vital signs at triage is optional and at the
+discretion of the triage nurse for patients triaged as
+ESI level 1, 2, 4, or 5. While the ESI system does not
+require vital signs assessment on all patients who
+present to triage, local policies may dictate a
+different procedure. Factors such as staffing levels,
+casemix, and local resources influence individual
+hospital policies regarding vital signs at triage and
+are beyond the scope of this handbook. In general
+when triaging a stable patient, it is never wrong to
+obtain a set of vital signs. ESI requires vital signs for
+only level-3 patients. (See Table 6-2)
+
+The developers of the ESI and the current ESI
+research team believe that experienced ED nurses
+can use vital sign data as an adjunct to sound
+clinical judgment when rating patients with the ESI.
+There is limited evidence on vital sign abnormalities
+as they relate to ED acuity and that are proven to
+truly represent serious illness. The ESI has been
+revised over time to reflect changes in the available
+evidence and recommendations from the literature.
+The ESI working group initially used the systemic
+inflammatory response syndrome (SIRS) literature
+(Rangel-Frausto et al., 1995) in developing the
+danger zone vital sign box and accompanying
+footnotes. The first version of the ESI used the SIRS
+criteria to include a heart rate of greater than 90 (for
+adults) as an absolute indicator to up-triage from ESI
+level 3 to level 2 (Wuerz, Milne, Eitel, Traers &
+Gilboy, 2000). The SIRS research was based on
+predictors of mortality in an intensive care unit
+population. Based on an excess of false positives
+using these criteria for ED patients at the initial ESI
+hospitals, the heart rate cutoff was changed to 100
+in ESI version 2, and nurses were instructed to
+consider up-triage to ESI 2 for adult patients with
+heart rates greater than 100 (Wuerz et al., 2001;
+Gilboy, Tanabe, Travers, Eitel & Wuerz, 2003).
+Additionally, pediatric vital signs were added to the
+danger zone vital signs box.
+
+When using ESI as a triage system, vital signs
+assessment is not necessary in the triage area for
+patients who are immediately categorized as level 1
+or 2. If the patient appears unstable or presents with
+a chief complaint that necessitates immediate
+treatment, then transport of the patient directly to
+the treatment area should be expedited. For these
+patients, the resuscitation team is responsible for
+obtaining and monitoring vital signs at the bedside.
+This would include patients that have clinical
+appearances that indicate high risk or need for
+immediate cardiovascular or respiratory
+intervention. These patients may appear pale,
+diaphoretic, or cyanotic. However, the triage nurse
+has the option to perform vitals in the triage area, if
+an open bed is not immediately available or if he or
+she feels that the vital signs may assist in confirming
+the triage acuity level. Some patients may not
+initially be identified as ESI level 1 until vital signs
+are taken. For example, an awake, alert elderly
+patient who complains of dizziness might be found
+to have a life-threatening condition when a heart
+rate of 32 or 180 is discovered during vital sign
+measurement.
+
+As shown in the ESI algorithm in Chapter 3, if
+patients do not meet ESI level-1 or 2 criteria, the
+triage nurse comes to decision point C. The nurse
+then determines how many resources the patient is
+expected to need in the ED. If the patient is
+expected to need one or no resources, he or she can
+be assigned an ESI level of 4 or 5 and no vital sign
+assessment is necessary. But if the patient is expected
+to need two or more resources, then the nurse
+comes to decision point D and vital signs should be
+assessed. Vital signs can play a more important role
+in the evaluation of some patients at triage,
+especially those triaged as ESI level 3. The range of
+vital signs may provide supporting data for potential
+indicators of serious illness. If any of the danger
+zone vital signs are exceeded, it is recommended
+that the triage nurse consider up-triaging the patient
+from level 3 to level 2.
+
+Vital signs that are explicitly included in ESI triage
+are heart rate, respiratory rate, and oxygen
+saturation (for patients with potential respiratory
+compromise). Temperature is specifically used in ESI
+triage for children under age 3 (see below). It is
+important to note that when considering abnormal
+vital signs, blood pressure is not included in the ESI
+algorithm. This does not mean that the triage nurse
+should not take a blood pressure or a temperature
+on older children or adults but that these vital signs
+are not necessarily used to assist in selecting the
+appropriate triage acuity level.
+
+##### Vital Signs and Pediatric Fever
+
+In this version of the ESI Handbook, version 4 (v.4)
+of the ESI algorithm has been updated to include
+more current pediatric fever criteria. As shown in
+Figure 6-2, note D of the ESI algorithm addresses
+pediatric fever considerations for ESI triage. This
+section incorporates recommendations from the
+American College of Emergency Physicians' Clinical
+Policy for Children Younger Than Three Years
+Presenting to the Emergency Department With Fever
+(ACEP, 2003).
+
+The ESI Triage Research Team recommends that vital
+signs in patients under age 3 be assessed at triage. In
+particular, temperature measurement is important
+during triage of all children from newborn through
+36 months of age, and vital sign evaluation is
+essential to the overall assessment of a known febrile
+infant under age 36 months (Baraff, 2000). This
+helps to differentiate ESI level-2 and 3 patients and
+minimize the risk that potentially bacteremic
+children will be sent to an express care area or
+otherwise experience an inappropriate wait.
+Remember, if a patient is in immediate danger or
+high risk, he or she will be assigned to either ESI
+level 1 or 2.
+
+Table 6-3 provides direction for the triage nurse in
+using the ESI to assess the febrile child and
+determine the most appropriate triage level. The
+generally accepted definition of fever is a rectal
+temperature greater than 38.0° C (100.4° F) (Baraff et
+al., 1993; ACEP, 2003). The infant less than 28 days
+old with a fever should be considered high risk and
+assigned to at least ESI level 2. There are no clear
+guidelines for the infant between 28 days and 3
+months of age. The ESI research team recommends
+triage nurses rely on local hospital guidelines. We
+suggest that the nurse consider assigning at least an
+ESI level 2 for such patients.
+
+In v. 4 of the ESI, we have incorporated a different
+set of pediatric fever guidelines for children ages 3 to
+36 months. These pediatric fever considerations
+pertain to highly febrile children, defined as those
+with a fever of greater than 39.0° C (102.2° F) (ACEP,
+2003). When triaging a child between 3 and 36
+months of age who is highly febrile, it is important
+for the triage nurse to assess the child's
+immunization status and whether there is an
+identifiable source for the fever. The patient with
+incomplete immunizations or with no identifiable
+source for the fever should be assigned to at least ESI
+level 3. If the patient has an identifiable source for
+the fever and his or her immunizations are up to
+date, then a rating of 4 or 5 is appropriate. For
+example, a 7-month-old who is followed by a
+pediatrician, has had the Haemophilus influenza
+type b (HIB) vaccine and presents with a fever and
+pulling on his ear could be assigned to an ESI
+level 5.
+
+##### Case Examples
+
+The following case studies are examples of how vital
+signs data are used in ESI triage.
+
+- “My doctor told me I am about 6 weeks pregnant
+and now I think I am having a miscarriage,”
+reports a healthy looking 28-year-old female. “I
+started spotting this morning and now I am
+cramping.” No allergies, no PMH, medications:
+prenatal vitamins. Vital signs: T 98° F, HR 112, RR
+22, BP 90/60.
+
+This patient meets the criteria for being up-triaged
+from a level 3 to a level 2 based on her vital signs.
+Her increased heart rate, respiratory rate, and
+decreased blood pressure are a concern. These factors
+could indicate internal bleeding from a ruptured
+ectopic pregnancy.
+
+- “The baby has had diarrhea since yesterday. The
+whole family has had that GI bug that is going
+around,” reports the mother of a 15-month-old.
+She tells you the baby has had a decreased
+appetite, a low-grade temperature, and numerous
+liquid stools. The baby is sitting quietly on the
+mother's lap. The triage nurse notes signs of
+dehydration. No PMH, NKDA, no medications.
+Vital signs: T 100.4° F, HR 142, RR 48, BP 76/50.
+
+This patient meets the criteria for at least ESI level 3.
+For resources he would require labs and IV fluid.
+Based on his vital signs the triage nurse can uptriage him to an ESI level 2. For a baby this age, both
+heart rate and respiratory rate criteria are violated.
+
+- “I need to see a doctor for my cough. I just can't
+seem to shake it. Last night I didn't get much
+sleep because I was coughing so much, I am just
+so tired,” reports a 57-year-old female. She tells
+you that she had a temperature of 101° last night
+and that she is coughing up this yellow stuff. Her
+history includes a hysterectomy 3 years ago; she
+takes no medications but is allergic to Penicillin.
+Vital signs: T 101.4°, RR 28, HR 100, SpO2 90
+percent.
+
+At the beginning of her triage assessment, this
+patient sounds as though she could have
+pneumonia. She will need two or more resources but
+her low oxygen saturation and increased respiratory
+rate are a concern. After looking at her vital signs
+the triage nurse should up-triage the patient to an
+ESI level 2.
+
+- A 34-year-old obese female presents to triage
+complaining of generalized abdominal pain (pain
+scale rating: 6/10) for 2 days. She has vomited
+several times and states her last bowel movement
+was 3 days ago. She has a history of back surgery,
+takes no medications, and is allergic to peanuts.
+Vital signs: T 97.8° F, HR 104, RR 16, BP 132/80,
+SpO2 99 percent.
+
+This patient will need a minimum of two or more
+resources: lab, IV fluids, perhaps IV medication for
+nausea, and a CT scan. The triage nurse would
+review the patient's vital signs and consider the
+heart rate. The heart rate falls just outside the
+accepted parameter for the age of the patient but
+could be due to pain or exertion. In this case, the
+decision should be to assign the patient to ESI
+level 3.
+
+- A tearful 9-year-old presents to triage with her
+mother. She slipped on an icy sidewalk and
+injured her right forearm. The forearm is
+obviously deformed but has good color,
+sensation, and movement. The mother reports
+she has no allergies, takes no medications, and is
+healthy. Vital signs: BP 100/68, HR 124, RR 32,
+and SpO2 99 percent.
+
+This child is experiencing pain from her fall and is
+obviously upset. She will require at least two
+resources: x-ray and orthopedic consult, and perhaps
+conscious sedation. Her heart rate and respiratory
+rate are elevated, but the triage nurse should feel
+comfortable assigning this patient to ESI level 3. Her
+vital sign changes are likely due to pain and distress.
+
+- A 72-year-old patient presents to the ED with her
+oxygen via nasal cannula for her advanced
+COPD. She informs the triage nurse that she has
+an infected cat bite on her left hand. The hand is
+red, tender, and swollen. The patient has no
+other medical problems, uses albuterol prn, and
+takes an aspirin daily, NKDA. Vital signs: T 99.6°
+F, HR 88, RR 22, BP 138/80, SpO2 91 percent. She
+denies respiratory distress.
+
+This patient will require two or more resources: labs
+and IV antibiotics. She meets the criteria for ESI level
+3. The triage nurse notices that her oxygen
+saturation and respiratory rate are outside the
+accepted parameters for the adult but this patient
+has advanced COPD. These vital signs are not a
+concern so the patient will not be up-triaged but
+will stay an ESI level 3.
+
+##### Case Examples
+
+The following case studies are examples of how vital
+signs data are used in ESI triage.
+
+- “My doctor told me I am about 6 weeks pregnant
+and now I think I am having a miscarriage,”
+reports a healthy looking 28-year-old female. “I
+started spotting this morning and now I am
+cramping.” No allergies, no PMH, medications:
+prenatal vitamins. Vital signs: T 98° F, HR 112, RR
+22, BP 90/60.
+
+This patient meets the criteria for being up-triaged
+from a level 3 to a level 2 based on her vital signs.
+Her increased heart rate, respiratory rate, and
+decreased blood pressure are a concern. These factors
+could indicate internal bleeding from a ruptured
+ectopic pregnancy.
+
+- “The baby has had diarrhea since yesterday. The
+whole family has had that GI bug that is going
+around,” reports the mother of a 15-month-old.
+She tells you the baby has had a decreased
+appetite, a low-grade temperature, and numerous
+liquid stools. The baby is sitting quietly on the
+mother's lap. The triage nurse notes signs of
+dehydration. No PMH, NKDA, no medications.
+Vital signs: T 100.4° F, HR 142, RR 48, BP 76/50.
+
+This patient meets the criteria for at least ESI level 3.
+For resources he would require labs and IV fluid.
+Based on his vital signs the triage nurse can uptriage him to an ESI level 2. For a baby this age, both
+heart rate and respiratory rate criteria are violated.
+
+- “I need to see a doctor for my cough. I just can't
+seem to shake it. Last night I didn't get much
+sleep because I was coughing so much, I am just
+so tired,” reports a 57-year-old female. She tells
+you that she had a temperature of 101° last night
+and that she is coughing up this yellow stuff. Her
+history includes a hysterectomy 3 years ago; she
+takes no medications but is allergic to Penicillin.
+Vital signs: T 101.4°, RR 28, HR 100, SpO2 90
+percent.
+
+At the beginning of her triage assessment, this
+patient sounds as though she could have
+pneumonia. She will need two or more resources but
+her low oxygen saturation and increased respiratory
+rate are a concern. After looking at her vital signs
+the triage nurse should up-triage the patient to an
+ESI level 2.
+
+- A 34-year-old obese female presents to triage
+complaining of generalized abdominal pain (pain
+scale rating: 6/10) for 2 days. She has vomited
+several times and states her last bowel movement
+was 3 days ago. She has a history of back surgery,
+takes no medications, and is allergic to peanuts.
+Vital signs: T 97.8° F, HR 104, RR 16, BP 132/80,
+SpO2 99 percent.
+
+This patient will need a minimum of two or more
+resources: lab, IV fluids, perhaps IV medication for
+nausea, and a CT scan. The triage nurse would
+review the patient's vital signs and consider the
+heart rate. The heart rate falls just outside the
+accepted parameter for the age of the patient but
+could be due to pain or exertion. In this case, the
+decision should be to assign the patient to ESI
+level 3.
+
+- A tearful 9-year-old presents to triage with her
+mother. She slipped on an icy sidewalk and
+injured her right forearm. The forearm is
+obviously deformed but has good color,
+sensation, and movement. The mother reports
+she has no allergies, takes no medications, and is
+healthy. Vital signs: BP 100/68, HR 124, RR 32,
+and SpO2 99 percent.
+
+This child is experiencing pain from her fall and is
+obviously upset. She will require at least two
+resources: x-ray and orthopedic consult, and perhaps
+conscious sedation. Her heart rate and respiratory
+rate are elevated, but the triage nurse should feel
+comfortable assigning this patient to ESI level 3. Her
+vital sign changes are likely due to pain and distress.
+
+- A 72-year-old patient presents to the ED with her
+oxygen via nasal cannula for her advanced
+COPD. She informs the triage nurse that she has
+an infected cat bite on her left hand. The hand is
+red, tender, and swollen. The patient has no
+other medical problems, uses albuterol prn, and
+takes an aspirin daily, NKDA. Vital signs: T 99.6°
+F, HR 88, RR 22, BP 138/80, SpO2 91 percent. She
+denies respiratory distress.
+
+This patient will require two or more resources: labs
+and IV antibiotics. She meets the criteria for ESI level
+3. The triage nurse notices that her oxygen
+saturation and respiratory rate are outside the
+accepted parameters for the adult but this patient
+has advanced COPD. These vital signs are not a
+concern so the patient will not be up-triaged but
+will stay an ESI level 3.
+
+##### Conclusion
+
+The information in this chapter provides a
+foundation for understanding the role of vital signs
+in the Emergency Severity Index triage system. We
+addressed the special case of patients under 36
+months of age. Further research is necessary to
+clarify the best vital sign thresholds used in
+emergency department triage. Further study will also
+examine pediatric populations presenting to the
+emergency department. It is our hope that future
+versions of the ESI will be based on additional
+evidence regarding the predictive value of triage
+vital signs for pediatric and adult patients.
+
+### Appendix A. Frequently Asked Questions
+
+##### Chapter 3.
+
+###### Frequently Asked Questions
+
+1. Do I have to upgrade the adult patient’s triage
+level if the heart rate is greater than 100?
+
+No, it is a factor to consider.
+
+2. Do I have to upgrade the patient’s triage level if
+the pain rating is 7/10 or greater?
+
+No, again this is one factor to consider.
+
+3. If the patient is chronically confused, should the
+patient then automatically be categorized as ESI
+level 2?
+
+No, an ESI level 2 is assigned to patients with an
+acute change in level of consciousness.
+
+4. When do I need to measure vital signs?
+
+For any patient who meets ESI level-3 criteria.
+Vital signs are always obtained if the triage nurse
+determines they may be useful.
+
+##### Chapter 4.
+
+###### Frequently Asked Questions
+
+1. Do I have to assign the ESI triage category of 2
+for the 25-year-old female patient who rates her
+pain as 10/10 and is eating potato chips?
+
+No. With stable vital signs and no other factors
+that would meet high-risk criteria, this patient
+should be assigned ESI level 3. She will most
+likely need labs, and either x-rays, an IV, or pain
+medications, i.e., two or more resources. You
+would not use your last open bed for her.
+
+2. Does an 80-year-old female who is chronically
+confused need to be triaged as ESI level 2?
+
+No. The new onset of confusion, lethargy, or
+disorientation meet criteria for ESI level 2.
+
+3. Shouldn’t the patient with active chest pain be
+rated an ESI level 1? After all, they should be the
+highest priority.
+
+Not all patients with chest pain meet ESI level-1
+criteria. If they are unresponsive, pulseless, apneic
+or not breathing, or require immediate life saving
+intervention, they meet level-1 criteria. A chest
+pain patient that is pale, diaphoretic,
+hypotensive, or bradycardic will require
+immediate IV access to improve their
+hemodynamic status is level 1. Stable patients
+with active chest pain usually meet high-risk
+criteria and should be categorized ESI level 2;
+immediate placement should be facilitated.
+
+##### Chapter 5.
+
+###### Frequently Asked Questions
+
+1. Why isn’t crutch-walking instruction a resource?
+
+Though crutch-walking instruction may consume
+a fair amount of the ED staff members’ time, it is
+often provided to patients who have simple ankle
+sprains. These patients are typically classified as
+ESI level 4 (ankle x-ray = one resource). The
+patients are clearly less acute and less resource
+intensive than more complex patients like those
+with tibia/fibula fractures who are usually ESI
+level 3 (leg films, orthopedic consult, cast/splint,
+IV pain medications = two or more resources). A
+better way to reflect the ED staff’s efforts for
+crutch-walking instruction is with a nursing
+resource intensity measure.
+
+2. Why isn’t a splint a resource?
+
+The application of simple, pre-formed splints
+(such as splints for ankle sprains) is not
+considered a resource. In contrast, the creation
+and application of splints by ED staff, such as
+thumb spica splints for thumb fractures, does
+constitute a resource. A helpful way to
+differentiate patients with extremity trauma is as
+follows: patients with likely fractures should be
+rated ESI 3 (two or more resources: x-ray, pain
+medications, creation and application of
+splints/casts), whereas patients more likely to
+have simple sprains can be rated as ESI level 4.
+
+3. Why isn’t a saline or heparin lock a resource?
+
+Generally speaking, insertion of a heparin lock
+doesn’t consume a large amount of ED staff time.
+However, many patients who have heparin locks
+inserted also have at least two other resources
+(e.g., laboratory tests, intravenous medications)
+and are therefore classified as ESI level 3 anyway.
+
+4. Are all conscious sedation patients ESI level 3 or
+higher?
+
+Yes, conscious sedation is considered a complex
+procedure (two resources) and is generally
+performed with patients who also have
+laboratory tests or x-rays, and other procedures
+such as fracture reduction or dilation and
+curettage.
+
+5. Which of the following are considered resources:
+eye irrigation, nebulized medication
+administration, and blood transfusions?
+
+All three are considered resources for the
+purposes of ESI triage ratings. The resources tend
+to be used for more acute patients, require
+significant ED staff time, and likely lead to longer
+length of stay for patients.
+
+6. Are all asthmatics ESI level 4 because they will
+require a nebulized medication?
+
+No. Stable asthmatics who only require a
+nebulized medications are assigned ESI level 4.
+However, some asthmatics are in severe
+respiratory distress and meet ESI level-2 criteria.
+Others are somewhere in between and will
+require intravenous steroids or an x-ray in
+addition to nebulized treatments and would be
+assigned ESI level 3. Finally, asthmatics who
+require only a prescription refill of their inhaler
+are assigned ESI level 5. They do not require any
+resources.
+
+##### Chapter 6.
+
+###### Frequently Asked Questions
+
+1. Why aren’t vital signs required to triage ESI level1 and 2 patients?
+
+Vital signs are not necessary to rate patients as
+life threatening (ESI level 1) or high-risk (ESI level
+2). Since ESI level 1 and 2 patients are critical,
+they require the medical team to respond
+quickly. Simultaneous actions can occur and vital
+signs can be collected as part of the initial
+assessment in the main acute area of the
+emergency department.
+
+2. Why aren’t vital signs required for ESI level-4 and
+5 patients?
+
+Vital signs are not necessary to rate patients as
+low or no resource (ESI level 4 or 5). Also, the
+pain, anxiety, and discomfort associated with an
+emergency department visit often alter a patient’s
+vital signs. Vital signs may quickly return to
+normal once the initial assessment is addressed.
+However, a nurse may choose to assess vital signs
+if signs of deranged symptoms exist (e.g., changes
+in skin color, mentation, dizziness, sweating). If
+there is no physical sign indicating a need for
+vital signs, the patient can be taken in the main
+emergency department or express care room.
+
+3. Why are vital signs done on ESI level-3 patients?
+
+Vital signs can aid in differentiating patients
+needing multiple resources as either stable (ESI
+level 3) or potentially unstable or high-risk (ESI
+level 2). On occasion, ESI level-3 patients may
+actually have unstable vital signs while appearing
+stable. Vital signs for ESI level-3 patients provide
+a safety check. In general, ESI level-3 patients are
+more complicated and many are admitted to the
+hospital. Since these patients are not appropriate
+for the fast-track area, they are sometimes asked
+to wait for more definitive care. These patients
+present a unique challenge to the triaging process
+and caregivers find it necessary to rely on vital
+signs to confirm that an appropriate ESI level has
+been assigned.
+
+4. Why are temperatures always done for pediatric
+patients less than 36 months?
+
+Temperature is useful in differentiating pediatric
+patients that are low or no resource (ESI level 4 or
+5) from those that will consume multiple
+resources. An abnormal temperature in the less
+than 3 month old may indicate bacteremia, and
+place the child in a high-risk category.
+
+5. Why does the literature present conflicting
+information on the value of vital signs during the
+triage process?
+
+There is no definitive research on the utility of
+vital signs for emergency department triage.
+Many factors influence the accuracy of vital sign
+data. Vital signs are a somewhat operatordependent component of a patient’s assessment.
+In some cases, vital signs may be affected by
+many factors such as chronic drug therapy (e.g.,
+beta-blockers). Vital signs may also be used to
+fulfill part of the public health obligation
+assumed by emergency departments. And, lastly,
+vital signs help segment young pediatric patients
+into various categories.
+
+6. Does JCAHO require vital signs to be done during
+triage?
+
+The Joint Commission on Accreditation of
+Healthcare Organizations does not specifically
+state a standard for vital signs. The organization
+does assert that physiologic parameters should be
+assessed as determined by patient condition.
+
+7. Should vital sign criteria be strict in the danger
+zone vital sign box?
+
+In common usage, when the danger zone vital
+sign criteria are exceeded, up-triage is
+“considered” rather than automatic. The
+experienced triage nurse is called upon to use
+good clinical judgment in rating the patient’s ESI
+level. The nurse incorporates information about
+the vital signs, history, medications, and clinical
+presentation of the patient in that decisionmaking process. Research is still needed to
+determine the predictive value of vital signs at
+triage, and to determine absolute cutoffs for uptriage.
+
+8. What if ESI level-4 or 5 patients have danger
+zone vital signs?
+
+Though it is not required to take vital signs in
+order to assign ESI 4 or 5 levels, many patients
+may have vitals assessed at triage if that is part of
+the particular ED’s operational process. Per the
+ESI triage algorithm, the triage nurse does not
+have to take the vital signs into account in
+determining that the patient meets ESI level-5
+(no resources) or ESI level-4 (one resource)
+criteria. However, in practice, the prudent nurse
+will use good clinical judgment and take the vital
+sign information into account in rating the ESI
+level. If the patient requests only a prescription
+refill and has no acute complaints, but has a
+heart rate of 104 after walking up the hill to the
+ED, the nurse might still rate the patient as an
+ESI level 5. But if the patient requests a
+prescription refill and has a heart rate of 148 and
+irregular, the nurse should rate the patient as ESI
+level 2. The triage nurse must also consider the
+following dilemma: an elevated blood pressure in
+an ESI level-4 or 5 patient. If the patient is
+asymptomatic related to the blood pressure, the
+triage level should not change. Most likely, an
+elevated BP in the asymptomatic patient will not
+be treated in the ED. However, it may be
+important to refer the patient to a primary care
+physician for BP follow-up and long term
+diagnosis and treatment.

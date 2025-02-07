@@ -56,7 +56,7 @@ dbp: {row['dbp']}
 pain: {row['pain']}
 chiefcomplaint: {row['chiefcomplaint']}
 """
-    elif serialization=='natural_full':
+    elif serialization=='natural':
         serialization_prompt = f"""A patient has a temperature of {row['temperature']}°F, a heart rate of {row['heartrate']} bpm, a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}"."""
     elif serialization=='natural_full':
         serialization_prompt = f"""A {row['race'].lower()}, {row['anchor_age']}-year old {'man' if row['gender'] == 'M' else 'woman'} arrives at the emergency department{convert_arrival(row['arrival_transport'])}. {'He' if row['gender'] == 'M' else 'She'} has a temperature of {row['temperature']}°F, a heart rate of {row['heartrate']} bpm, a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}"."""
