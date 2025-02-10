@@ -178,8 +178,8 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
 
     return results
 
-def query_gpt_safe(prompt, model="openai-gpt-4o-chat", return_json=False,temperature=0.0, max_tokens=1000, debug=False):
-    time.sleep(2)
+def query_gpt_safe(prompt, model="openai-gpt-4o-high-quota-chat", return_json=False,temperature=0.0, max_tokens=1000, debug=False):
+    time.sleep(0.5)
     if debug:
         print(prompt)
     if return_json:
@@ -365,7 +365,7 @@ def format_row(row, dataset='triage-mimic'):
             "sbp": f", systolic blood pressure of {row['sbp']} mmHg" if pd.notna(row.get("sbp")) else "",
             "dbp": f", diastolic blood pressure of {row['dbp']} mmHg" if pd.notna(row.get("dbp")) else "",
             "pain": f", pain level reported as '{row['pain']}'" if pd.notna(row.get("pain")) else "",
-            "chiefcomplaint": f" a chief complaint described as '{row["chiefcomplaint"]}'" if pd.notna(row.get("chiefcomplaint")) else "",
+            "chiefcomplaint": f" a chief complaint described as '{row['chiefcomplaint']}'" if pd.notna(row.get("chiefcomplaint")) else "",
         }
         missing_vitals = [key for key, value in vitals.items() if value == ""]
 
