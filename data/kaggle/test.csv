@@ -1,0 +1,580 @@
+Group,Sex,Age,Patients number per hour,Arrival mode,Injury,Chief_complain,Mental,Pain,NRS_pain,SBP,DBP,HR,RR,BT,KTAS_RN,Diagnosis in ED,KTAS_expert,Length of stay_min
+2,Male,71,3,Private Vehicle,Yes,right ocular pain,Alert,1,2.0,160.0,100.0,84.0,18.0,36.6,2,Corneal abrasion,4,86
+2,Female,68,8,119 Ambulance,Yes,"arm pain, Lt",Alert,1,2.0,130.0,80.0,102.0,20.0,36.6,4,"Fracture of surgical neck of humerus, closed",5,862
+2,Female,54,6,Private Ambulance,No,fever,Alert,1,3.0,140.0,90.0,94.0,20.0,38.1,3,"Fever, unspecified",4,9246
+2,Male,49,11,Private Vehicle,No,With chest discomfort,Alert,1,3.0,110.0,70.0,70.0,20.0,36.2,2,"Angina pectoris, unspecified",3,400
+2,Female,38,6,Private Vehicle,No,"Eczema, Eyelid",Alert,1,3.0,130.0,80.0,80.0,20.0,36.3,4,Ocular pain,5,185
+2,Female,53,10,Private Vehicle,No,epigastric pain,Alert,1,3.0,120.0,80.0,106.0,20.0,36.2,3,Infectious or septic colitis,4,8067
+2,Female,65,12,Private Ambulance,No,headache,Alert,1,3.0,140.0,100.0,80.0,20.0,36.0,3,"Subarachnoid haemorrhage, unspecified",4,153
+2,Male,53,12,119 Ambulance,Yes,Open Wound,Alert,1,4.0,130.0,80.0,100.0,20.0,36.4,2,"Open wound of other parts of head, face",3,613
+2,Female,20,10,Private Vehicle,No,RUQ pain,Alert,1,4.0,100.0,60.0,90.0,20.0,36.4,2,Hepatitis NOS,3,745
+2,Female,79,3,Private Ambulance,Yes,chin pain,Alert,1,4.0,110.0,70.0,80.0,20.0,36.2,3,"Closed fracture of humerus, NOS",4,8199
+2,Male,59,8,Private Ambulance,No,Rt. side motor weakness,Alert,1,5.0,140.0,80.0,88.0,20.0,36.5,2,"Intracranial haemorrhage (nontraumatic), unspecified",3,143
+2,Female,62,2,Private Vehicle,No,throat pain,Alert,1,6.0,140.0,90.0,98.0,22.0,36.8,2,Acute epiglottitis without obstruction,3,1242
+2,Male,74,12,Private Ambulance,Yes,chest wall pain right,Alert,1,8.0,80.0,50.0,98.0,22.0,36.1,1,"Multiple fracture of involving three ribs,Closed",2,207
+2,Female,27,3,Private Vehicle,No,hematochezia,Alert,0,,120.0,80.0,84.0,20.0,36.8,2,"Gastrointestinal haemorrhage, unspecified",3,487
+2,Male,34,4,Private Vehicle,No,Foreign body sensation in neck,Alert,0,,120.0,70.0,106.0,20.0,36.6,4,Chronic sore throat,5,144
+2,Female,81,7,Private Ambulance,No,mental change,Verbal Response,0,,110.0,70.0,68.0,20.0,36.4,1,Cerebral infarction due to unspecified occlusion or stenosis of middle cerebral artery,2,30
+2,Male,65,5,Private Vehicle,No,fever,Alert,0,,130.0,80.0,110.0,20.0,36.7,2,Liver transplant status,3,8667
+2,Male,89,8,Private Ambulance,No,melena,Alert,0,,100.0,60.0,74.0,20.0,36.2,2,"Acute with haemorrhage, duodenal ulcer",3,8397
+2,Female,37,5,Private Ambulance,No,Abdominal pain (finding),Alert,1,3.0,120.0,80.0,101.0,20.0,36.8,3,"Maternal care for cervical incompetence, 22 weeks or more pregnant ~ less than 34 weeks pregnant",4,76
+2,Female,39,17,Private Vehicle,No,both leg pain,Alert,1,3.0,130.0,80.0,93.0,20.0,36.3,4,"Rhabdomyolysis, lower leg",5,589
+2,Female,81,5,Private Ambulance,Yes,Left leg pain,Alert,1,4.0,200.0,160.0,80.0,20.0,36.0,3,"Closed, fracture of shaft of femur",4,185
+2,Male,29,3,Private Vehicle,No,knee pain,Alert,1,6.0,110.0,70.0,88.0,20.0,36.4,3,"Pain in limb, knee joint",4,34
+2,Male,64,7,Private Ambulance,Yes,H-Headache,Alert,0,,150.0,90.0,85.0,20.0,36.0,1,Traumatic subdural hemorrhage without open intracranial wound,2,232
+2,Male,72,6,Private Vehicle,No,Left chest pain,Alert,1,2.0,110.0,70.0,92.0,20.0,36.7,3,Unstable angina,2,10141
+2,Female,70,8,119 Ambulance,No,dyspnea,Verbal Response,1,3.0,,,96.0,22.0,36.3,2,Dyspnoea,1,593
+2,Female,45,10,Private Vehicle,No,ant. chest pain,Alert,1,3.0,110.0,80.0,101.0,20.0,36.3,3,Ischaemic chest pain,2,223
+2,Female,26,5,Private Ambulance,No,right lower quadrant abdominal pain,Alert,1,3.0,120.0,80.0,84.0,20.0,36.6,4,"Benign neoplasm of ovary, right",3,7864
+2,Female,83,6,Private Ambulance,No,right hemiparesis,Alert,1,3.0,160.0,100.0,83.0,20.0,36.3,3,Cerebral infarction due to thrombosis of middle cerebral artery,2,516
+2,Female,22,6,Private Vehicle,No,watery diarrhea,Alert,1,4.0,110.0,70.0,84.0,20.0,36.5,4,Acute watery diarrhoea,3,9191
+2,Female,70,3,119 Ambulance,No,epigastric pain,Alert,1,4.0,100.0,60.0,90.0,20.0,36.0,4,Infectious or septic colitis,3,714
+2,Female,82,5,Private Vehicle,No,V - vomiting,Alert,1,4.0,110.0,60.0,72.0,20.0,36.0,5,Nause with vomiting,3,1312
+2,Female,20,1,119 Ambulance,No,HA - Headache,Alert,1,4.0,100.0,70.0,84.0,20.0,37.6,4,Headache,3,1220
+2,Female,22,12,Private Vehicle,Yes,both eye pain,Alert,1,4.0,110.0,70.0,74.0,20.0,36.4,5,Keratoconjunctivitis due to Acanthamoeba (H19.2*),3,697775
+2,Male,29,5,Private Vehicle,No,leg pain left,Alert,1,4.0,110.0,70.0,110.0,20.0,36.4,5,Complex regional pain syndrome type II of lower limb,4,264
+2,Male,56,13,Private Ambulance,No,upper abdominal pain,Alert,1,4.0,140.0,90.0,76.0,20.0,36.4,4,"Acute pancreatitis, unspecified",3,9703
+2,Male,61,4,Private Vehicle,No,headache,Alert,1,4.0,120.0,70.0,76.0,20.0,36.5,4,Headache,3,414
+2,Female,65,5,Private Vehicle,No,epigastric pain,Alert,1,4.0,100.0,60.0,92.0,20.0,36.4,4,Epigastric pain,3,344
+2,Female,74,4,Private Vehicle,No,epigastric pain,Alert,1,4.0,140.0,100.0,60.0,18.0,36.2,4,Unspecified abdominal pain,3,231
+2,Female,75,11,Private Vehicle,No,fever,Alert,1,4.0,150.0,80.0,64.0,20.0,36.5,4,Unspecified abdominal pain,3,211
+2,Male,44,3,119 Ambulance,Yes,"Low Back Pain, Undetermined",Alert,1,4.0,110.0,70.0,78.0,20.0,36.9,4,"Low back pain, site unspecified",3,39
+2,Female,59,10,Private Vehicle,No,hematuria,Alert,1,5.0,130.0,80.0,90.0,20.0,36.6,5,Gross hematuria,3,333
+2,Male,59,12,Private Ambulance,Yes,both wrist pain,Alert,1,5.0,100.0,60.0,64.0,18.0,36.6,4,Chronic alcoholism,2,9420
+2,Male,18,4,Private Vehicle,No,testis pain,Alert,1,5.0,130.0,80.0,70.0,20.0,36.6,5,Torsion of testis,3,857
+2,Female,22,1,Private Vehicle,No,right upper abdominal pain,Alert,1,5.0,100.0,60.0,80.0,20.0,36.2,4,"Female pelvic inflammatory disease, unspecified",3,698
+2,Male,42,7,Private Vehicle,No,Generalized abdominal pain,Alert,1,5.0,120.0,70.0,108.0,22.0,36.4,4,Unspecified abdominal pain,3,7900
+2,Female,62,1,119 Ambulance,No,abd pain,Alert,1,5.0,130.0,90.0,92.0,22.0,38.2,4,"Urinary tract infection, site not specified",3,7980
+2,Male,78,7,Private Vehicle,No,acute epigastric pain,Alert,1,5.0,120.0,80.0,60.0,20.0,36.3,4,"Upper abdominal pain, unspecified",3,9527
+2,Female,81,5,Private Ambulance,No,Abd. pain,Alert,1,5.0,140.0,90.0,88.0,20.0,37.1,4,"Calculus of bile duct with cholangitis, With obstruction",3,9798
+2,Female,52,8,Walking,No,Rt. flank pain,Alert,1,6.0,110.0,60.0,75.0,20.0,36.5,4,Acute pyelonephritis,3,376
+2,Male,22,3,119 Ambulance,Yes,H-Headache,Alert,1,6.0,110.0,70.0,80.0,20.0,36.0,4,Closed multiple fracture of thoracic spine,3,760
+2,Female,33,8,Walking,No,headache,Alert,1,6.0,100.0,60.0,92.0,20.0,36.4,4,Tension-type headache,3,306
+2,Female,44,10,Private Vehicle,No,LLQ pain,Alert,1,6.0,110.0,60.0,85.0,20.0,36.8,4,"Female pelvic inflammatory disease, unspecified",3,497
+2,Female,56,10,Walking,No,rt flank pain,Alert,1,6.0,120.0,80.0,74.0,20.0,36.2,4,Ureteric stone,3,382
+2,Female,58,5,Private Vehicle,Yes,occipital area headache,Alert,1,6.0,150.0,100.0,88.0,20.0,36.3,4,"Superficial injury of other parts of head, contusion",3,45
+2,Male,68,10,Private Vehicle,No,Lt flank pain,Alert,1,6.0,160.0,80.0,66.0,20.0,36.2,4,Unspecified abdominal pain,3,262
+2,Female,79,9,Private Ambulance,No,RLQ pain,Alert,1,6.0,130.0,80.0,80.0,22.0,36.8,4,Unspecified abdominal pain,3,9020
+2,Female,85,8,Private Vehicle,No,Lt flank pain,Alert,1,6.0,110.0,60.0,86.0,20.0,36.0,4,"Urinary tract infection, site not specified",3,8861
+2,Male,19,7,Private Ambulance,Yes,Open Wound,Alert,1,7.0,80.0,50.0,110.0,22.0,36.0,3,Multiple contusion NOS,2,8124
+2,Female,62,5,Private Ambulance,No,fever,Alert,0,,100.0,60.0,80.0,20.0,38.3,4,"Fever, unspecified",3,9312
+2,Female,75,7,Private Ambulance,No,fever,Alert,0,,100.0,60.0,92.0,20.0,38.0,3,"Fever, unspecified",2,8996
+2,Male,80,6,Private Ambulance,No,dyspnea,Alert,0,,140.0,90.0,32.0,20.0,36.7,3,"Bradycardia, unspecified",2,9791
+2,Male,82,6,Private Ambulance,No,dyspnea,Alert,0,,150.0,100.0,116.0,26.0,37.0,2,"Bacterial pneumonia, unspecified",1,9270
+2,Female,92,9,Private Vehicle,No,dyspnea,Alert,0,,150.0,90.0,110.0,26.0,36.5,3,"Other specified chronic obstructive pulmonary disease, unspecified",2,699091
+2,Male,70,1,Private Vehicle,No,diffuse chest discomfort,Alert,0,,100.0,60.0,60.0,20.0,36.0,3,Unstable angina,2,11319
+2,Male,73,8,Private Vehicle,No,dyspnea,Alert,0,,140.0,80.0,86.0,24.0,36.4,3,,2,518
+2,Female,74,8,Walking,No,dizziness,Alert,0,,140.0,100.0,58.0,20.0,36.1,4,"Acute renal failure, unspecified",3,475
+2,Male,77,4,Private Vehicle,No,D - Diarrhea,Alert,0,,160.0,100.0,108.0,20.0,36.5,5,Illness NOS,4,366
+2,Female,79,10,Private Vehicle,No,dizziness,Alert,0,,120.0,80.0,80.0,20.0,36.4,4,Dizziness and giddiness,3,405
+2,Female,45,3,Private Vehicle,No,chest palpitation,Alert,0,,120.0,80.0,80.0,20.0,36.0,4,Panic attack,3,386
+2,Male,57,7,Private Vehicle,No,general weakness,Alert,0,,120.0,80.0,74.0,20.0,36.3,5,Unspecified abdominal pain,3,278
+2,Male,77,6,Private Ambulance,No,AVF site bleeding,Verbal Response,0,,110.0,70.0,80.0,20.0,36.0,4,"Chronic kidney disease, unspecified",2,8592
+2,Male,49,7,Private Ambulance,No,dyspnea,Verbal Response,0,,110.0,70.0,65.0,20.0,36.3,3,"Hydrocephalus, unspecified",2,9697
+2,Male,63,9,Private Ambulance,No,mental change,Pain Response,0,,110.0,70.0,140.0,24.0,36.2,3,"Encephalopathy, unspecified",2,8188
+2,Male,65,7,119 Ambulance,Yes,mental change,Pain Response,0,,70.0,,100.0,20.0,36.0,2,Traumatic subdural hemorrhage without open intracranial wound,1,150
+2,Male,74,8,Private Vehicle,No,acute delirium,Alert,0,,100.0,60.0,75.0,20.0,36.5,4,"Encephalopathy, unspecified",3,9954
+2,Male,75,5,Private Ambulance,No,dyspnea,Alert,0,,100.0,60.0,64.0,20.0,36.2,4,"Heart failure, unspecified",3,1019
+2,Male,57,7,Private Ambulance,No,Generalized abdominal pain,Alert,0,,90.0,60.0,128.0,22.0,36.0,3,Acidosis NOS,2,187
+2,Female,78,6,Private Vehicle,No,hematemesis,Alert,0,,80.0,40.0,100.0,20.0,36.4,3,"Gastrointestinal haemorrhage, unspecified",2,10918
+2,Female,78,8,Private Ambulance,No,oliguria,Alert,0,,80.0,40.0,80.0,20.0,36.4,3,"Chronic kidney disease, unspecified",2,477
+2,Female,80,7,Private Ambulance,No,dyspnea,Pain Response,0,,100.0,60.0,100.0,,36.6,2,Dyspnoea,1,20098
+2,Male,19,7,Private Ambulance,No,both leg  motor weakness,Alert,0,,130.0,100.0,88.0,20.0,36.7,4,Hypokalaemic periodic paralysis(familial),3,804
+2,Female,56,9,119 Ambulance,No,Amnesia,Alert,0,,100.0,60.0,90.0,20.0,36.4,4,Transient global amnesia,2,8703
+2,Female,79,11,Private Ambulance,No,right hemiparesis,Alert,0,,160.0,100.0,64.0,20.0,36.5,3,Intracerebral haemorrhage in basal ganglia,2,244
+2,Male,65,13,Private Vehicle,No,AVF malfunction,Alert,0,,130.0,100.0,86.0,20.0,36.5,5,"Chronic kidney disease, unspecified",4,701
+2,Male,27,7,Private Vehicle,No,post neck pain,Alert,1,6.0,130.0,80.0,82.0,20.0,37.2,4,"Cellulitis, unspecified",3,9689
+2,Male,53,9,Private Vehicle,No,generalized urticaria,Alert,0,,120.0,80.0,92.0,20.0,36.1,5,Allergic urticaria,3,606
+2,Female,30,6,Private Vehicle,No,headache,Alert,1,4.0,120.0,70.0,95.0,20.0,36.5,4,Headache,3,291
+2,Female,59,6,Private Vehicle,No,left facial numbness,Alert,1,5.0,120.0,80.0,80.0,20.0,36.4,5,Cellulitis of external ear,4,10301
+2,Female,30,12,Private Vehicle,No,upper abdominal pain,Alert,1,5.0,120.0,80.0,74.0,20.0,36.3,4,Observation for suspected malignant neoplasm,3,490
+2,Male,32,2,Private Vehicle,No,Rt. flank pain,Alert,1,7.0,110.0,60.0,70.0,22.0,36.0,4,Ureteric stone,3,267
+2,Male,52,12,Private Vehicle,No,"arm pain, Rt",Alert,1,8.0,140.0,100.0,78.0,20.0,36.5,5,Complex regional pain syndrome type II,4,406
+2,Male,43,17,Private Vehicle,No,"erection, penile",Alert,0,,,,,,,5,Priapism,2,594
+2,Male,58,3,119 Ambulance,No,melena,Verbal Response,0,,90.0,50.0,74.0,20.0,36.2,3,"Gastrointestinal haemorrhage, unspecified",2,780
+2,Male,65,10,119 Ambulance,No,dysarthria,Verbal Response,0,,160.0,90.0,84.0,20.0,37.2,4,Cerebral infarction due to unspecified occlusion or stenosis of middle cerebral artery,3,572
+2,Female,30,6,Private Ambulance,No,PPROM,Alert,0,,120.0,80.0,98.0,20.0,36.5,4,"Preterm labour without delivery, 22 weeks or more and less than 34weeks pregnant",3,74
+2,Male,58,8,Private Vehicle,No,dyspnea,Alert,0,,130.0,80.0,36.0,20.0,36.2,3,"Atrioventricular block, complete",2,10052
+2,Male,75,12,Private Vehicle,No,Facial Palsy,Alert,0,,100.0,60.0,70.0,20.0,36.5,4,Facial palsy,3,510
+2,Male,16,6,Private Vehicle,Yes,Open Wound,Alert,1,2.0,110.0,70.0,78.0,20.0,36.2,4,"Open wound of other parts of head, face",4,118
+2,Male,20,2,Walking,No,Dislocation of Jaw,Alert,1,2.0,130.0,90.0,82.0,20.0,36.4,4,Dislocation of jaw,4,4
+2,Female,21,12,Private Vehicle,Yes,Foreign body sensation in throat,Alert,1,2.0,120.0,80.0,66.0,20.0,36.3,4,Chronic sore throat,4,138
+2,Male,22,1,Private Vehicle,No,Rt. Chest pain,Alert,1,2.0,110.0,80.0,84.0,20.0,36.6,2,Other chest pain,2,8420
+2,Female,46,3,119 Ambulance,No,F/C-fever/chills,Alert,1,2.0,120.0,80.0,104.0,20.0,38.2,4,Cellulitis of leg,4,1101
+2,Male,46,17,Private Vehicle,Yes,blurred vision,Alert,1,2.0,110.0,70.0,80.0,20.0,36.8,4,Hyphaema,4,258
+2,Male,49,6,Private Vehicle,No,Rt side numbness,Alert,1,2.0,140.0,80.0,68.0,20.0,36.5,3,Cerebrovascular accident NOS,3,7779
+2,Male,52,4,Private Ambulance,No,epigastric pain,Alert,1,2.0,130.0,90.0,78.0,22.0,36.0,4,Obstructive ileus NOS,4,516
+2,Male,54,17,Private Vehicle,Yes,"Flank pain, Rt.",Alert,1,2.0,130.0,90.0,80.0,20.0,36.4,3,Contusion of front wall of thorax,3,305
+2,Female,54,7,Walking,No,low abdominal pain,Alert,1,2.0,100.0,60.0,74.0,18.0,36.4,4,Liver transplant status,4,9036
+2,Female,55,4,119 Ambulance,No,ant. chest pain,Alert,1,2.0,150.0,100.0,78.0,22.0,36.4,2,Unstable angina,2,497
+2,Male,61,10,Private Vehicle,No,"pain, periumbilical",Alert,1,2.0,130.0,80.0,98.0,22.0,37.2,4,Acute cholecystitis,4,679
+2,Female,61,2,Private Vehicle,No,"abdominal pain, Rt",Alert,1,2.0,130.0,80.0,74.0,20.0,37.6,4,Renal and perinephric abscess,4,555
+2,Female,69,17,Private Vehicle,No,Abd. pain,Alert,1,2.0,120.0,70.0,60.0,20.0,36.4,4,Unspecified abdominal pain,4,698
+2,Male,79,5,119 Ambulance,Yes,mental change,Unresponsive,1,2.0,160.0,90.0,88.0,,36.4,1,Traumatic subdural hemorrhage without open intracranial wound,1,101
+2,Female,17,5,Private Vehicle,No,H-Headache,Alert,1,3.0,100.0,60.0,76.0,20.0,36.3,4,"Non-insulin-dependent diabetes of the young, with nonketotic hyperglycemic-hyperosmolar coma(NKHHC)",4,9736
+2,Male,18,6,Private Vehicle,No,Abd. pain,Alert,1,3.0,110.0,70.0,80.0,20.0,36.8,4,Hirschsprung's disease,4,8535
+2,Female,19,3,Private Vehicle,No,lower abdominal pain,Alert,1,3.0,110.0,70.0,104.0,22.0,37.5,4,"Regional colitis, unspecified",4,373
+2,Male,26,6,Private Vehicle,No,chest discomfort left,Alert,1,3.0,120.0,80.0,72.0,20.0,36.6,2,Other chest pain,2,405
+2,Male,27,3,119 Ambulance,No,LLQ pain,Alert,1,3.0,130.0,80.0,92.0,20.0,36.5,4,Unspecified abdominal pain,4,493
+2,Male,29,8,Private Vehicle,Yes,blurred vision,Alert,1,3.0,100.0,60.0,86.0,20.0,36.3,4,Corneal abrasion,4,264
+2,Male,29,1,Private Vehicle,Yes,Open Wound,Alert,1,3.0,100.0,60.0,80.0,20.0,36.0,4,"Open wound of other parts of head, face",4,402
+2,Female,32,7,Private Ambulance,No,right monoparesis,Alert,1,3.0,110.0,70.0,64.0,20.0,36.9,3,"Intracerebral haemorrhage in hemisphere, subcortical",3,600
+2,Female,32,3,Private Vehicle,No,throat pain,Alert,1,3.0,100.0,60.0,98.0,20.0,36.1,4,Chronic sore throat,4,405
+2,Male,33,15,Private Vehicle,No,"pain, periumbilical",Alert,1,3.0,100.0,70.0,74.0,20.0,36.1,4,"Other Crohn’s disease, unspecified",4,1004
+2,Male,34,8,Private Vehicle,No,With chest discomfort,Alert,1,3.0,120.0,80.0,68.0,20.0,36.4,2,Other chest pain,2,606
+2,Male,34,3,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,3.0,130.0,80.0,80.0,20.0,36.0,5,Corneal abrasion,5,126
+2,Female,35,7,Private Vehicle,No,Chest pain NOS (finding),Alert,1,3.0,100.0,70.0,83.0,20.0,37.0,2,Obstructive hypertrophic cardiomyopathy,2,420
+2,Female,35,10,Private Vehicle,No,"ocular pain, Lt.",Alert,1,3.0,110.0,70.0,74.0,20.0,36.6,4,Epidemic keratoconjunctivitis,4,272
+2,Male,35,7,Private Vehicle,No,fever,Alert,1,3.0,120.0,80.0,100.0,20.0,36.5,4,Ureteric stone,4,722
+2,Female,36,8,Private Vehicle,No,diffuse abdominal pain,Alert,1,3.0,110.0,70.0,76.0,20.0,36.5,4,"Upper abdominal pain, unspecified",4,7963
+2,Female,36,7,Private Vehicle,No,headache,Alert,1,3.0,100.0,60.0,80.0,20.0,36.4,4,Headache,4,854
+2,Male,37,7,Private Ambulance,No,LOC - Loss of consciousness,Alert,1,3.0,140.0,80.0,105.0,20.0,36.8,3,Syncope,3,9989
+2,Male,39,5,Private Vehicle,No,ant. chest pain,Alert,1,3.0,140.0,100.0,76.0,18.0,36.1,2,Unstable angina,2,389
+2,Male,40,15,Private Vehicle,No,ant. chest pain,Alert,1,3.0,120.0,80.0,82.0,20.0,36.1,3,Pericardial effusion (noninflammatory),3,848
+2,Female,40,15,Private Vehicle,No,H-Headache,Alert,1,3.0,120.0,80.0,62.0,20.0,36.2,4,Headache,4,397
+2,Male,40,3,Private Vehicle,No,"Leg pain, NOS",Alert,1,3.0,110.0,80.0,80.0,20.0,36.4,5,Complex regional pain syndrome type II,5,60
+2,Male,41,8,Private Vehicle,No,leg pain,Alert,1,3.0,120.0,80.0,88.0,20.0,36.6,5,Complex regional pain syndrome type II,5,20
+2,Male,41,11,Private Vehicle,No,abd pain,Alert,1,3.0,110.0,70.0,73.0,20.0,36.2,4,"Malignant neoplasm of body of stomach, early",4,944
+2,Female,41,3,Private Vehicle,Yes,Open Wound,Alert,1,3.0,130.0,90.0,88.0,20.0,36.6,4,"Open wound of head, part unspecified",4,125
+2,Female,42,3,Private Vehicle,Yes,Open Wound,Alert,1,3.0,120.0,70.0,70.0,18.0,36.4,4,"Open wound of other parts of head, face",4,86
+2,Female,43,8,Private Vehicle,No,Rt. flank pain,Alert,1,3.0,120.0,80.0,98.0,20.0,36.8,4,Acute pyelonephritis,4,10806
+2,Female,43,10,Private Vehicle,Yes,Open Wound,Alert,1,3.0,130.0,90.0,72.0,20.0,36.5,4,"Open wound of other parts of head, face",4,263
+2,Female,44,2,119 Ambulance,No,LLQ pain,Alert,1,3.0,100.0,60.0,76.0,18.0,36.4,4,"Leiomyoma of uterus, unspecified",4,9296
+2,Male,44,9,Private Vehicle,No,dyspnea,Alert,1,3.0,130.0,80.0,102.0,20.0,37.1,3,Acute HIV infection syndrome,3,9891
+2,Male,44,10,Private Vehicle,No,"Pain, Ankle",Alert,1,3.0,120.0,80.0,80.0,20.0,36.0,5,"Gout, unspecified, ankle joint",5,76
+2,Female,44,8,Private Vehicle,No,Abd. pain,Alert,1,3.0,120.0,80.0,72.0,20.0,36.9,3,Unspecified abdominal pain,3,8996
+2,Male,46,1,Private Ambulance,No,chest palpitation,Alert,1,3.0,100.0,60.0,86.0,20.0,36.8,2,Palpitations,2,596
+2,Male,47,9,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,3.0,110.0,70.0,80.0,20.0,36.8,4,Corneal abrasion,4,167
+2,Male,48,7,Private Vehicle,No,Foreign Body Sense,Alert,1,3.0,120.0,70.0,100.0,20.0,36.4,4,Chronic sore throat,4,7767
+2,Female,48,4,Private Vehicle,No,abd pain,Alert,1,3.0,120.0,80.0,76.0,20.0,36.3,4,"Acute appendicitis, other and unspecified",4,489
+2,Male,48,5,119 Ambulance,Yes,Open Wound,Alert,1,3.0,130.0,80.0,110.0,20.0,36.6,3,"Open wound of other parts of head, face",3,1013
+2,Female,48,4,Private Vehicle,No,Abd. pain,Alert,1,3.0,110.0,70.0,80.0,20.0,36.3,4,Unspecified abdominal pain,4,342
+2,Male,48,9,Private Ambulance,No,mental change,Alert,1,3.0,100.0,60.0,100.0,20.0,36.0,2,Hypo-osmolality and hyponatraemia,2,9672
+2,Female,49,2,Private Vehicle,Yes,Open Wound,Alert,1,3.0,120.0,80.0,74.0,20.0,36.2,4,"Open wound of other parts of head, face",4,134
+2,Female,49,8,Private Vehicle,No,HA - Headache,Alert,1,3.0,150.0,90.0,62.0,20.0,36.0,4,Headache,4,332
+2,Male,49,5,Private Ambulance,No,ant. chest pain,Alert,1,3.0,110.0,80.0,84.0,20.0,36.6,2,Ischaemic chest pain,2,7876
+2,Female,51,6,Private Vehicle,No,H-Headache,Alert,1,3.0,150.0,100.0,98.0,20.0,36.4,4,Headache,4,292
+2,Male,51,4,119 Ambulance,No,diffuse abdominal pain,Alert,1,3.0,150.0,100.0,98.0,20.0,36.4,4,Unspecified abdominal pain,4,361
+2,Male,51,10,Private Vehicle,No,fever,Alert,1,3.0,120.0,80.0,66.0,20.0,36.6,4,Abscess of liver,4,262
+2,Male,51,8,Private Vehicle,Yes,Open Wound,Alert,1,3.0,110.0,70.0,88.0,20.0,36.7,4,"Open wound of other parts of head, face",4,177
+2,Male,52,6,Private Vehicle,No,RUQ pain,Alert,1,3.0,110.0,70.0,100.0,20.0,37.0,4,Unspecified abdominal pain,4,10653
+2,Female,53,5,Private Vehicle,No,ant. chest pain,Alert,1,3.0,110.0,70.0,72.0,20.0,36.1,2,Other chest pain,2,714
+2,Male,53,8,Private Vehicle,No,arm pain,Alert,1,3.0,130.0,90.0,88.0,20.0,36.3,5,Complex regional pain syndrome type II,5,972
+2,Male,56,9,Private Vehicle,No,Left chest pain,Alert,1,3.0,150.0,90.0,68.0,20.0,36.4,2,Ischaemic chest pain,2,9098
+2,Male,56,10,Private Ambulance,No,Epigastric discomfort(+),Alert,1,3.0,120.0,80.0,78.0,20.0,36.2,4,Epigastric pain,4,385
+2,Male,56,8,Private Vehicle,No,abd. Distension,Alert,1,3.0,110.0,70.0,94.0,20.0,36.2,4,Hepatocellular carcinoma,4,696
+2,Male,57,12,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,3.0,110.0,70.0,84.0,20.0,36.0,4,Corneal abrasion,4,124
+2,Male,57,10,Private Vehicle,No,Lt flank pain,Alert,1,3.0,120.0,80.0,96.0,20.0,36.5,4,"Acute pancreatitis, unspecified",4,9463
+2,Female,57,7,119 Ambulance,No,ant. chest pain,Alert,1,3.0,140.0,90.0,70.0,20.0,36.3,2,Varient angina,2,9345
+2,Female,57,6,119 Ambulance,No,headache,Alert,1,3.0,180.0,100.0,68.0,22.0,36.2,4,Headache,4,759
+2,Male,58,5,Private Ambulance,No,Lt hemiparesis,Alert,1,3.0,150.0,100.0,55.0,20.0,36.0,2,Cerebral infarction due to thrombosis of middle cerebral artery,2,208
+2,Male,58,7,Private Vehicle,No,ant. chest pain,Alert,1,3.0,140.0,100.0,70.0,20.0,36.0,2,Myocardial infarction with non-ST elevation,2,10342
+2,Male,58,7,Private Vehicle,Yes,Open Wound,Alert,1,3.0,110.0,70.0,60.0,20.0,36.3,4,"Open wound of other parts of head, face",4,287
+2,Male,58,11,Private Vehicle,No,"abdominal pain, Rt",Alert,1,3.0,160.0,100.0,98.0,20.0,36.5,4,"Acute pancreatitis, unspecified",4,10336
+2,Female,58,10,Private Vehicle,No,Left chest pain,Alert,1,3.0,120.0,80.0,96.0,20.0,36.5,2,Other chest pain,2,793
+2,Male,58,5,Private Vehicle,No,ant. chest pain,Alert,1,3.0,160.0,100.0,80.0,20.0,36.0,2,Unstable angina,2,443
+2,Male,60,7,Private Vehicle,No,upper abdominal pain,Alert,1,3.0,100.0,60.0,60.0,20.0,36.5,4,Obstructive ileus NOS,4,8571
+2,Female,60,5,Private Vehicle,Yes,Open Wound,Alert,1,3.0,120.0,80.0,80.0,20.0,36.8,4,"Open wound of other parts of head, face",4,7979
+2,Female,60,9,Private Vehicle,Yes,left eye pain,Alert,1,3.0,120.0,80.0,88.0,20.0,36.6,4,Corneal abrasion,4,185
+2,Male,60,5,Private Vehicle,No,Rt hemiparesis,Alert,1,3.0,150.0,100.0,88.0,20.0,36.0,3,Cerebral infarction due to thrombosis of basilar artery,3,325
+2,Female,61,12,Private Vehicle,Yes,ant. chest pain,Alert,1,3.0,100.0,60.0,84.0,20.0,36.4,4,Contusion of front wall of thorax,4,119
+2,Female,62,3,Private Vehicle,No,ant. chest pain,Alert,1,3.0,150.0,90.0,100.0,20.0,37.4,2,"Pneumonia, unspecified",2,607
+2,Male,62,4,Private Vehicle,No,dyspnea,Alert,1,3.0,110.0,70.0,67.0,20.0,36.0,2,"Atrial fibrillation and atrial flutter, unspecified",2,1124
+2,Male,63,4,Private Vehicle,No,"abdominal pain, Rt",Alert,1,3.0,110.0,70.0,78.0,20.0,36.3,4,"Gallstone(impacted) of gallbladder with cholecystitis (chronic), With obstruction",4,8593
+2,Female,64,7,119 Ambulance,No,ant. chest pain,Alert,1,3.0,130.0,90.0,78.0,20.0,36.3,2,Varient angina,2,888
+2,Female,65,5,119 Ambulance,No,dizziness,Alert,1,3.0,150.0,80.0,61.0,20.0,36.4,3,"Atrial fibrillation and atrial flutter, unspecified",3,389
+2,Female,65,9,Private Vehicle,No,Abd. pain,Alert,1,3.0,130.0,100.0,78.0,20.0,36.4,4,Unspecified abdominal pain,4,10015
+2,Female,66,8,119 Ambulance,No,ant. chest pain,Alert,1,3.0,110.0,70.0,84.0,20.0,36.4,2,Ischaemic chest pain,2,580
+2,Male,66,8,Private Vehicle,No,LOC - Loss of consciousness,Alert,1,3.0,130.0,80.0,80.0,20.0,36.5,3,Dizziness and giddiness,3,598
+2,Male,66,7,Private Vehicle,No,ant. chest pain,Alert,1,3.0,120.0,80.0,63.0,20.0,36.0,2,Other chest pain,2,625
+2,Female,67,12,Private Vehicle,No,RLQ pain,Alert,1,3.0,120.0,80.0,88.0,20.0,36.3,4,"Acute appendicitis, other and unspecified",4,624
+2,Male,68,5,119 Ambulance,No,LOC,Alert,1,3.0,110.0,70.0,62.0,22.0,36.0,2,Syncope,2,570
+2,Female,69,6,119 Ambulance,No,dizziness,Alert,1,3.0,170.0,100.0,80.0,20.0,36.2,3,Dizziness and giddiness,3,285
+2,Female,70,3,Private Vehicle,No,diarrhea,Alert,1,3.0,140.0,100.0,80.0,20.0,36.2,4,Acute watery diarrhoea,4,228
+2,Female,71,4,Walking,No,ant. chest pain,Alert,1,3.0,160.0,90.0,74.0,20.0,36.7,2,Ischaemic chest pain,2,535
+2,Male,71,7,Private Vehicle,No,abd pain,Alert,1,3.0,170.0,100.0,80.0,20.0,36.0,4,Observation for suspected malignant neoplasm,4,782
+2,Female,71,6,Private Ambulance,No,ant. chest pain,Alert,1,3.0,100.0,60.0,54.0,20.0,36.5,2,"Atrial fibrillation and atrial flutter, unspecified",2,403
+2,Male,72,15,Private Ambulance,No,ant. chest pain,Alert,1,3.0,150.0,80.0,66.0,20.0,36.2,2,"Acute myocardial infarction, unspecified",2,286
+2,Female,72,6,Private Vehicle,No,diffuse chest discomfort,Alert,1,3.0,100.0,60.0,99.0,22.0,36.0,2,Pericardial effusion (noninflammatory),2,483
+2,Female,72,9,Private Ambulance,No,dyspnea,Alert,1,3.0,100.0,60.0,106.0,20.0,36.1,2,Ischaemic chest pain,2,222
+2,Female,72,7,Private Vehicle,No,general weakness,Alert,1,3.0,140.0,100.0,51.0,20.0,36.0,2,"Atrioventricular block, second degree",2,782
+2,Male,73,5,Private Vehicle,No,abdomen pain,Alert,1,3.0,110.0,70.0,64.0,20.0,36.2,4,Acute abdomen,4,980
+2,Male,73,7,Private Vehicle,No,Abd. pain,Alert,1,3.0,110.0,70.0,73.0,20.0,36.4,4,"Ileus, unspecified",4,10098
+2,Female,74,12,119 Ambulance,Yes,Lower Back Pain,Alert,1,3.0,140.0,80.0,96.0,20.0,36.2,4,"Vertebra compression fracture, NOS, Lumbar region",4,643
+2,Female,74,8,Private Ambulance,No,abd pain,Alert,1,3.0,90.0,60.0,110.0,20.0,36.8,3,Unspecified abdominal pain,3,10781
+2,Male,74,10,Private Vehicle,Yes,left forearm pain,Alert,1,3.0,100.0,60.0,72.0,18.0,36.6,5,"Fracture of lower end of radius with dorsal angulation, closed",5,297
+2,Female,75,12,119 Ambulance,Yes,post neck pain,Alert,1,3.0,100.0,60.0,72.0,18.0,36.6,4,"Superficial injury of head, part unspecified, contusion",4,184
+2,Male,75,8,Private Ambulance,No,both leg cellulitis,Alert,1,3.0,120.0,80.0,60.0,20.0,36.3,4,Cellulitis of lower limb,4,700427
+2,Female,76,10,Private Vehicle,No,RLQ abdominal pain,Alert,1,3.0,110.0,70.0,80.0,20.0,36.0,4,Ureteric stone,4,299
+2,Male,76,5,119 Ambulance,No,left side motor weakness,Alert,1,3.0,140.0,100.0,100.0,20.0,36.6,2,Intracerebral haemorrhage in thalamus,2,7834
+2,Female,76,7,Private Vehicle,No,Abd. pain,Alert,1,3.0,120.0,80.0,98.0,20.0,36.3,4,Chronic viral hepatitis C,4,645
+2,Male,76,12,119 Ambulance,No,dyspnea,Alert,1,3.0,110.0,70.0,61.0,20.0,36.4,2,"Heart failure, unspecified",2,700536
+2,Male,77,5,Private Vehicle,No,Lt flank pain,Alert,1,3.0,120.0,80.0,67.0,20.0,36.3,4,Unspecified abdominal pain,4,231
+2,Female,77,7,Private Ambulance,No,Low abd discomfort,Alert,1,3.0,110.0,70.0,89.0,20.0,36.7,4,Abscess of abdominopelvic,4,836
+2,Female,77,2,Private Vehicle,No,fever,Alert,1,3.0,120.0,80.0,69.0,20.0,36.5,4,"Infective arthritis NOS, pelvic region and thigh",4,205
+2,Female,78,10,Private Vehicle,No,RUQ pain,Alert,1,3.0,120.0,80.0,80.0,20.0,36.0,4,"Choledocholithiasis with cholangitis, With obstruction",4,9981
+2,Female,78,2,Private Vehicle,No,diffuse chest discomfort,Alert,1,3.0,150.0,100.0,82.0,20.0,36.8,3,Unstable angina,3,9989
+2,Female,79,12,Private Vehicle,No,ant. chest pain,Alert,1,3.0,110.0,70.0,80.0,20.0,36.4,2,Unstable angina,2,396
+2,Female,79,10,Private Vehicle,No,RUQ pain,Alert,1,3.0,110.0,70.0,90.0,20.0,36.2,4,"Empyema of gallbladder, without calculus",4,563
+2,Male,79,5,Private Vehicle,No,abdomen pain,Alert,1,3.0,130.0,80.0,60.0,20.0,36.4,4,"Ileus, unspecified",4,10214
+2,Female,80,4,Private Vehicle,No,Left chest pain,Alert,1,3.0,100.0,60.0,68.0,20.0,36.8,2,Unstable angina,2,464
+2,Male,80,10,Private Vehicle,No,dyspnea,Alert,1,3.0,120.0,80.0,118.0,20.0,36.0,2,Acute and subacute infective endocarditis,2,9984
+2,Male,81,4,Private Vehicle,No,dyspnea,Alert,1,3.0,100.0,60.0,95.0,20.0,36.0,3,Paroxysmal atrial fibrillation,3,10519
+2,Female,81,7,Private Ambulance,No,left motor weakness,Alert,1,3.0,130.0,100.0,65.0,20.0,36.6,3,Cerebral infarction due to unspecified occlusion or stenosis of posterior cerebral artery,3,411
+2,Female,82,5,119 Ambulance,No,both eyelid swelling,Alert,1,3.0,140.0,100.0,64.0,20.0,36.3,3,Hypo-osmolality and hyponatraemia,3,10210
+2,Female,83,9,Private Ambulance,No,ant. chest pain,Alert,1,3.0,140.0,90.0,72.0,22.0,36.1,2,Ischaemic chest pain,2,607
+2,Female,83,13,Private Vehicle,No,Abd. pain,Alert,1,3.0,160.0,100.0,102.0,20.0,36.5,4,"Choledocholithiasis with cholecystitis (with cholangitis), Without mention of obstruction",4,781
+2,Female,84,6,Private Vehicle,No,cough,Alert,1,3.0,110.0,80.0,92.0,20.0,36.9,3,Cough,3,509
+2,Female,86,7,Private Ambulance,No,dizziness,Alert,1,3.0,120.0,80.0,80.0,20.0,36.7,3,Dizziness and giddiness,3,915
+2,Male,86,2,Private Ambulance,No,Rt hemiparesis,Alert,1,3.0,140.0,80.0,80.0,20.0,36.4,2,Cerebrovascular accident NOS,2,834
+2,Male,86,5,Private Ambulance,No,ant. chest pain,Alert,1,3.0,110.0,70.0,66.0,20.0,36.3,2,Myocardial infarction with non-ST elevation,2,11177
+2,Male,88,11,Private Ambulance,No,ant. chest pain,Alert,1,3.0,110.0,70.0,104.0,24.0,36.6,2,Ischaemic chest pain,2,559
+2,Female,94,5,Private Vehicle,No,"abdominal pain, LUQ",Alert,1,3.0,170.0,100.0,68.0,20.0,36.1,4,Unspecified abdominal pain,4,283
+2,Male,16,4,Private Vehicle,Yes,Open Wound,Alert,1,4.0,120.0,70.0,82.0,20.0,36.6,4,"Open wound of other parts of head, face",4,818
+2,Female,22,6,Private Vehicle,No,H-Headache,Alert,1,4.0,110.0,70.0,72.0,20.0,36.4,4,Infectious or septic colitis,4,8513
+2,Male,22,7,Private Vehicle,Yes,Open Wound,Alert,1,4.0,110.0,70.0,100.0,20.0,36.5,4,"Open wound of other parts of head, face",4,414
+2,Male,24,6,Private Vehicle,No,Convulsion,Alert,1,4.0,120.0,80.0,88.0,20.0,36.4,3,"Open wound of other parts of head, face",3,697999
+2,Male,24,12,Private Vehicle,Yes,nausea,Alert,1,4.0,120.0,80.0,80.0,20.0,36.0,2,Toxic effect of unspecified substance,2,698879
+2,Female,25,3,Private Vehicle,Yes,Open Wound,Alert,1,4.0,120.0,80.0,88.0,20.0,36.6,4,"Open wound of other parts of head, face",4,296
+2,Male,26,3,Private Vehicle,Yes,Open Wound,Alert,1,4.0,120.0,70.0,80.0,20.0,36.7,4,"Open wound of other parts of head, face",4,258
+2,Male,27,6,Private Vehicle,No,abd pain,Alert,1,4.0,110.0,70.0,106.0,20.0,36.5,3,"Crohn’s disease, unspecified, unspecified",3,926
+2,Male,30,10,Private Ambulance,No,headache,Alert,1,4.0,140.0,80.0,76.0,20.0,36.3,3,"Subarachnoid haemorrhage, unspecified",3,211
+2,Male,37,6,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,4.0,140.0,90.0,68.0,20.0,36.4,4,Corneal abrasion,4,116
+2,Female,37,3,Private Ambulance,No,epigastric pain,Alert,1,4.0,90.0,60.0,86.0,20.0,36.0,2,Dehydration,2,1023
+2,Male,40,8,Private Vehicle,No,Throat Pain,Alert,1,4.0,100.0,60.0,72.0,20.0,36.6,3,Retropharyngeal and parapharyngeal abscess,3,293
+2,Male,43,6,Private Vehicle,Yes,Open Wound,Alert,1,4.0,130.0,80.0,88.0,20.0,36.1,4,Open wound of other parts of wrist and hand,4,115
+2,Male,43,6,Private Vehicle,No,ant. chest pain,Alert,1,4.0,140.0,90.0,62.0,20.0,36.0,2,Ischaemic chest pain,2,10304
+2,Male,44,8,Private Ambulance,No,general weakness,Alert,1,4.0,140.0,80.0,50.0,20.0,36.0,3,Guillain-Barre syndrome,3,187
+2,Male,44,10,Walking,Yes,Open Wound,Alert,1,4.0,150.0,90.0,88.0,20.0,36.4,4,Traumatic hyphaema,4,216
+2,Male,44,5,Walking,No,facial painful swelling,Alert,1,4.0,110.0,70.0,110.0,20.0,37.2,4,Cellulitis of nose(septum),4,422
+2,Male,46,7,Private Ambulance,No,dizziness,Alert,1,4.0,100.0,60.0,52.0,20.0,36.8,2,"Atrial fibrillation and atrial flutter, unspecified",2,9618
+2,Female,47,8,Private Vehicle,No,"otalgia, Lt.",Alert,1,4.0,100.0,60.0,60.0,20.0,36.4,4,Otalgia,4,198
+2,Male,47,7,Private Vehicle,No,headache,Alert,1,4.0,160.0,80.0,62.0,20.0,36.4,3,Other chest pain,3,697887
+2,Male,48,10,Private Ambulance,Yes,left leg pain,Alert,1,4.0,100.0,60.0,76.0,20.0,36.3,4,"Fracture of trochanteric section of femur, unspecified, closed",4,354
+2,Male,48,9,119 Ambulance,No,diffuse abdominal pain,Alert,1,4.0,110.0,70.0,110.0,20.0,36.4,3,Hepatocellular carcinoma,3,29073
+2,Male,48,3,Private Vehicle,No,ant. chest pain,Alert,1,4.0,140.0,90.0,56.0,20.0,36.6,2,Ischaemic chest pain,2,11697
+2,Male,50,8,Private Ambulance,No,abd pain,Alert,1,4.0,120.0,70.0,78.0,18.0,36.4,3,"Cholecystitis with cholelithiasis NOS, With obstruction",3,435
+2,Male,51,5,Private Vehicle,No,Left leg pain,Alert,1,4.0,120.0,70.0,76.0,20.0,36.1,4,"Pain in limb, hip (joint)",4,113
+2,Female,51,3,Private Vehicle,Yes,ocular pain,Alert,1,4.0,120.0,80.0,72.0,20.0,36.4,4,"Fracture of medial wall of orbit, closed",4,370
+2,Female,52,6,Private Vehicle,Yes,toe pain,Alert,1,4.0,110.0,70.0,80.0,20.0,36.8,4,"Contusion of toe(s), NOS",4,92
+2,Male,53,6,119 Ambulance,No,Left chest pain,Alert,1,4.0,120.0,80.0,96.0,20.0,36.9,2,Brugada syndrome,2,229
+2,Male,57,9,Private Vehicle,Yes,Open Wound,Alert,1,4.0,120.0,80.0,78.0,18.0,36.4,4,"Open wound of other parts of head, face",4,212
+2,Female,57,8,119 Ambulance,No,Left chest pain,Alert,1,4.0,120.0,80.0,76.0,20.0,36.5,2,Varient angina,2,383
+2,Male,58,10,119 Ambulance,No,ant. chest pain,Alert,1,4.0,140.0,90.0,60.0,20.0,36.0,2,Ischaemic chest pain,2,9619
+2,Male,61,8,119 Ambulance,Yes,Open Wound,Alert,1,4.0,130.0,80.0,88.0,20.0,36.6,3,"Multiple fracture of unspecified ribs,Closed",3,8605
+2,Male,63,3,Private Ambulance,No,ant. chest pain,Alert,1,4.0,140.0,100.0,62.0,20.0,36.2,2,Ischaemic chest pain,2,21492
+2,Male,63,9,Private Vehicle,No,Left chest pain,Alert,1,4.0,140.0,90.0,98.0,24.0,36.0,2,Unstable angina,2,421
+2,Male,64,5,Private Ambulance,No,Lt. side weakness,Alert,1,4.0,160.0,100.0,78.0,18.0,36.0,2,Cerebral infarction due to thrombosis of posterior cerebral artery,2,7708
+2,Male,64,9,Private Vehicle,Yes,finger pain,Alert,1,4.0,140.0,90.0,66.0,20.0,36.4,4,Open wound of finger(s) without damage to nail,4,453
+2,Female,65,11,119 Ambulance,No,ant. chest pain,Alert,1,4.0,110.0,70.0,52.0,20.0,36.0,2,Supraventricular tachycardia,2,457
+2,Female,66,10,Private Vehicle,No,Rt. flank pain,Alert,1,4.0,120.0,80.0,51.0,20.0,36.5,3,Ureteric stone,3,426
+2,Female,66,12,Private Vehicle,No,right upper abdominal pain,Alert,1,4.0,110.0,70.0,95.0,20.0,36.3,3,Unspecified abdominal pain,3,632
+2,Female,72,5,119 Ambulance,No,Abd. pain,Alert,1,4.0,120.0,60.0,63.0,20.0,36.4,3,"Acute renal failure, unspecified",3,977
+2,Female,75,8,Private Ambulance,No,"abdominal pain, periumbilical area",Alert,1,4.0,110.0,70.0,80.0,20.0,37.3,3,Intussusception,3,389
+2,Male,75,6,Private Vehicle,No,"ocular pain, Lt.",Alert,1,4.0,130.0,80.0,66.0,20.0,36.3,4,Corneal abrasion,4,89
+2,Female,75,6,Private Ambulance,No,Abd. pain,Alert,1,4.0,110.0,70.0,86.0,20.0,36.9,3,Acute cholecystitis,3,930
+2,Female,76,3,Private Vehicle,No,diarrhea,Alert,1,4.0,100.0,60.0,78.0,20.0,36.6,4,Acute watery diarrhoea,4,690
+2,Male,77,8,Private Ambulance,Yes,hip pain Lt.,Alert,1,4.0,150.0,100.0,88.0,20.0,36.2,4,"Fracture of trochanteric section of femur, unspecified, closed",4,227
+2,Female,78,3,119 Ambulance,Yes,both ocular pain,Alert,1,4.0,150.0,90.0,72.0,20.0,36.2,4,Punctate keratatitis,4,137
+2,Female,81,5,Private Vehicle,Yes,"wrist pain, Rt",Alert,1,4.0,120.0,80.0,76.0,20.0,36.0,4,"Fracture of lower end of radius, unspecified, closed",4,581
+2,Female,81,6,Private Ambulance,No,Abd. pain,Alert,1,4.0,100.0,60.0,110.0,22.0,37.1,3,Cholangitis NOS,3,10100
+2,Female,82,2,119 Ambulance,No,dyspnea,Alert,1,4.0,140.0,90.0,64.0,22.0,36.4,2,"Asthma, unspecified",2,1101
+2,Male,88,7,119 Ambulance,Yes,Head pain,Alert,1,4.0,140.0,90.0,78.0,20.0,36.2,4,"Open wound of head, part unspecified",4,7992
+2,Female,89,3,119 Ambulance,No,Left chest pain,Alert,1,4.0,100.0,60.0,48.0,20.0,36.0,2,Other chest pain,2,148
+2,Female,16,4,Private Vehicle,Yes,"ocular pain, Lt.",Alert,1,5.0,100.0,60.0,76.0,20.0,36.6,4,Contusion of eyelid and periocular area,4,184
+2,Female,22,4,Private Vehicle,Yes,Eye Foreign Body,Alert,1,5.0,100.0,60.0,80.0,20.0,36.0,4,Punctate keratatitis,4,238
+2,Male,24,8,Private Vehicle,No,chest discomfort left,Alert,1,5.0,160.0,100.0,98.0,20.0,36.5,2,Ischaemic chest pain,2,588
+2,Male,31,8,Private Vehicle,Yes,Open Wound,Alert,1,5.0,170.0,90.0,112.0,22.0,36.4,4,"Open wound of head, part unspecified",4,8108
+2,Female,34,2,Private Vehicle,No,Abdominal pain (finding),Alert,1,5.0,100.0,60.0,90.0,20.0,36.0,3,Gastroenteritis and colitis of unspecified origin,3,704
+2,Male,43,11,Private Vehicle,No,diffuse abdominal pain,Alert,1,5.0,140.0,90.0,87.0,20.0,36.0,3,Other acute pancreatitis,3,403
+2,Female,43,8,119 Ambulance,Yes,elbow painful swelling lt.,Alert,1,5.0,140.0,100.0,108.0,20.0,36.4,4,Contusion of elbow,4,174
+2,Male,47,5,Private Vehicle,Yes,Open Wound,Alert,1,5.0,130.0,80.0,93.0,20.0,36.3,4,"Superficial injury of head, part unspecified, contusion",4,83
+2,Male,47,12,Private Vehicle,Yes,Open Wound,Alert,1,5.0,110.0,60.0,92.0,20.0,36.6,4,"Open wound of finger(s), NOS",4,127
+2,Male,48,5,119 Ambulance,No,right chest pain,Alert,1,5.0,120.0,80.0,64.0,20.0,36.3,2,Unstable angina,2,8449
+2,Male,51,11,Private Ambulance,No,ant. chest pain,Alert,1,5.0,120.0,80.0,78.0,18.0,36.4,2,Unstable angina,2,7937
+2,Female,51,5,Private Vehicle,No,headache,Alert,1,5.0,110.0,70.0,80.0,20.0,36.0,3,"Migraine, unspecified",3,7985
+2,Male,51,3,Private Vehicle,No,abd pain,Alert,1,5.0,110.0,70.0,86.0,20.0,36.4,3,"Other and unspecified cirrhosis of liver, Child-Pugh C",3,10799
+2,Female,54,6,Private Vehicle,No,abd pain,Alert,1,5.0,120.0,80.0,100.0,20.0,36.3,3,"Gastrointestinal haemorrhage, unspecified",3,699878
+2,Female,58,7,Private Ambulance,Yes,Open Wound,Alert,1,5.0,110.0,70.0,100.0,20.0,37.2,4,"Localized swelling, mass and lump, neck",4,9014
+2,Female,60,6,Walking,Yes,Rt. flank pain,Alert,1,5.0,140.0,90.0,80.0,20.0,36.6,4,Contusion of flank,4,280
+2,Male,60,4,Private Ambulance,No,RUQ pain,Alert,1,5.0,140.0,100.0,104.0,20.0,38.1,3,Cholangitis,3,2014
+2,Female,61,6,119 Ambulance,Yes,"burn, face",Alert,1,5.0,140.0,90.0,72.0,20.0,36.3,4,"Burn of first degree of head and neck, multiple sites head, face, and neck",4,8034
+2,Male,62,7,Private Vehicle,No,Lt flank pain,Alert,1,5.0,160.0,90.0,101.0,20.0,36.7,3,"Chronic kidney disease, unspecified",3,9706
+2,Female,67,4,Private Vehicle,No,ant. chest pain,Alert,1,5.0,140.0,90.0,85.0,20.0,36.2,3,Other chest pain,3,255
+2,Male,68,10,Private Ambulance,Yes,headache,Alert,1,5.0,120.0,80.0,88.0,22.0,36.4,3,Multiple contusion NOS,3,399
+2,Female,68,2,119 Ambulance,No,abd pain,Alert,1,5.0,130.0,90.0,96.0,20.0,36.2,4,"Ileus, unspecified",4,10723
+2,Male,71,5,Private Vehicle,No,Left chest pain,Alert,1,5.0,150.0,90.0,108.0,24.0,36.7,2,Ischaemic chest pain,2,535
+2,Male,73,4,Private Vehicle,Yes,TMJ pain,Alert,1,5.0,110.0,70.0,82.0,20.0,36.6,4,Derangement of temporomandibular joint,4,77
+2,Male,74,10,119 Ambulance,No,ant. chest pain,Alert,1,5.0,170.0,100.0,68.0,20.0,36.6,2,"Acute myocardial infarction, unspecified",2,9433
+2,Male,75,11,Private Vehicle,Yes,"pain, chest wall",Alert,1,5.0,110.0,70.0,74.0,20.0,36.3,3,"Multiple fracture of unspecified ribs,Closed",3,300
+2,Male,85,10,Private Ambulance,No,ant. chest pain,Alert,1,5.0,190.0,100.0,66.0,20.0,36.6,2,Unstable angina,2,10002
+2,Female,88,10,Private Ambulance,No,abd pain,Alert,1,5.0,110.0,70.0,80.0,18.0,36.9,3,"Gallstone(impacted) of cystic duct with acute cholecystitis, With obstruction",3,465
+2,Male,21,12,Private Vehicle,No,scrotal pain,Alert,1,6.0,140.0,90.0,70.0,20.0,36.5,3,"Epididymo-orchitis, without abscess",3,177
+2,Female,29,8,Private Vehicle,Yes,foreign body ingestion,Alert,1,6.0,140.0,100.0,84.0,20.0,36.5,3,Chronic sore throat,3,122
+2,Male,29,4,119 Ambulance,Yes,Open Wound,Alert,1,6.0,120.0,70.0,88.0,20.0,36.6,4,"Open wound of forearm, part unspecified",4,94
+2,Female,33,8,Private Vehicle,No,Vaginal Bleeding,Alert,1,6.0,160.0,100.0,74.0,20.0,37.4,4,"Abnormal uterine and vaginal bleeding, unspecified",4,191
+2,Male,37,5,Private Vehicle,Yes,"ocular injury, Lt.",Alert,1,6.0,120.0,80.0,78.0,18.0,36.1,4,Ocular pain,4,276
+2,Female,42,12,Private Vehicle,Yes,Open Wound,Alert,1,6.0,100.0,60.0,72.0,18.0,37.2,4,"Open wound of other parts of head, face",4,37
+2,Female,43,8,Walking,No,RUQ pain,Alert,1,6.0,110.0,60.0,90.0,20.0,36.5,3,"Calculus of gallbladder with other cholecystitis, Without mention of obstruction",3,8723
+2,Male,45,5,Private Vehicle,No,ant. chest pain,Alert,1,6.0,140.0,100.0,96.0,20.0,36.5,2,"Angina pectoris, unspecified",2,315
+2,Male,45,10,Private Vehicle,No,headache,Alert,1,6.0,180.0,100.0,94.0,26.0,36.8,3,Headache,3,364
+2,Male,47,13,119 Ambulance,Yes,lower extremity paraparesis,Alert,1,6.0,110.0,80.0,78.0,20.0,36.0,2,"Stress fracture of vertebra, Cervical region",2,399
+2,Male,47,7,Private Vehicle,Yes,Foreign Body Sense,Alert,1,6.0,120.0,80.0,76.0,20.0,36.3,3,Foreign body in oesophagus,3,314
+2,Male,50,12,Private Ambulance,No,upper back pain,Alert,1,6.0,120.0,60.0,64.0,20.0,36.5,2,Transmural myocardial infarction NOS,2,9921
+2,Male,51,8,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,6.0,110.0,60.0,61.0,20.0,36.3,4,Corneal abrasion,4,99
+2,Female,57,5,119 Ambulance,No,palpitation,Alert,1,6.0,130.0,80.0,73.0,22.0,36.2,3,Palpitations,3,8065
+2,Male,58,12,Private Vehicle,No,Left chest pain,Alert,1,6.0,160.0,100.0,110.0,20.0,36.5,2,"Angina pectoris, unspecified",2,10150
+2,Male,58,8,Private Vehicle,Yes,"ocular pain, Lt.",Alert,1,6.0,160.0,100.0,84.0,20.0,36.5,4,,4,193
+2,Male,58,7,Private Ambulance,No,ant. chest pain,Alert,1,6.0,110.0,60.0,62.0,20.0,36.2,2,Acute transmural myocardial infarction of inferior wall,2,274
+2,Female,59,8,Private Vehicle,Yes,Open Wound,Alert,1,6.0,140.0,100.0,75.0,20.0,36.3,4,"Open wound of other parts of head, face",4,223
+2,Male,60,3,Private Vehicle,No,dysuria,Alert,1,6.0,130.0,60.0,66.0,20.0,36.6,4,Urinary tract obstruction NOS,4,55
+2,Male,61,8,Private Ambulance,Yes,abd pain,Alert,1,6.0,,,,,,1,Contusion of abdomen wall,1,275
+2,Male,62,8,Walking,No,Left chest pain,Alert,1,6.0,110.0,80.0,78.0,20.0,36.2,2,Ischaemic chest pain,2,504
+2,Male,66,6,Private Vehicle,No,D - Diarrhea,Alert,1,6.0,110.0,60.0,98.0,20.0,36.5,3,"Regional colitis, unspecified",3,315
+2,Female,68,5,Private Vehicle,No,headache,Alert,1,6.0,200.0,110.0,90.0,20.0,36.8,3,Tension-type headache,3,8805
+2,Male,68,10,Walking,No,RUQ pain,Alert,1,6.0,120.0,80.0,78.0,20.0,36.8,3,Acute cholecystitis,3,197
+2,Female,69,8,Private Vehicle,No,epigastric pain,Alert,1,6.0,160.0,100.0,72.0,20.0,36.4,2,Unstable angina,2,309
+2,Male,69,12,119 Ambulance,No,chest discomfort,Alert,1,6.0,150.0,100.0,70.0,20.0,36.4,2,"Angina pectoris, unspecified",2,18980
+2,Male,72,5,Private Ambulance,Yes,Left chest pain,Alert,1,6.0,100.0,60.0,86.0,24.0,36.4,2,Contusion of abdomen wall,2,206
+2,Male,74,8,Private Ambulance,No,ant. chest pain,Alert,1,6.0,110.0,60.0,60.0,20.0,36.6,2,Observation for suspected myocardial infarction,2,10268
+2,Female,75,8,Private Vehicle,No,ant. chest pain,Alert,1,6.0,110.0,60.0,60.0,20.0,36.1,2,Ischaemic chest pain,2,19523
+2,Female,77,2,Private Ambulance,No,headache,Verbal Response,1,6.0,190.0,100.0,84.0,20.0,36.5,2,Intracerebral haemorrhage in cerebellum,2,189
+2,Female,77,8,Private Ambulance,No,Hip joint pain,Alert,1,6.0,110.0,60.0,84.0,20.0,36.7,4,"Abscess of fascia, buttock",4,9377
+2,Female,78,6,Private Ambulance,No,ant. chest pain,Alert,1,6.0,120.0,60.0,100.0,20.0,36.3,2,Acute transmural myocardial infarction of unspecified site,2,475
+2,Male,78,8,Walking,No,RUQ pain,Alert,1,6.0,110.0,60.0,65.0,20.0,36.0,3,Acute cholecystitis,3,8695
+2,Male,28,7,Private Vehicle,No,both leg pain,Alert,1,7.0,100.0,60.0,78.0,20.0,36.6,4,Complex regional pain syndrome type II,4,8118
+2,Male,49,5,Private Vehicle,No,ant. chest pain,Alert,1,8.0,140.0,90.0,60.0,20.0,36.0,2,Myocardial infarction with non-ST elevation,2,10286
+2,Male,56,7,Private Ambulance,No,upper back pain,Alert,1,8.0,180.0,100.0,84.0,22.0,36.0,2,"Abdominal aortic aneurysm, ruptured",2,234
+2,Male,17,15,Private Vehicle,No,light headness,Alert,0,,100.0,60.0,68.0,20.0,36.2,3,Syncope,3,344
+2,Female,17,5,Walking,No,H-Headache,Alert,0,,90.0,60.0,128.0,24.0,38.1,3,(Seizure) Convulsive NOS,3,8790
+2,Male,19,7,Private Vehicle,No,fever,Alert,0,,130.0,80.0,110.0,20.0,38.4,4,"Fever, unspecified",4,9470
+2,Female,20,4,Private Vehicle,No,both hand numbness,Alert,0,,120.0,70.0,78.0,24.0,36.0,4,Hyperventilation,4,190
+2,Male,21,6,Private Vehicle,No,dyspnea,Alert,0,,130.0,90.0,108.0,20.0,36.6,3,Other specified interstitial pulmonary diseases,3,625
+2,Female,22,12,Private Vehicle,No,skin rash,Alert,0,,100.0,60.0,84.0,20.0,37.3,4,Rash and other nonspecific skin eruption,4,698654
+2,Male,22,5,Private Ambulance,No,hematemesis,Alert,0,,100.0,60.0,84.0,20.0,36.6,3,Mallory - Weiss syndrome,3,9484
+2,Male,22,10,119 Ambulance,No,mental change,Pain Response,0,,100.0,60.0,98.0,24.0,37.6,2,Stupor,2,8703
+2,Female,24,6,119 Ambulance,No,dyspnea,Alert,0,,110.0,70.0,82.0,20.0,36.0,3,Anaphylaxis NOS,3,9582
+2,Female,24,6,Private Vehicle,No,hematochezia,Alert,0,,130.0,80.0,90.0,20.0,36.2,3,"Crohn’s disease NOS, unspecified",3,275
+2,Female,29,10,119 Ambulance,No,hallucination,Alert,0,,110.0,70.0,80.0,20.0,36.0,4,Paranoid schizophrenia,4,510
+2,Female,30,6,Private Vehicle,No,erythematous papule,Alert,0,,110.0,70.0,80.0,20.0,36.0,5,Allergic urticaria,5,175
+2,Female,30,12,Private Vehicle,No,fever & chill,Alert,0,,90.0,50.0,84.0,20.0,38.7,4,"Fever, unspecified",4,508
+2,Female,31,7,Private Ambulance,No,dyspnea,Alert,0,,90.0,60.0,103.0,20.0,36.8,3,Cough with dyspnea,3,9619
+2,Female,32,7,Private Vehicle,No,right nasal bleeding,Alert,0,,160.0,100.0,108.0,22.0,36.4,4,Epistaxis,4,415
+2,Female,33,12,Private Vehicle,Yes,nausea,Alert,0,,110.0,70.0,80.0,20.0,36.1,4,"Superficial injury of other parts of head, contusion",4,21
+2,Female,34,7,Private Vehicle,No,fever,Alert,0,,170.0,100.0,80.0,20.0,36.0,4,Seasonal influenza virus identified influenzal acute upper respiratory infection,4,875
+2,Female,34,4,Private Vehicle,No,fever,Alert,0,,110.0,70.0,87.0,20.0,36.3,4,Acute pyelonephritis,4,620
+2,Female,34,2,Private Ambulance,No,Convulsion,Alert,0,,130.0,80.0,95.0,20.0,36.0,3,Other and unspecified convulsions,3,904
+2,Male,34,5,Private Ambulance,Yes,anterior chest discomfort,Alert,0,,120.0,80.0,66.0,20.0,37.5,3,Toxic effect of carbon monoxide,3,9281
+2,Female,35,8,119 Ambulance,No,Vaginal Bleeding,Alert,0,,100.0,60.0,102.0,20.0,36.5,3,Delayed and secondary postpartum haemorrhage,3,7894
+2,Female,36,8,Private Vehicle,No,dyspnea,Alert,0,,120.0,80.0,68.0,24.0,36.4,3,Dyspnoea,3,10070
+2,Female,36,8,Private Vehicle,No,dizziness,Alert,0,,140.0,90.0,78.0,20.0,36.4,3,Dizziness and giddiness,3,423
+2,Female,37,8,Private Vehicle,No,headache,Alert,0,,110.0,60.0,68.0,20.0,36.3,4,Headache,4,210
+2,Male,39,10,Private Ambulance,No,Confusion state,Pain Response,0,,80.0,50.0,72.0,20.0,36.8,2,Hepatorenal syndrome,2,518
+2,Female,40,10,Private Vehicle,Yes,Open Wound,Alert,0,,110.0,70.0,80.0,20.0,36.7,4,Contusion of other and unspecified parts of foot,4,27
+2,Male,44,9,Private Vehicle,Yes,right ocular pain,Alert,0,,120.0,80.0,84.0,20.0,36.4,4,Corneal abrasion,4,91
+2,Male,44,5,Private Ambulance,No,hematemesis,Alert,0,,150.0,70.0,84.0,20.0,36.5,3,"Gastrointestinal haemorrhage, unspecified",3,9627
+2,Male,44,4,119 Ambulance,No,mental change,Verbal Response,0,,180.0,100.0,82.0,22.0,36.7,2,Intracerebral haemorrhage in thalamus,2,189
+2,Male,44,4,Walking,No,LOC,Alert,0,,100.0,60.0,75.0,20.0,36.2,3,Syncope,3,514
+2,Female,44,2,Private Vehicle,No,skin eruption,Alert,0,,110.0,60.0,110.0,20.0,37.5,4,Rash and other nonspecific skin eruption,4,9237
+2,Male,45,12,Private Ambulance,No,syncope,Alert,0,,100.0,60.0,82.0,20.0,36.4,3,Syncope,3,699667
+2,Male,46,5,Private Vehicle,Yes,Chemical Burn,Alert,0,,120.0,80.0,80.0,20.0,36.5,2,Burn of cornea and conjunctival sac,2,989
+2,Male,46,7,Private Vehicle,No,diarrhea,Alert,0,,150.0,90.0,98.0,18.0,36.4,3,"Chronic kidney disease, unspecified",3,9963
+2,Female,47,12,Private Vehicle,No,Urticarial rash,Alert,0,,100.0,60.0,72.0,22.0,36.8,4,Allergic urticaria,4,74
+2,Male,47,6,Private Vehicle,No,palpitation,Alert,0,,100.0,60.0,100.0,20.0,36.7,3,Other chest pain,3,698798
+2,Female,48,6,119 Ambulance,No,Lt. hemiparesis,Alert,0,,160.0,90.0,66.0,20.0,36.6,2,Cerebral infarction due to unspecified occlusion or stenosis of middle cerebral artery,2,7889
+2,Male,49,9,Private Ambulance,No,hematemesis,Alert,0,,130.0,80.0,78.0,18.0,36.2,2,"Esophageal varices with bleeding, Idiopathic",2,2067
+2,Female,49,9,Private Vehicle,No,nausea,Alert,0,,140.0,90.0,64.0,22.0,36.3,3,Nausea alone,3,190
+2,Female,49,3,Private Vehicle,No,ant. chest pain,Alert,0,,110.0,60.0,76.0,20.0,36.0,4,Ischaemic chest pain,4,601
+2,Female,50,9,Private Vehicle,No,vaginal bleeding,Alert,0,,140.0,100.0,68.0,20.0,36.2,3,Other specified abnormal uterine and vaginal bleeding,3,699303
+2,Male,50,7,Private Vehicle,No,chest palpitation,Alert,0,,100.0,60.0,110.0,20.0,36.2,4,Supraventricular tachycardia,4,343
+2,Male,51,1,Private Ambulance,No,hemoptysis,Alert,0,,130.0,90.0,90.0,20.0,36.3,3,Haemoptysis,3,12114
+2,Female,51,1,Private Ambulance,No,mental change,Unresponsive,0,,60.0,,72.0,,35.7,1,Cardiac arrest with successful resuscitation,1,392
+2,Female,51,4,Private Vehicle,No,whirling type vertigo,Alert,0,,140.0,70.0,72.0,20.0,36.2,3,Dizziness and giddiness,3,287
+2,Male,52,12,Private Ambulance,No,melena,Alert,0,,190.0,100.0,80.0,20.0,36.0,2,"Gastrointestinal haemorrhage, unspecified",2,10613
+2,Female,52,11,Private Ambulance,No,fever,Alert,0,,70.0,,80.0,20.0,38.5,2,Acute pyelonephritis,2,9710
+2,Male,52,5,119 Ambulance,No,hematemesis,Alert,0,,100.0,60.0,100.0,20.0,36.6,2,"Gastrointestinal haemorrhage, unspecified",2,10386
+2,Male,53,12,Private Vehicle,No,hematemesis,Alert,0,,130.0,90.0,84.0,20.0,36.0,3,"Gastrointestinal haemorrhage, unspecified",3,426
+2,Male,53,8,Private Vehicle,No,hematemesis,Alert,0,,100.0,60.0,110.0,20.0,36.1,3,"Esophageal varices without bleeding, Sencondary",3,1022
+2,Male,53,8,Private Vehicle,No,"Abnormality, Visual Acuity",Alert,0,,110.0,60.0,74.0,20.0,36.6,2,Cerebrovascular accident NOS,2,9542
+2,Male,53,6,Private Vehicle,No,diarrhea,Alert,0,,100.0,60.0,84.0,20.0,36.4,3,"Chronic kidney disease, unspecified",3,10183
+2,Male,53,9,119 Ambulance,No,dizziness,Alert,0,,100.0,60.0,68.0,18.0,36.2,3,Orthostatic hypotension,3,2040
+2,Male,53,5,Private Ambulance,No,anterior chest discomfort,Alert,0,,130.0,80.0,104.0,22.0,36.2,3,"Atrial fibrillation and atrial flutter, unspecified",3,701
+2,Male,53,7,Private Ambulance,No,whirling type vertigo,Alert,0,,110.0,70.0,70.0,20.0,36.0,3,Vestibular neuronitis,3,484
+2,Female,53,5,Private Vehicle,Yes,dizziness,Alert,0,,130.0,80.0,80.0,18.0,36.1,2,"Ingested mushrooms, toxic effect of",2,522
+2,Female,54,12,Private Ambulance,Yes,D - Diarrhea,Alert,0,,130.0,80.0,101.0,20.0,36.5,2,"Pesticide, unspecified, toxic effect of",2,281
+2,Female,54,3,Private Vehicle,No,cough,Alert,0,,180.0,100.0,108.0,24.0,36.6,3,Dyspnoea,3,10895
+2,Male,54,2,Private Vehicle,No,hemoptysis,Alert,0,,130.0,90.0,90.0,20.0,36.2,3,Bronchiectasis,3,1045
+2,Female,55,5,Private Vehicle,No,dizziness,Alert,0,,200.0,120.0,64.0,20.0,36.4,3,Headache,3,921
+2,Female,56,9,Private Vehicle,No,Urticarial rash,Alert,0,,120.0,70.0,78.0,20.0,36.6,4,Allergic urticaria,4,7800
+2,Male,56,3,119 Ambulance,No,nausea,Alert,0,,100.0,60.0,72.0,20.0,36.5,3,Hepatocellular carcinoma,3,537
+2,Male,57,8,Private Vehicle,No,palpitation,Alert,0,,130.0,90.0,106.0,20.0,36.5,3,Paroxysmal atrial fibrillation,3,525
+2,Female,57,2,Private Vehicle,No,dysuria,Alert,0,,130.0,70.0,74.0,20.0,36.2,4,"Urinary tract infection, site not specified",4,622
+2,Male,58,6,119 Ambulance,No,fever,Alert,0,,130.0,80.0,100.0,20.0,36.9,3,Hepatitis NOS,3,11339
+2,Female,58,4,119 Ambulance,No,D - Diarrhea,Alert,0,,110.0,60.0,100.0,18.0,36.2,3,Acute watery diarrhoea,3,776
+2,Female,58,1,Private Ambulance,Yes,post-CPR state,Unresponsive,0,,140.0,80.0,122.0,,36.0,1,Cardiac arrest with successful resuscitation,1,1010
+2,Male,58,5,Private Ambulance,Yes,"Discomfort, Throat",Alert,0,,100.0,60.0,104.0,28.0,36.7,2,"Ingested mushrooms, toxic effect of",2,522
+2,Female,58,10,119 Ambulance,No,vomiting,Alert,0,,160.0,100.0,94.0,22.0,36.4,2,Nause with vomiting,2,8379
+2,Male,58,15,Private Ambulance,No,post-CPR state,Unresponsive,0,,,,,,,1,"Cardiac arrest, unspecified",1,123
+2,Male,58,7,Private Vehicle,No,Rt. side motor weakness,Alert,0,,100.0,60.0,106.0,20.0,36.3,3,Secondary malignant neoplasm of brain,3,8064
+2,Male,58,9,Private Vehicle,No,dizziness,Alert,0,,130.0,90.0,72.0,20.0,36.4,2,"Atrial fibrillation and atrial flutter, unspecified",2,9299
+2,Female,58,3,Private Ambulance,No,right motor weakness,Alert,0,,160.0,100.0,84.0,20.0,36.7,2,Cerebral infarction due to thrombosis of unspecified cerebral arteries,2,262
+2,Male,58,3,119 Ambulance,No,"Fever, Unspecified",Alert,0,,140.0,90.0,88.0,20.0,37.8,4,"Viral infection, unspecified",4,742
+2,Female,58,8,Private Ambulance,No,melena,Alert,0,,110.0,60.0,70.0,20.0,36.5,3,"Gastrointestinal haemorrhage, unspecified",3,10175
+2,Male,59,11,119 Ambulance,Yes,mental change,Verbal Response,0,,160.0,100.0,66.0,20.0,36.5,2,Traumatic subdural hemorrhage without open intracranial wound,2,107
+2,Female,60,8,Private Vehicle,No,hemoptysis,Alert,0,,120.0,80.0,76.0,20.0,36.3,3,Haemoptysis,3,334
+2,Male,60,5,Private Vehicle,No,Rt. side motor weakness,Alert,0,,120.0,60.0,110.0,20.0,36.8,4,Cerebrovascular accident NOS,4,194
+2,Female,60,6,Private Vehicle,No,fever,Alert,0,,140.0,80.0,82.0,20.0,36.0,4,"Choledocholithiasis with cholangitis, With obstruction",4,651
+2,Male,60,8,Private Vehicle,No,dyspnea,Alert,0,,130.0,80.0,98.0,20.0,36.4,3,Dilated cardiomyopathy,3,700092
+2,Male,61,9,Private Vehicle,No,dizziness,Alert,0,,120.0,80.0,42.0,20.0,36.6,3,Other acute renal failure,3,363
+2,Male,61,12,Private Vehicle,No,dizziness,Alert,0,,100.0,60.0,54.0,20.0,36.2,3,Dizziness and giddiness,3,351
+2,Female,62,5,119 Ambulance,No,dizziness,Alert,0,,100.0,60.0,68.0,20.0,36.3,3,Vestibular neuronitis,3,524
+2,Female,62,10,Private Vehicle,No,mood depression,Alert,0,,120.0,80.0,80.0,20.0,36.0,3,Illness NOS,3,227
+2,Male,62,12,119 Ambulance,No,dizziness,Alert,0,,110.0,70.0,64.0,20.0,36.0,3,Dizziness and giddiness,3,255
+2,Male,63,4,Private Vehicle,No,Rt. side motor weakness,Alert,0,,160.0,100.0,90.0,20.0,36.4,2,Cerebrovascular accident NOS,2,321
+2,Male,63,4,Private Vehicle,No,dyspnea,Alert,0,,140.0,100.0,88.0,24.0,36.3,3,"Chronic obstructive pulmonary disease, unspecified, unspecified",3,891
+2,Male,64,7,Private Vehicle,No,dysarthria,Alert,0,,130.0,70.0,98.0,20.0,36.4,3,Cerebral infarction due to thrombosis of middle cerebral artery,3,356
+2,Female,64,8,Private Vehicle,No,hematochezia,Alert,0,,120.0,80.0,80.0,20.0,36.4,3,"Gastrointestinal haemorrhage, unspecified",3,30715
+2,Male,64,8,Private Ambulance,No,Convulsion,Alert,0,,120.0,70.0,72.0,20.0,36.4,3,"Type 2 diabetes mellitus, without complications",3,952
+2,Male,65,5,Private Vehicle,No,hematochezia,Alert,0,,130.0,100.0,74.0,20.0,36.3,3,"Cirrhosis (of liver) NOS, unspecified",3,1209
+2,Male,65,7,119 Ambulance,No,mental change,Alert,0,,120.0,60.0,70.0,20.0,36.0,2,Cerebral infarction due to embolism of middle cerebral artery,2,237
+2,Male,65,12,119 Ambulance,No,loss of consciousness,Alert,0,,60.0,,68.0,20.0,36.3,2,Anaphylaxis NOS,2,407
+2,Female,65,5,Private Ambulance,No,hematemesis,Alert,0,,130.0,80.0,90.0,22.0,36.9,2,"Gastrointestinal haemorrhage, unspecified",2,9091
+2,Male,66,8,119 Ambulance,No,Lt. side weakness,Alert,0,,120.0,80.0,90.0,20.0,36.2,2,Cerebral infarction due to thrombosis of middle cerebral artery,2,93
+2,Female,67,8,Walking,No,left diplopia,Alert,0,,140.0,90.0,84.0,20.0,36.4,3,Diplopia,3,563
+2,Female,67,9,Private Vehicle,No,fever,Alert,0,,160.0,100.0,87.0,20.0,36.3,4,"Fever, unspecified",4,303
+2,Male,67,13,Others,No,dizziness,Alert,0,,150.0,80.0,110.0,24.0,36.5,3,Other syncope and collapse,3,273
+2,Male,68,5,119 Ambulance,No,dyspnea,Alert,0,,110.0,70.0,100.0,20.0,36.5,3,Other bacterial pneumonia,3,10491
+2,Female,68,8,Private Ambulance,No,mental change,Unresponsive,0,,,,114.0,,35.8,1,Cardiac arrest with successful resuscitation,1,408
+2,Female,68,10,Private Vehicle,No,"Whole body, skin rash",Alert,0,,160.0,80.0,96.0,20.0,36.6,5,drug eruption,5,398
+2,Female,69,9,Private Ambulance,No,fever,Alert,0,,140.0,80.0,98.0,20.0,36.6,4,"Fever, unspecified",4,10535
+2,Male,69,5,Private Ambulance,No,dyspnea,Alert,0,,160.0,100.0,76.0,20.0,36.3,2,Dyspnoea,2,363
+2,Male,69,9,Private Ambulance,No,dyspnea,Alert,0,,130.0,80.0,94.0,20.0,36.4,3,"Cirrhosis (of liver) NOS, unspecified",3,9226
+2,Male,69,3,Private Ambulance,No,general weakness,Alert,0,,110.0,70.0,120.0,20.0,36.4,2,Dentoalveolar abscess NOS,2,840
+2,Male,69,5,Private Vehicle,No,Facial Palsy,Alert,0,,110.0,70.0,66.0,20.0,36.2,3,Facial palsy,3,312
+2,Male,69,7,Private Vehicle,No,dyspnea,Alert,0,,100.0,70.0,88.0,20.0,36.7,3,"Pleural effusion, NEC",3,415
+2,Female,69,3,Private Vehicle,No,Urinary frequency,Alert,0,,150.0,90.0,78.0,20.0,36.8,4,Dysuria,4,268
+2,Female,70,15,Private Ambulance,No,melena,Alert,0,,130.0,90.0,94.0,20.0,36.6,3,"Gastrointestinal haemorrhage, unspecified",3,829
+2,Male,70,11,Private Vehicle,No,C - Coughing,Alert,0,,130.0,80.0,100.0,22.0,36.4,3,"Pneumonia, unspecified",3,9027
+2,Male,70,6,119 Ambulance,No,dizziness,Alert,0,,150.0,90.0,100.0,20.0,36.0,3,Posterior canal benign positional vertigo,3,7917
+2,Female,70,2,Private Vehicle,No,DZ - Dizziness,Alert,0,,180.0,100.0,80.0,20.0,36.0,2,Vestibular neuronitis,2,456
+2,Male,70,8,Walking,No,chest palpitation,Alert,0,,120.0,80.0,84.0,20.0,36.4,3,Palpitations,3,229
+2,Male,70,5,119 Ambulance,No,mental change,Alert,0,,170.0,100.0,88.0,20.0,36.5,2,"Other specified diabetes mellitus, with hypoglycemia",2,508
+2,Female,71,6,Private Vehicle,No,dizziness,Alert,0,,180.0,90.0,81.0,20.0,36.6,3,Dizziness and giddiness,3,226
+2,Male,72,3,Private Vehicle,No,fever,Alert,0,,120.0,80.0,94.0,20.0,38.4,3,"Fever, unspecified",3,278
+2,Male,72,6,Private Ambulance,No,LOC,Alert,0,,140.0,100.0,60.0,22.0,36.0,2,Syncope,2,9774
+2,Female,72,6,Private Ambulance,No,Lt. hemiparesis,Alert,0,,140.0,90.0,76.0,20.0,36.5,2,Cerebrovascular accident NOS,2,419
+2,Female,72,7,Private Ambulance,No,melena,Alert,0,,120.0,70.0,60.0,20.0,36.3,3,"Gastrointestinal haemorrhage, unspecified",3,10007
+2,Female,73,6,Private Vehicle,No,DZ - Dizziness,Alert,0,,120.0,70.0,90.0,20.0,36.4,3,Dizziness and giddiness,3,409
+2,Male,73,6,Private Ambulance,No,right motor weakness,Alert,0,,130.0,90.0,96.0,20.0,36.7,5,"Transient cerebral ischaemic attack, unspecified",5,770
+2,Female,73,8,Private Ambulance,No,fever,Alert,0,,100.0,60.0,70.0,20.0,37.4,4,"Fever, unspecified",4,9785
+2,Male,74,12,Private Vehicle,No,itching sensation,Alert,0,,120.0,80.0,80.0,20.0,36.4,5,Eczema NOS,5,234
+2,Female,74,10,119 Ambulance,No,"Aphasia, Motor",Alert,0,,160.0,90.0,80.0,20.0,36.2,2,Cerebrovascular accident NOS,2,7731
+2,Male,74,3,119 Ambulance,No,nasal bleeding,Alert,0,,190.0,100.0,100.0,22.0,36.6,3,Epistaxis,3,986
+2,Female,74,10,119 Ambulance,No,confused mental status,Verbal Response,0,,170.0,100.0,74.0,20.0,36.5,2,"Cirrhosis (of liver) NOS, Child-Pugh C",2,10355
+2,Male,74,6,Private Ambulance,No,mental change,Pain Response,0,,100.0,60.0,80.0,20.0,36.0,2,"Shock, unspecified",2,613
+2,Female,74,4,Private Vehicle,No,dyspnea,Alert,0,,130.0,80.0,84.0,24.0,36.3,3,Ischaemic cardiomyopathy,3,10086
+2,Female,75,2,Private Vehicle,No,dysarthria,Alert,0,,120.0,80.0,68.0,20.0,36.4,3,Cerebrovascular accident NOS,3,278
+2,Female,75,10,Private Vehicle,No,dizziness,Alert,0,,180.0,100.0,72.0,20.0,36.4,3,Dizziness and giddiness,3,208
+2,Male,75,3,Private Vehicle,No,diffuse abdominal discomfort,Alert,0,,110.0,60.0,74.0,20.0,36.0,5,Liver cell carcinoma,5,330
+2,Male,75,6,Private Ambulance,No,syncope,Alert,0,,160.0,100.0,60.0,20.0,36.6,3,Ischaemic chest pain,3,303
+2,Male,76,4,119 Ambulance,No,Rt. side motor weakness,Alert,0,,120.0,70.0,60.0,20.0,36.3,2,Cerebral infarction due to embolism of middle cerebral artery,2,559
+2,Female,76,5,Private Vehicle,No,Rt. side motor weakness,Alert,0,,120.0,80.0,78.0,20.0,36.3,3,Cerebrovascular accident NOS,3,8697
+2,Male,76,3,Private Vehicle,No,dysuria,Alert,0,,220.0,110.0,66.0,20.0,36.5,4,Dysuria,4,20
+2,Male,76,9,Private Vehicle,No,blurred vision,Alert,0,,120.0,80.0,88.0,20.0,36.0,4,Optic neuritis,4,699861
+2,Female,76,7,Private Ambulance,No,fever,Alert,0,,100.0,60.0,65.0,20.0,36.5,3,Unspecified abdominal pain,3,1008
+2,Female,76,9,Private Ambulance,No,post-CPR state,Unresponsive,0,,,,,,,1,"Cardiac arrest, unspecified",1,35
+2,Male,76,10,Private Vehicle,No,dizziness,Alert,0,,100.0,70.0,110.0,20.0,36.5,3,Dizziness and giddiness,3,340
+2,Female,76,7,Private Vehicle,No,dizziness,Alert,0,,140.0,90.0,70.0,20.0,36.1,3,Cerebral infarction due to thrombosis of posterior cerebral artery,3,9267
+2,Male,77,8,119 Ambulance,No,dyspnea,Alert,0,,120.0,80.0,106.0,20.0,36.5,3,"Bacterial pneumonia, unspecified",3,423
+2,Male,77,7,119 Ambulance,No,dizziness,Alert,0,,130.0,80.0,56.0,20.0,36.2,3,Horizontal canal benign positional vertigo,3,8258
+2,Female,77,7,Private Ambulance,No,Lt. motor weakness,Alert,0,,130.0,70.0,80.0,18.0,36.4,2,Cerebral infarction due to thrombosis of middle cerebral artery,2,7859
+2,Female,77,6,119 Ambulance,No,dizziness,Alert,0,,190.0,100.0,88.0,20.0,36.4,3,"Hypertension(arterial, essential, primary, systemic)",3,20087
+2,Female,77,6,Private Vehicle,No,dyspnea,Alert,0,,100.0,60.0,108.0,22.0,36.8,3,Persistent atrial fibrillation,3,10118
+2,Male,77,12,Private Vehicle,No,mental confusion,Alert,0,,180.0,100.0,75.0,20.0,36.4,3,Cerebral infarction due to thrombosis of middle cerebral artery,3,627
+2,Female,78,11,119 Ambulance,No,dyspnea,Alert,0,,130.0,90.0,88.0,20.0,36.2,3,"Heart failure, unspecified",3,9516
+2,Female,78,12,Private Ambulance,No,confusion mentality,Verbal Response,0,,140.0,100.0,74.0,20.0,36.5,2,Cerebrovascular accident NOS,2,9035
+2,Female,79,6,Private Ambulance,No,dyspnea,Alert,0,,100.0,70.0,62.0,20.0,36.0,3,Ischaemic chest pain,3,10607
+2,Female,79,5,Private Vehicle,No,Lt hemiparesis,Alert,0,,110.0,70.0,72.0,20.0,36.0,3,Cerebral infarction due to thrombosis of middle cerebral artery,3,316
+2,Male,79,7,Private Vehicle,No,Difficulty in voiding,Alert,0,,120.0,70.0,86.0,20.0,36.4,4,Anuria and oliguria,4,238
+2,Female,79,8,Private Vehicle,No,loss of consciousness,Alert,0,,90.0,60.0,60.0,20.0,36.2,3,Syncope,3,9961
+2,Female,79,8,Private Ambulance,No,blood tinged sputum,Alert,0,,130.0,80.0,60.0,24.0,36.4,2,Haemoptysis,2,9378
+2,Male,79,8,119 Ambulance,No,dysarthria,Alert,0,,140.0,80.0,82.0,20.0,36.7,2,"Intracerebral haemorrhage, intraventricular",2,129
+2,Female,80,8,Private Vehicle,No,dyspnea,Alert,0,,110.0,70.0,110.0,26.0,37.8,3,Gastroenteritis and colitis of unspecified origin,3,9577
+2,Female,80,13,Private Vehicle,No,fever,Alert,0,,120.0,70.0,102.0,20.0,37.5,4,"Urinary tract infection, site not specified",4,9063
+2,Male,80,10,Private Ambulance,No,mental change,Alert,0,,150.0,90.0,64.0,20.0,36.4,2,Cerebral infarction due to unspecified occlusion or stenosis of middle cerebral artery,2,401
+2,Male,80,3,119 Ambulance,Yes,mental change,Pain Response,0,,140.0,100.0,110.0,24.0,36.6,2,Traumatic subdural hemorrhage without open intracranial wound,2,228
+2,Female,80,8,119 Ambulance,No,general weakness,Alert,0,,130.0,80.0,79.0,20.0,36.0,3,"Type 2 diabetes mellitus, with hypoglycemia",3,200
+2,Female,80,4,Private Ambulance,No,Convulsion,Alert,0,,130.0,100.0,63.0,20.0,36.0,3,Cerebrovascular accident NOS,3,8746
+2,Female,81,5,Private Ambulance,No,left motor weakness,Alert,0,,180.0,100.0,90.0,20.0,36.0,2,Other intracerebral haemorrhage,2,176
+2,Female,81,2,Private Ambulance,No,dyspnea,Pain Response,0,,100.0,60.0,100.0,24.0,36.4,3,Dyspnoea,3,9541
+2,Male,81,6,Private Vehicle,No,Low abd. pain,Alert,0,,130.0,80.0,96.0,20.0,36.6,4,Hyperplasia of prostate with obstruction,4,7955
+2,Female,82,5,119 Ambulance,No,nasal bleeding,Alert,0,,120.0,80.0,72.0,20.0,36.0,4,Epistaxis,4,398
+2,Male,82,12,119 Ambulance,Yes,syncope,Alert,0,,100.0,60.0,64.0,20.0,36.4,3,Communicationg hydrocephalus,3,394
+2,Female,83,7,Private Ambulance,No,fever,Alert,0,,140.0,90.0,92.0,20.0,37.6,4,"Fever, unspecified",4,9963
+2,Male,83,6,Private Ambulance,No,dyspnea,Alert,0,,120.0,70.0,72.0,20.0,36.4,3,"Pneumonia, unspecified",3,9488
+2,Female,83,5,119 Ambulance,No,mental change,Alert,0,,150.0,100.0,84.0,20.0,36.8,1,Hypo-osmolality and hyponatraemia,1,10728
+2,Male,84,7,119 Ambulance,No,dyspnea,Alert,0,,180.0,80.0,72.0,20.0,36.0,3,Cough with dyspnea,3,698919
+2,Female,84,10,119 Ambulance,No,hematemesis,Alert,0,,150.0,100.0,100.0,20.0,36.6,3,"Gastrointestinal haemorrhage, unspecified",3,488
+2,Female,86,8,Private Vehicle,No,fever,Alert,0,,140.0,80.0,50.0,20.0,36.3,4,fever of unknown origin,4,73
+2,Female,86,9,Private Vehicle,No,dysarthria,Verbal Response,0,,90.0,60.0,78.0,20.0,36.4,3,Hypokalaemia,3,491
+2,Female,86,11,Private Vehicle,No,watery diarrhea,Alert,0,,110.0,70.0,80.0,20.0,36.2,3,Infectious diarrhoea NOS,3,528
+2,Male,88,8,Private Ambulance,No,dyspnea,Alert,0,,130.0,80.0,88.0,24.0,36.5,3,Other acute renal failure,3,989
+2,Male,88,6,Private Ambulance,No,Convulsion,Verbal Response,0,,150.0,90.0,95.0,20.0,36.2,3,(Seizure) Convulsive NOS,3,889
+2,Female,89,10,Private Ambulance,No,melena,Alert,0,,70.0,40.0,82.0,20.0,36.3,2,"Gastrointestinal haemorrhage, unspecified",2,9485
+2,Male,96,7,Private Ambulance,No,general weakness,Alert,0,,90.0,60.0,68.0,20.0,36.2,2,Pericardial effusion (noninflammatory),2,20076
+2,Female,16,6,Private Vehicle,No,nausea,Alert,1,3.0,110.0,60.0,102.0,22.0,36.8,4,Unspecified abdominal pain,4,8961
+2,Female,41,5,Private Vehicle,Yes,Open Wound,Alert,1,3.0,120.0,80.0,74.0,20.0,36.3,3,"Superficial injury of face NOS, contusion",3,117
+2,Male,50,3,Private Vehicle,No,upper abdominal pain,Alert,1,3.0,120.0,80.0,84.0,20.0,36.4,4,Unspecified abdominal pain,4,410
+2,Female,67,10,Private Ambulance,No,ant. chest pain,Alert,1,3.0,100.0,60.0,80.0,20.0,36.0,2,Unstable angina,2,802
+2,Female,80,6,Private Vehicle,No,ant. chest pain,Alert,1,3.0,150.0,90.0,108.0,24.0,36.2,2,Unstable angina,2,578
+2,Female,64,8,Private Vehicle,No,dyspnea,Alert,0,,110.0,80.0,75.0,20.0,36.3,3,"Asthma, unspecified",3,9959
+2,Male,35,12,Private Vehicle,Yes,Open Wound,Alert,1,2.0,120.0,80.0,80.0,20.0,36.2,4,"Open wound of finger(s), NOS",4,223
+2,Male,40,8,Private Vehicle,No,For  IV injection,Alert,1,2.0,110.0,70.0,99.0,20.0,36.0,5,Polyneuropathy in neoplastic disease (C00-D48+),5,54
+2,Male,49,6,119 Ambulance,No,ant. chest pain,Alert,1,2.0,150.0,90.0,92.0,20.0,36.2,2,Ischaemic chest pain,2,1591
+2,Male,70,3,Walking,Yes,Open Wound,Alert,1,2.0,110.0,70.0,80.0,18.0,36.6,4,"Open wound of other parts of head, face",4,274
+2,Male,24,12,Private Vehicle,No,ant. chest pain,Alert,1,3.0,140.0,90.0,102.0,20.0,36.3,4,Ischaemic chest pain,4,526
+2,Male,25,10,Private Vehicle,Yes,lip laceration,Alert,1,3.0,110.0,70.0,84.0,20.0,36.0,5,Open wound of lip,5,98
+2,Female,27,11,Private Vehicle,Yes,"ocular pain, Rt.",Alert,1,3.0,120.0,70.0,78.0,20.0,36.2,4,Corneal abrasion,4,72
+2,Female,29,12,Private Vehicle,No,right lower abdominal pain,Alert,1,3.0,110.0,70.0,80.0,20.0,36.1,4,Unspecified abdominal pain,4,755
+2,Female,32,12,Private Vehicle,No,abd pain,Alert,1,3.0,110.0,36.0,100.0,24.0,36.5,4,"Maternal care for cervical incompetence, less than 22 weeks pregnant",4,182
+2,Female,36,8,Private Vehicle,No,Vaginal Bleeding,Alert,1,3.0,120.0,80.0,80.0,20.0,36.4,4,"Ectopic pregnancy, unspecified",4,477
+2,Male,48,5,Private Vehicle,Yes,eye pain left eye,Alert,1,3.0,110.0,70.0,66.0,20.0,36.1,4,"Open wound of other parts of head, face",4,8100
+2,Male,50,6,119 Ambulance,No,Rt. flank pain,Alert,1,3.0,150.0,100.0,72.0,20.0,36.3,4,Ureteric stone,4,766
+2,Male,51,17,Private Vehicle,No,ant. chest pain,Alert,1,3.0,140.0,100.0,80.0,20.0,36.4,2,Unstable angina,2,362
+2,Female,52,12,Private Vehicle,No,headache,Alert,1,3.0,120.0,80.0,80.0,20.0,36.1,4,"Cerebral infarction, unspecified",4,789
+2,Female,69,11,Private Vehicle,No,dyspnea,Alert,1,3.0,140.0,80.0,98.0,20.0,36.7,3,Adrenocortical insufficiency NOS,3,20821
+2,Male,74,12,Private Vehicle,No,ant. chest pain,Alert,1,3.0,140.0,90.0,80.0,20.0,36.0,2,Unstable angina,2,301
+2,Male,77,12,Private Vehicle,No,dyspnea,Alert,1,3.0,110.0,70.0,65.0,20.0,36.5,4,"Heart failure, unspecified",4,10254
+2,Female,82,7,Private Vehicle,No,epigastric pain,Alert,1,3.0,150.0,90.0,94.0,20.0,36.5,4,Unspecified abdominal pain,4,8109
+2,Female,86,11,Private Vehicle,No,"Pain, Abdomen",Alert,1,3.0,100.0,60.0,76.0,20.0,36.4,4,"Upper abdominal pain, unspecified",4,10010
+2,Female,30,10,Private Ambulance,No,Vaginal Bleeding,Alert,1,4.0,120.0,80.0,80.0,20.0,36.0,3,"Spontaneous preterm labour, 22 weeks or more and less than 34weeks pregnagnt",3,59
+2,Female,31,7,Private Ambulance,No,Abdominal pain (finding),Alert,1,4.0,100.0,60.0,100.0,20.0,36.3,3,"Preterm labour without delivery, 22 weeks or more and less than 34weeks pregnant",3,123
+2,Male,49,4,Private Vehicle,Yes,oral bleeding,Alert,1,4.0,120.0,70.0,78.0,20.0,36.6,4,Traumatic secondary and recurrent haemorrhage,4,188
+2,Female,55,6,Private Ambulance,Yes,post neck pain,Alert,1,4.0,130.0,80.0,86.0,20.0,36.2,2,Closed fracture of second cervical vertebra,2,399
+2,Female,69,8,Private Vehicle,No,Lt flank pain,Alert,1,4.0,120.0,80.0,80.0,20.0,36.0,3,Unspecified abdominal pain,3,343
+2,Female,78,6,Private Vehicle,No,"ocular pain, both",Alert,1,4.0,130.0,80.0,96.0,20.0,36.4,4,Ocular pain,4,107
+2,Male,82,13,Private Vehicle,Yes,"ocular pain, Lt.",Alert,1,4.0,130.0,80.0,82.0,20.0,36.3,4,Burn of cornea and conjunctival sac,4,180
+2,Male,21,4,Private Vehicle,Yes,lip laceration,Alert,1,5.0,110.0,70.0,76.0,20.0,36.6,4,"Open wound of lip and oral cavity, part unspecified",4,747
+2,Male,36,8,Private Vehicle,Yes,decerased visual acuity,Alert,1,6.0,130.0,80.0,64.0,20.0,36.3,4,Traumatic hyphaema,4,182
+2,Male,66,17,Private Ambulance,Yes,ant. chest pain,Alert,1,6.0,,,114.0,24.0,36.2,2,Contusion of abdomen wall,2,36
+2,Female,19,6,Private Vehicle,Yes,Foreign body in throat,Alert,0,,120.0,80.0,68.0,20.0,36.4,5,Swallowed foreign body NOS,5,187
+2,Female,22,9,Private Vehicle,No,swelling,Alert,0,,110.0,80.0,90.0,20.0,36.1,4,Submandibular abscess,4,709510
+2,Female,28,11,Private Vehicle,No,Vaginal Bleeding,Alert,0,,100.0,60.0,110.0,20.0,36.1,3,Threatened abortion,3,375
+2,Male,35,4,Private Ambulance,No,fever,Alert,0,,110.0,60.0,76.0,20.0,37.3,4,"Viral infection, unspecified",4,9520
+2,Female,36,1,Private Vehicle,No,vaginal discharge,Alert,0,,100.0,70.0,69.0,20.0,36.3,3,"Premature rupture of membranes, onset of labor within 24 hours, Unspecified",3,23
+2,Female,48,6,Walking,No,dizziness,Alert,0,,120.0,80.0,76.0,20.0,36.5,3,Dizziness and giddiness,3,461
+2,Male,49,5,Private Vehicle,No,abdomen distension,Alert,0,,100.0,60.0,102.0,20.0,36.4,5,"Cirrhosis (of liver) NOS, unspecified",5,8056
+2,Female,54,10,119 Ambulance,No,dizziness,Alert,0,,120.0,80.0,80.0,20.0,36.0,3,Dizziness and giddiness,3,10302
+2,Male,54,5,Private Vehicle,No,behavior change,Verbal Response,0,,110.0,70.0,77.0,20.0,36.1,2,Alcoholic encephalopathy,2,996
+2,Male,58,7,Private Vehicle,No,LOC - Loss of consciousness,Alert,0,,130.0,100.0,63.0,20.0,36.4,3,Other syncope and collapse,3,700875
+2,Female,67,7,119 Ambulance,No,general weakness,Alert,0,,110.0,70.0,80.0,20.0,36.0,3,"Spondylopathy in other infectious and parasitic diseases classified elsewhere, lumbar region",3,10575
+2,Female,68,12,Private Vehicle,No,Amnesia,Alert,0,,130.0,90.0,64.0,20.0,36.0,3,Transient global amnesia,3,9169
+2,Male,69,12,119 Ambulance,No,epistaxis,Alert,0,,140.0,100.0,96.0,20.0,36.1,3,Epistaxis,3,196
+2,Male,69,5,119 Ambulance,No,dizziness,Alert,0,,150.0,90.0,68.0,20.0,36.8,3,Cerebrovascular accident NOS,3,596
+2,Female,76,8,119 Ambulance,No,syncope,Alert,0,,130.0,80.0,71.0,20.0,36.3,2,"Cerebral infarction, unspecified",2,481
+2,Male,78,8,Private Ambulance,No,G/W-General weakness,Alert,0,,80.0,50.0,74.0,20.0,36.5,2,Ventricular tachycardia,2,589
+2,Male,79,5,119 Ambulance,No,mental change,Alert,0,,120.0,80.0,86.0,22.0,36.4,2,Cerebral infarction due to unspecified occlusion or stenosis of middle cerebral artery,2,1995
+2,Male,81,2,Private Vehicle,No,dysuria,Alert,0,,120.0,80.0,94.0,20.0,36.4,4,Dysuria,4,1000
+2,Male,81,17,119 Ambulance,No,dizziness,Alert,0,,130.0,90.0,80.0,20.0,36.2,3,Dizziness and giddiness,3,310
+2,Female,81,2,119 Ambulance,Yes,"Sensory, Decreased",Alert,0,,170.0,100.0,78.0,20.0,36.6,3,"Cord compression, unspecified",3,475
+2,Male,87,8,Private Ambulance,No,orthopnea,Alert,0,,150.0,80.0,62.0,20.0,36.2,3,Dyspnoea,3,887

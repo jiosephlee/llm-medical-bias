@@ -315,11 +315,37 @@ def convert_arrival(arrival_transport):
         "WALK IN": " via walk-in",
         "AMBULANCE": " via ambulance",
         "UNKNOWN": "",
+        "OTHER": "",
+        "HELICOPTER": "via helicopter",
         "EMS": " via EMS transport",
         "PRIVATE VEHICLE": " via private vehicle",
     }
     return mapping.get(arrival_transport.upper(), "")
 
+def convert_arrival_ktas(arrival_code):
+    """
+    Convert the numeric 'Arrival mode' code from triage-ktas to a text description.
+    For example:
+      1 -> " arriving on foot"
+      2 -> " arriving by public ambulance"
+      3 -> " arriving by private vehicle"
+      4 -> " arriving by private ambulance"
+    Any other value is mapped to " arriving by other means".
+    """
+    arrival_map = {
+        "Walking": " arriving on foot",
+        "119 Ambulance": " arriving by public ambulance",
+        "Private Vehicle": " arriving by private vehicle",
+        "Private Ambulance": " arriving by private ambulance",
+        'Public transportation': "arriving by public transportation",
+        'Wheelchair': 'came on a wheelchair'
+    }
+    try:
+        code = int(arrival_code)
+    except (TypeError, ValueError):
+        return ""
+    return arrival_map.get(code, " arriving by other means")
+    
 def format_row(row, dataset='triage-mimic'):
     # Create a natural language description of the patient.
     if dataset == 'triage-mimic':
@@ -355,3 +381,80 @@ def format_row(row, dataset='triage-mimic'):
             description += f" Data on {missing_str} is missing."
 
         return description
+    elif dataset == 'triage-ktas':
+        # --- Triage-ktas version ---
+        age = f"{int(row['Age'])}-year-old " if pd.notna(row.get("Age")) else ""
+        
+        # Map the Sex column: assuming 1 = Female, 2 = Male.
+        sex = row.get("Sex")
+        if pd.isna(sex):
+            gender_str = "person"
+            pronoun = "They have"
+        else:
+            if sex == 'Female':
+                gender_str = "woman"
+                pronoun = "She has"
+            elif sex == 'Male':
+                gender_str = "man"
+                pronoun = "He has"
+            else:
+                gender_str = "person"
+                pronoun = "They have"
+        
+        arrival_text = convert_arrival_ktas(row.get("Arrival mode"))
+        
+        chief_text = f" with a chief complaint of '{row['Chief_complain']}'" if pd.notna(row.get("Chief_complain")) else ""
+        
+        # Include information about injury if applicable.
+        injury = row.get("Injury")
+        injury_text = ""
+        if pd.notna(injury):
+            if injury == 'Yes':
+                injury_text = " and sustained an injury"
+        
+        # Prepare the vital signs.
+        vitals = {}
+        vitals["temperature"] = f" temperature of {row['BT']}°F" if pd.notna(row.get("BT")) else ""
+        vitals["heartrate"] = f", heart rate of {row['HR']} bpm" if pd.notna(row.get("HR")) else ""
+        vitals["resprate"] = f", respiratory rate of {row['RR']} breaths per minute" if pd.notna(row.get("RR")) else ""
+        vitals["sbp"] = f", systolic blood pressure of {row['SBP']} mmHg" if pd.notna(row.get("SBP")) else ""
+        vitals["dbp"] = f", diastolic blood pressure of {row['DBP']} mmHg" if pd.notna(row.get("DBP")) else ""
+        
+        # Handle pain:
+        # 'Pain' is a flag (0 or 1) indicating whether the patient feels pain.
+        # 'NRS_pain' provides the actual pain level (and may be NA).
+        # Since 'Pain' is never null, we can safely convert it to an integer.
+        pain_flag = int(row["Pain"])
+        if pain_flag == 1:
+            if pd.notna(row.get("NRS_pain")):
+                vitals["pain"] = f", and reports pain with a level of {row['NRS_pain']}."
+            else:
+                vitals["pain"] = ", and reports pain but no level was provided"
+        else:
+            vitals["pain"] = ""
+        
+        # Mental status, if available.
+        if pd.notna(row.get("Mental")):
+            vitals["mental"] = f" He is mentally {row['Mental']}"
+        else:
+            vitals["mental"] = ""
+        
+        missing_vitals = [key for key, value in vitals.items() if value == ""]
+        
+        description = (
+            f"A {age}{gender_str}{injury_text} arrives at the emergency department"
+            f"{arrival_text}{chief_text}. "
+            f"{pronoun}{''.join(vitals.values())}."
+            f" The patient is suspected to have {row["Diagnosis in ED"]}."
+        )
+        if missing_vitals:
+            missing_str = ", ".join(missing_vitals).replace("_", " ")
+            description += f" Data on {missing_str} is missing."
+        
+        return description
+
+        # Example usage:
+        # For a triage-ktas dataset row, you could do:
+        # row = df.iloc[0]
+        # print(format_row(row, dataset='triage-ktas'))
+                

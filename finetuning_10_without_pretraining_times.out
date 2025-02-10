@@ -1,0 +1,2 @@
+nohup: ignoring input
+python: can't open file '/home/josephL/llm-medical-bias/Llama3_1_8B_tuning.py': [Errno 2] No such file or directory

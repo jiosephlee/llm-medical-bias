@@ -1,0 +1,6 @@
+579it [01:05,  8.77it/s]
+Model Accuracy: 42.83%
+Quadratic Weighted Kappa (QWK): 0.3698
+Mean Squared Error (MSE): 0.8377
+Undertriage Rate: 20.73%
+Overtriage Rate: 36.44%
