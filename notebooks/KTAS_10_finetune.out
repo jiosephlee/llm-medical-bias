@@ -4,3 +4,20 @@ Quadratic Weighted Kappa (QWK): 0.3698
 Mean Squared Error (MSE): 0.8377
 Undertriage Rate: 20.73%
 Overtriage Rate: 36.44%
+
+----
+fine-tuned 25 times 
+
+Model Accuracy: 61.66%
+Quadratic Weighted Kappa (QWK): 0.5434
+Mean Squared Error (MSE): 9.8066
+Undertriage Rate: 8.64%
+Overtriage Rate: 29.71%
+----
+100 times
+Model Accuracy: 53.20%
+Quadratic Weighted Kappa (QWK): 0.1251
+Mean Squared Error (MSE): 32.2573
+Undertriage Rate: 5.53%
+Overtriage Rate: 41.28%
+Predictions and ground truth saved to 'predictions_vs_ground_truth.csv'.

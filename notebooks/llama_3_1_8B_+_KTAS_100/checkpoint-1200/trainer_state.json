@@ -1,9 +1,9 @@
 {
   "best_metric": null,
   "best_model_checkpoint": null,
-  "epoch": 76.9795918367347,
+  "epoch": 92.3265306122449,
   "eval_steps": 500,
-  "global_step": 1000,
+  "global_step": 1200,
   "is_hyper_param_search": false,
   "is_local_process_zero": true,
   "is_world_process_zero": true,
@@ -287,6 +287,62 @@
       "learning_rate": 3.3472803347280334e-05,
       "loss": 0.0027,
       "step": 1000
+    },
+    {
+      "epoch": 78.89795918367346,
+      "grad_norm": 0.013358856551349163,
+      "learning_rate": 2.9288702928870294e-05,
+      "loss": 0.0027,
+      "step": 1025
+    },
+    {
+      "epoch": 80.81632653061224,
+      "grad_norm": 0.016292404383420944,
+      "learning_rate": 2.510460251046025e-05,
+      "loss": 0.0026,
+      "step": 1050
+    },
+    {
+      "epoch": 82.73469387755102,
+      "grad_norm": 0.020148908719420433,
+      "learning_rate": 2.092050209205021e-05,
+      "loss": 0.0025,
+      "step": 1075
+    },
+    {
+      "epoch": 84.65306122448979,
+      "grad_norm": 0.00933380238711834,
+      "learning_rate": 1.6736401673640167e-05,
+      "loss": 0.0025,
+      "step": 1100
+    },
+    {
+      "epoch": 86.57142857142857,
+      "grad_norm": 0.018937664106488228,
+      "learning_rate": 1.2552301255230125e-05,
+      "loss": 0.0026,
+      "step": 1125
+    },
+    {
+      "epoch": 88.48979591836735,
+      "grad_norm": 0.014817959628999233,
+      "learning_rate": 8.368200836820084e-06,
+      "loss": 0.0024,
+      "step": 1150
+    },
+    {
+      "epoch": 90.40816326530613,
+      "grad_norm": 0.01491799671202898,
+      "learning_rate": 4.184100418410042e-06,
+      "loss": 0.0025,
+      "step": 1175
+    },
+    {
+      "epoch": 92.3265306122449,
+      "grad_norm": 0.017207643017172813,
+      "learning_rate": 0.0,
+      "loss": 0.0025,
+      "step": 1200
     }
   ],
   "logging_steps": 25,
@@ -301,12 +357,12 @@
         "should_evaluate": false,
         "should_log": false,
         "should_save": true,
-        "should_training_stop": false
+        "should_training_stop": true
       },
       "attributes": {}
     }
   },
-  "total_flos": 3.482003785478308e+17,
+  "total_flos": 4.175793505991393e+17,
   "train_batch_size": 2,
   "trial_name": null,
   "trial_params": null

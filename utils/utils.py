@@ -30,6 +30,10 @@ claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
 gemini_client = genai.Client(api_key=GEMINI_KEY)
 
+###################
+## Data Processing
+###################
+
 class Acuity(BaseModel):
     acuity: int
 
@@ -118,6 +122,10 @@ def stratified_df(df, target_col, test_size, seed=0):
     
     return stratified_train_df.reset_index(drop=True), stratified_test_df.reset_index(drop=True)
 
+###################
+## Evaluation
+###################
+
 def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexibility=1, by_class=False):
     """
     Evaluate predictions with standard metrics, Quadratic Weighted Kappa, and optionally per-class analysis.
@@ -177,6 +185,10 @@ def evaluate_predictions(predicted_answers, correct_answers, ordinal=False,flexi
         results["by_class"] = report
 
     return results
+
+###################
+## API Calling
+###################
 
 def query_gpt_safe(prompt, model="openai-gpt-4o-high-quota-chat", return_json=False,temperature=0.0, max_tokens=1000, debug=False):
     time.sleep(0.5)
