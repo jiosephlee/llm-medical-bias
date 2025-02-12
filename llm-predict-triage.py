@@ -38,40 +38,7 @@ def extract_acuity_from_text(text, debug):
                                        model= "gpt-4o-mini", debug=debug)
     else:
         return num
-
-def serialization(row, serialization='spaces'):
-    if serialization=='spaces':
-        serialization_prompt=f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
-{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
-    elif serialization=='commas':
-        serialization_prompt = f"""temperature,heartrate,resprate,o2sat,sbp,dbp,pain,chiefcomplaint
-{row['temperature']},{row['heartrate']},{row['resprate']},{row['o2sat']},{row['sbp']},{row['dbp']},{row['pain']},{row['chiefcomplaint']}"""
-    elif serialization=='json':
-        serialization_prompt = f"""temperature: {row['temperature']}
-heartrate: {row['heartrate']}
-resprate: {row['resprate']}
-o2sat: {row['o2sat']}
-sbp: {row['sbp']}
-dbp: {row['dbp']}
-pain: {row['pain']}
-chiefcomplaint: {row['chiefcomplaint']}
-"""
-    elif serialization=='natural':
-        serialization_prompt = f"""A patient has a temperature of {row['temperature']}°F, a heart rate of {row['heartrate']} bpm, a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}"."""
-    elif serialization=='natural_full':
-        serialization_prompt = f"""A {row['race'].lower()}, {row['anchor_age']}-year old {'man' if row['gender'] == 'M' else 'woman'} arrives at the emergency department{convert_arrival(row['arrival_transport'])}. {'He' if row['gender'] == 'M' else 'She'} has a temperature of {row['temperature']}°F, a heart rate of {row['heartrate']} bpm, a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}"."""
-    elif serialization=='natural_sex_race':
-        serialization_prompt = f"""A {row['race'].lower()}, {row['anchor_age']}-year old {'man' if row['gender'] == 'M' else 'woman'} has a temperature of {row['temperature']}°F, a heart rate of {row['heartrate']} bpm, a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}"."""
-    return serialization_prompt
-
-def instruction_prompt(dataset, strategy, return_json=False):
-    cot_instruction = "your reasoning in the key 'reasoning' and "
-    json_instruction = f"Answer in valid JSON format, providing {cot_instruction if 'CoT' in strategy else ''}acuity as a single numeric value in the key 'acuity'."
-    if 'Triage' in dataset:
-        if 'CoT' in strategy:
-            return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. Let's think step by step. {json_instruction if return_json else ''}"
-        return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"
-
+    
 def create_prompt_bias(row,strategy=None, return_json=False, vitals_off=False):
     task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
     starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 

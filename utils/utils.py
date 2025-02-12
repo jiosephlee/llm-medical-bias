@@ -322,78 +322,109 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p = 0, max_try_num=10,
 ## Prompting
 ###################
 
-def convert_arrival(arrival_transport):
-    mapping = {
-        "WALK IN": " via walk-in",
-        "AMBULANCE": " via ambulance",
-        "UNKNOWN": "",
-        "OTHER": "",
-        "HELICOPTER": "via helicopter",
-        "EMS": " via EMS transport",
-        "PRIVATE VEHICLE": " via private vehicle",
+TEMPLATES = {
+  "triage-mimic": {
+    "spaces": "temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {o2sat}%   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}",
+    "commas": "temperature, heartrate, resprate, o2sat, sbp, dbp, pain, chiefcomplaint\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {o2sat}%, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}",
+    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\no2sat: {o2sat}%\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\n",
+  },
+  "triage-ktas": {
+    "spaces": "temperature   heartrate   resprate   sbp   dbp   pain   chiefcomplaint   diagnosis in ED\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}   {suspicion}",
+    "commas": "temperature, heartrate, resprate, sbp, dbp, pain, chiefcomplaint, diagnosis in ED\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}, {suspicion}",
+    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\ndiagnosis in ED: {suspicion}",
+  }
+}
+def convert_arrival(arrival_transport, dataset = 'triage-mimic'):
+    if dataset=='triage-mimic':
+        mapping = {
+            "WALK IN": " via walk-in",
+            "AMBULANCE": " via ambulance",
+            "UNKNOWN": "",
+            "OTHER": "",
+            "HELICOPTER": "via helicopter",
+            "EMS": " via EMS transport",
+            "PRIVATE VEHICLE": " via private vehicle",
+        }
+    elif dataset == 'triage-ktas':
+        mapping = {
+        "WALKING": " arriving on foot",
+        "119 AMBULANCE": " arriving by public ambulance",
+        "PRIVATE VEHICLE": " arriving by private vehicle",
+        "PRIVATE AMBULANCE": " arriving by private ambulance",
+        'PUBLIC TRANSPORTATION': "arriving by public transportation",
+        'WHEELCHAIR': 'came on a wheelchair'
     }
     return mapping.get(arrival_transport.upper(), "")
 
-def convert_arrival_ktas(arrival_code):
-    """
-    Convert the numeric 'Arrival mode' code from triage-ktas to a text description.
-    For example:
-      1 -> " arriving on foot"
-      2 -> " arriving by public ambulance"
-      3 -> " arriving by private vehicle"
-      4 -> " arriving by private ambulance"
-    Any other value is mapped to " arriving by other means".
-    """
-    arrival_map = {
-        "Walking": " arriving on foot",
-        "119 Ambulance": " arriving by public ambulance",
-        "Private Vehicle": " arriving by private vehicle",
-        "Private Ambulance": " arriving by private ambulance",
-        'Public transportation': "arriving by public transportation",
-        'Wheelchair': 'came on a wheelchair'
-    }
-    try:
-        code = int(arrival_code)
-    except (TypeError, ValueError):
-        return ""
-    return arrival_map.get(code, " arriving by other means")
-    
-def format_row(row, dataset='triage-mimic'):
+def format_row(row, dataset='triage-mimic', serialization='natural'):
     # Create a natural language description of the patient.
     if dataset == 'triage-mimic':
-        # Handle missing values
-        race = row.get("race").lower()+', ' if pd.notna(row.get("race")) else ""
-        age = str(int(row.get("anchor_age"))) + '-year-old ' if pd.notna(row.get("anchor_age")) else ""
-        gender = row.get("gender", "person")
-        gender_str = "man" if gender == "M" else "woman" if gender == "F" else "person"
-        pronoun = "He has" if gender == "M" else "She has" if gender == "F" else "They have"
-
-        # Handle vitals with fallback values
-        vitals = {
-            "temperature": f" temperature of {row['temperature']}°F" if pd.notna(row.get("temperature")) else "",
-            "heartrate": f", a heartrate of {row['heartrate']} bpm" if pd.notna(row.get("heartrate")) else "",
-            "resprate": f", a respiratory rate of {row['resprate']} breaths per minute" if pd.notna(row.get("resprate")) else "",
-            "o2sat": f", oxygen saturation at {row['o2sat']}%" if pd.notna(row.get("o2sat")) else "",
-            "sbp": f", systolic blood pressure of {row['sbp']} mmHg" if pd.notna(row.get("sbp")) else "",
-            "dbp": f", diastolic blood pressure of {row['dbp']} mmHg" if pd.notna(row.get("dbp")) else "",
-            "pain": f", pain level reported as '{row['pain']}'" if pd.notna(row.get("pain")) else "",
-            "chiefcomplaint": f" a chief complaint described as '{row['chiefcomplaint']}'" if pd.notna(row.get("chiefcomplaint")) else "",
-        }
-        missing_vitals = [key for key, value in vitals.items() if value == ""]
-
+        if serialization in TEMPLATES.get('triage-mimic', {}):
+            template = TEMPLATES['triage-mimic'][serialization]
+            return template.format(
+                temperature=row.get('temperature', 'N/A'),
+                heartrate=row.get('heartrate', 'N/A'),
+                resprate=row.get('resprate', 'N/A'),
+                o2sat=row.get('o2sat', 'N/A'),
+                sbp=row.get('sbp', 'N/A'),
+                dbp=row.get('dbp', 'N/A'),
+                pain=row.get('pain', 'N/A'),
+                chiefcomplaint=row.get('chiefcomplaint', 'N/A')
+            )
+        elif serialization=='natural':
+            # Handle vitals with fallback values
+            vitals = {
+                "temperature": f" a temperature of {row['temperature']}°F," if pd.notna(row.get("temperature")) else "",
+                "heartrate": f" a heartrate of {row['heartrate']} bpm" if pd.notna(row.get("heartrate")) else "",
+                "resprate": f", a respiratory rate of {row['resprate']} breaths per minute" if pd.notna(row.get("resprate")) else "",
+                "o2sat": f", oxygen saturation at {row['o2sat']}%" if pd.notna(row.get("o2sat")) else "",
+                "sbp": f", systolic blood pressure of {row['sbp']} mmHg" if pd.notna(row.get("sbp")) else "",
+                "dbp": f", diastolic blood pressure of {row['dbp']} mmHg" if pd.notna(row.get("dbp")) else "",
+                "pain": f", pain level reported as '{row['pain']}'" if pd.notna(row.get("pain")) else "",
+                "chiefcomplaint": f", and a chief complaint described as '{row['chiefcomplaint']}'" if pd.notna(row.get("chiefcomplaint")) else "",
+            }
+            missing_vitals = [key for key, value in vitals.items() if value == ""]
             
-        # Construct the formatted description
-        description = (
-            f"A {race}{age}{gender_str} arrives at the emergency department"
-            f"{convert_arrival(row.get('arrival_transport'))}. "
-            f"{pronoun}{''.join(vitals.values())}."
-        )
-        if missing_vitals:
-            missing_str = ", ".join(missing_vitals).replace("_", " ")  # Replace underscores for better readability
-            description += f" Data on {missing_str} is missing."
+            # Handle missing values
+            race = row.get("race").lower()+', ' if (pd.notna(row.get("race")) and (row.get("race") != 'UNKNOWN')) else ""
+            age = str(int(row.get("anchor_age"))) + '-year-old ' if pd.notna(row.get("anchor_age")) else ""
+            gender = row.get("gender", "person")
+            gender_str = "man" if gender == "M" else "woman" if gender == "F" else "person"
+            pronoun = " He has" if gender == "M" else " She has" if gender == "F" else " They have"
 
-        return description
+            if len(missing_vitals) == 8:
+                pronoun = ""
+            if len(missing_vitals) > 0:
+                missing = ", ".join(missing_vitals).replace("_", " ")  # Replace underscores for better readability
+                missing = f" Data on {missing} is missing."
+            else:
+                missing = ""
+
+                
+            template = "A {race}{age}{gender_str} arrives at the emergency department{arrival}.{pronoun}{vitals}.{missing}"
+            return template.format(
+                race=race,
+                age = age, 
+                gender_str = gender_str, 
+                arrival=convert_arrival(row.get('arrival_transport'), dataset=dataset),
+                pronoun=pronoun, 
+                vitals=''.join(vitals.values()),
+                missing=missing
+            )
+        
     elif dataset == 'triage-ktas':
+        if serialization in TEMPLATES.get('triage-mimic', {}):
+            template = TEMPLATES['triage-mimic'][serialization]
+            return template.format(
+                temperature=row.get('BT', 'N/A'),
+                heartrate=row.get('HR', 'N/A'),
+                resprate=row.get('RR', 'N/A'),
+                sbp=row.get('SBP', 'N/A'),
+                dbp=row.get('DBP', 'N/A'),
+                pain=row.get('NRS_pain', 'N/A'),
+                chiefcomplaint=row.get('Chief_complain', 'N/A'),
+                suspicion=row.get('Diagnosis in ED', 'N/A')
+            )
         # --- Triage-ktas version ---
         age = f"{int(row['Age'])}-year-old " if pd.notna(row.get("Age")) else ""
         
@@ -413,7 +444,7 @@ def format_row(row, dataset='triage-mimic'):
                 gender_str = "person"
                 pronoun = "They have"
         
-        arrival_text = convert_arrival_ktas(row.get("Arrival mode"))
+        arrival_text = convert_arrival(row.get("Arrival mode"),dataset=dataset)
         
         chief_text = f" with a chief complaint of '{row['Chief_complain']}'" if pd.notna(row.get("Chief_complain")) else ""
         
@@ -422,7 +453,7 @@ def format_row(row, dataset='triage-mimic'):
         injury_text = ""
         if pd.notna(injury):
             if injury == 'Yes':
-                injury_text = " and sustained an injury"
+                injury_text = " sustained an injury"
         
         # Prepare the vital signs.
         vitals = {}
@@ -465,8 +496,149 @@ def format_row(row, dataset='triage-mimic'):
         
         return description
 
-        # Example usage:
-        # For a triage-ktas dataset row, you could do:
-        # row = df.iloc[0]
-        # print(format_row(row, dataset='triage-ktas'))
-                
+alpaca_prompt = """### Instruction: {}
+
+### Input: {}
+
+### Response: {}"""
+
+blackbox_llm_prompt = """### Instructions
+{}
+
+### Patient's Clinical Presentation
+{}"""
+
+blackbox_llm_prompt_with_examples = """### Instructions
+{}
+
+### Examples 
+{}
+
+### Patient's Clinical Presentation
+{}"""
+
+INSTRUCTIONS = {
+    "triage-mimic": {
+        "vanilla": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
+        },
+        "auto_CoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI). Think carefully step by step.",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
+        },
+        "CoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step.
+
+Step 1: Assess Immediate Risk
+
+Is the patient dying or at immediate risk of death? Consider: Apnea, pulselessness, severe respiratory distress, unresponsiveness, SpO2 < 90%, acute mental status changes.
+
+Step 2: Determine Need for Immediate Life-Saving Intervention
+
+Does the patient require an immediate intervention to secure an airway, support breathing, or maintain circulation? If yes, classify as ESI Level 1. If no, proceed to the next step.
+
+Step 3: Identify Critical Interventions
+
+Does the patient require any of the following life-saving interventions?
+- Airway/Breathing: BVM ventilation, intubation, surgical airway, emergent CPAP/BiPAP.
+- Electrical Therapy: Defibrillation, emergent cardioversion, external pacing.
+- Procedures: Chest needle decompression, pericardiocentesis, open thoracotomy, intraosseous access.
+- Hemodynamics: Major IV fluid resuscitation, blood administration, control of major bleeding.
+- Medications: Naloxone, D50, dopamine, atropine, adenosine.
+
+If yes, classify as ESI Level 1. If no, proceed to the next step.
+
+Step 4: Evaluate Key Clinical Signs
+
+Is the patient presenting with any of these critical conditions?
+- Cardiac Arrest
+- Respiratory Arrest
+- Severe respiratory distress (agonal/gasping respirations)
+- SpO2 < 90%
+- Severe Bradycardia/Tachycardia with hypoperfusion
+- Hypotension with signs of hypoperfusion
+- Critically injured trauma patient (unresponsive)
+- Overdose with a respiratory rate < 6
+- Anaphylactic reaction
+- Infant that is flaccid
+- Unresponsive with a strong odor of alcohol
+- Hypoglycemia with a change in mental status
+
+If yes, classify as ESI Level 1. If no, proceed to the next step.
+
+Step 5: Differentiate Between ESI 1 and ESI 2
+
+Does the patient require immediate physician presence for survival? ESI Level 1: Requires physician at bedside immediately. ESI Level 2: Can wait briefly; nurse can initiate care (e.g., IV access, ECG, oxygen).
+
+Step 6. If it's not clear by now, based on all the provided information, please determine the appropriate Emergency Severity Index (ESI) acuity level on a scale from 1 to 5.
+"""
+        },
+        "KATE": "Below is the patient's clinical presentation. Based on the provided information, please determine the appropriate Emergency Severity Index (ESI) acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed).",
+        "KATE_CoT": """Below is the patient's clinical presentation. Based on the provided information, please determine the appropriate Emergency Severity Index (ESI) acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+        
+        Step 1: Learn from the following examples—the reasoning style and output format in these examples should guide your response."""
+    },
+    "triage-ktas": {
+        "vanilla": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
+        "auto_CoT": "",
+        "CoT": "",
+        },
+    "triage-handbook": {
+        "vanilla": "Based on the clincial presentation, determine the Emergency Severity Index (ESI) acuity for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
+        "auto_CoT": "",
+        "CoT": "",
+    }
+    
+}
+# Function to convert a CSV row into instruction, input, and output strings.
+def format_instruction_prompt_for_blackbox(row, strategy = 'vanilla', dataset='triage-mimic', serialization='natural', return_json=False, examples = None):
+    patient_description = format_row(row, dataset=dataset, serialization=serialization)
+    instructions = INSTRUCTIONS['dataset']['strategy']
+    if return_json:
+        if 'CoT' in strategy:
+            instructions['system'] = instructions['system'] + """Output your response strictly in JSON format with the following keys:
+"Reasoning": <the step by step rationale>,
+"Acuity": <the assigned acuity level as an integer between 1 and 5>,
+"""
+        else:
+            instructions['system'] = instructions['system'] + """Output your response strictly in JSON format with the following key:
+    "Acuity": <the assigned acuity level as an integer between 1 and 5>"""
+    if strategy == 'KATE':
+        return blackbox_llm_prompt_with_examples.format(instructions, patient_description)
+    else:
+        return blackbox_llm_prompt.format(instructions, patient_description)
+
+def format_instruction_prompt_for_finetuning(row, EOS_TOKEN, dataset='triage-mimic', split='train'):
+    patient_description = format_row(row, dataset=dataset)
+    
+    # Define the instruction for the model.
+    if dataset=='triage-mimic' or dataset=='triage-handbook':
+        instruction = "Based on the clinical presentation, determine the Emergency Severity Index (ESI) acuity for the following patient."
+        output_text = f"The ESI acuity for this patient is {row['acuity']}."
+    elif dataset=='triage-ktas':
+        instruction = "Based on their clinical presentation, determine the KTAS acuity for the following patient."
+        output_text = f"The KTAS acuity for this patient is {row['KTAS_expert']}."
+    else: 
+        raise Exception("Invalid dataset name")
+    
+    if split == 'train':
+        text = alpaca_prompt.format(instruction, patient_description, output_text) + EOS_TOKEN
+    elif split == 'test':
+        text = alpaca_prompt.format(instruction, patient_description)
+    return {"text": text}
+
+###################
+## Legacy Functions
+###################
+
+def instruction_prompt(dataset, strategy, return_json=False):
+    cot_instruction = "your reasoning in the key 'reasoning' and "
+    json_instruction = f"Answer in valid JSON format, providing {cot_instruction if 'CoT' in strategy else ''}acuity as a single numeric value in the key 'acuity'."
+    if 'Triage' in dataset:
+        if 'CoT' in strategy:
+            return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. Let's think step by step. {json_instruction if return_json else ''}"
+        return f"Estimate the patient's acuity from 1-5 based on the following guidelines: Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. {json_instruction if return_json else ''}"

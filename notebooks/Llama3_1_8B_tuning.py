@@ -3,7 +3,7 @@ import torch
 import re 
 from tqdm import tqdm
 from datasets import load_dataset
-from sklearn.metrics import cohen_kappa_score, confusion_matrix
+from sklearn.metrics import cohen_kappa_score, mean_squared_error
 import numpy as np
 import pandas as pd
 from datasets import Dataset
@@ -41,7 +41,7 @@ fourbit_models = [
 ] # More models at https://huggingface.co/unsloth
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name =  "unsloth/Meta-Llama-3.1-8B-Instruct", #"./llama_3_1_8B_ESI_Handbook_10",
+    model_name =  "./llama_3_1_8B_ESI_Handbook_10_+_ESI_Case_Examples_25", #"unsloth/Meta-Llama-3.1-8B-Instruct", #"./llama_3_1_8B_ESI_Handbook_10",
     max_seq_length = max_seq_length,
     dtype = dtype,
     load_in_4bit = load_in_4bit,
@@ -50,7 +50,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 model = FastLanguageModel.get_peft_model(
     model,
-    r = 64, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+    r = 32, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj",],
     lora_alpha = 16,
@@ -197,13 +197,11 @@ trainer = SFTTrainer(
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
-        output_dir = "llama_3_1_8B_+_2014_-_2016_Small_10_Diff_Params",
+        output_dir = "llama_3_1_8B_ESI_Handbook_10_+_Case_Examples_25_+_2014_-_2016_Small_10",
         report_to = "none", # Use this for WandB etc
     ),
 )
 trainer_stats = trainer.train()
-
-from sklearn.metrics import cohen_kappa_score, mean_squared_error
 
 FastLanguageModel.for_inference(model) # Enable native 2x faster inference
 
@@ -219,61 +217,60 @@ y_true = []
 y_pred = []
 undertriage = 0
 overtriage = 0
-outside_by_2 = 0  # New variable to track predictions off by 2 or more
 
 def generate_response(input_text):
     inputs = tokenizer([input_text], return_tensors="pt").to("cuda")
-    outputs = model.generate(**inputs, max_new_tokens=75, use_cache=True)
+    outputs = model.generate(**inputs, max_new_tokens=100, use_cache=True)
     decoded_output = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+    print(decoded_output)
     return extract_response(decoded_output)
 
 # Iterate through test dataset
 for i, sample in tqdm(enumerate(test_dataset)):
     input_text = sample['text']
-    true_acuity = sample['acuity']
+    true_acuity = int(sample['acuity'])
     predicted_acuity = generate_response(input_text)
     
     if predicted_acuity is not None:
-        # Uncomment for debugging if needed:
         # print(f"Sample {i}: True Acuity: {true_acuity}, Predicted: {predicted_acuity}")
         y_true.append(true_acuity)
         y_pred.append(predicted_acuity)
-        
         if predicted_acuity == true_acuity:
             correct += 1
         else:
             wrong += 1
             
-            # Track undertriage and overtriage (directional errors)
+            # Track undertriage and overtriage
             if predicted_acuity < true_acuity:
                 undertriage += 1
             elif predicted_acuity > true_acuity:
                 overtriage += 1
-            
-            # Track predictions that differ from the ground truth by 2 or more
-            if abs(predicted_acuity - true_acuity) >= 2:
-                outside_by_2 += 1
     else:
         print(f"Sample {i}: No valid response extracted.")
         wrong += 1
 
-# Calculate rates based on the samples where a valid prediction was obtained
+# Calculate Undertriage & Overtriage Rates
 total_samples = len(y_true)
 undertriage_rate = undertriage / total_samples * 100
 overtriage_rate = overtriage / total_samples * 100
-outside_by_2_rate = outside_by_2 / total_samples * 100
-
-# Calculate additional evaluation metrics
+# Print accuracy
 accuracy = correct / (correct + wrong) * 100
 qwk_score = cohen_kappa_score(y_true, y_pred, weights='quadratic')
 mse = mean_squared_error(y_true, y_pred)
-
-# Print out the results
 print(f"Model Accuracy: {accuracy:.2f}%")
 print(f"Quadratic Weighted Kappa (QWK): {qwk_score:.4f}")
 print(f"Mean Squared Error (MSE): {mse:.4f}")
 print(f"Undertriage Rate: {undertriage_rate:.2f}%")
 print(f"Overtriage Rate: {overtriage_rate:.2f}%")
-print(f"Outside-by-2 Rate: {outside_by_2_rate:.2f}%")
 
-model.save_pretrained("llama_3_1_8B_+_2014_-_2016_Small_10_Diff_Params")  # Local saving
+# Save predictions and ground truth in a CSV file using pandas
+# You can also include an index column if needed.
+df = pd.DataFrame({
+    "Index": range(len(y_true)),
+    "True_Acuity": y_true,
+    "Predicted_Acuity": y_pred
+})
+df.to_csv("../results/Triage-Handbook/Pretrained_10_Case_Examples_10_Tuned_10_predictions.csv", index=False)
+print("Predictions and ground truth saved.")
+
+model.save_pretrained("llama_3_1_8B_ESI_Handbook_10_+_Case_Examples_25_+_2014_-_2016_Small_10")  # Local saving
