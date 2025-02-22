@@ -67,110 +67,6 @@ Answer in valid JSON format, providing {reasoning}acuity as a single numeric val
 Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
         """
         
-def convert_arrival(text):
-    if text=='WALK IN':
-        return ' on foot'
-    elif text=='AMBULANCE':
-        return ' by ambulance'
-    else:
-        ''
-
-def create_prompt_full(row,strategy=None, return_json=False, detailed_instructions = False, bias=False, instruction = 'estimate', serialization = 'spaces'):
-    if 'FewShot' in strategy or strategy=='KATE':
-        return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
-{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
-    if detailed_instructions:
-        task_description = """Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. The levels are: 
-1: When Level 1 condition or patient meets ED Trigger Criteria, the triage process stops, the patient is taken directly to a room and immediate physician intervention requested. Patient conditions which trigger level 1 include being unresponsive, intubated, apneic, pulseless, requiring a medication/intervention to alter ESI level e.g. narcan/adenosine/cardioversion, trauma, stroke, stemi
-2: When a Level 2 condition is identified, the triage nurse notifies the resource nurse and appropriate placement will be determined. Patient conditions which trigger level 2 include high risk situations, new onset confusion, suicidal/homicidal ideation, lethargy, seizures or disorientation, possible ectopic pregnancy, an immunocompromised patient with a fever, severe pain/distress, or vital sign instability
-3: Includes patients requiring two or more resources (labs, EKG, x-rays, IV fluids, etc) with stable vital signs
-4: Patients requiring one resource only (labs, EKG, etc)
-5: Patients not requiring any resources"""
-    else: 
-        task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
-    if bias:
-        starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
-    else:
-        starting_prompt = "Here is the profile of a patient"
-    cot, reasoning = "", ""
-    if strategy=='CoT':
-        cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
-    serialization_prompt = serialization(row, serialization)
-    if instruction=='estimate':
-        instruction_prompt = "Estimate their acuity from 1 to 5 based on the following guidelines"
-    if return_json:
-        return f"""{starting_prompt}:
-{serialization_prompt}
-{instruction_prompt}: {task_description}. 
-{cot}.
-
-Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
-    else:    
-        return f"""{starting_prompt}:
-{serialization_prompt}
-{instruction_prompt}: {task_description}.
-{cot}."""
-          
-def create_prompt(row,strategy=None, return_json=False, detailed_instructions = False, bias=False, serialization = 'spaces'):
-    if 'FewShot' in strategy or strategy=='KATE':
-        return f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
-{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
-    if detailed_instructions:
-        task_description = """Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority. The levels are: 
-1: When Level 1 condition or patient meets ED Trigger Criteria, the triage process stops, the patient is taken directly to a room and immediate physician intervention requested. Patient conditions which trigger level 1 include being unresponsive, intubated, apneic, pulseless, requiring a medication/intervention to alter ESI level e.g. narcan/adenosine/cardioversion, trauma, stroke, stemi
-2: When a Level 2 condition is identified, the triage nurse notifies the resource nurse and appropriate placement will be determined. Patient conditions which trigger level 2 include high risk situations, new onset confusion, suicidal/homicidal ideation, lethargy, seizures or disorientation, possible ectopic pregnancy, an immunocompromised patient with a fever, severe pain/distress, or vital sign instability
-3: Includes patients requiring two or more resources (labs, EKG, x-rays, IV fluids, etc) with stable vital signs
-4: Patients requiring one resource only (labs, EKG, etc)
-5: Patients not requiring any resources"""
-    else: 
-        task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
-    if bias:
-        starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
-    else:
-        starting_prompt = "Here is the profile of a patient"
-    cot, reasoning = "", ""
-    if strategy=='CoT':
-        cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
-    if serialization=='spaces':
-        serialization_prompt=f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
-{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
-    elif serialization=='commas':
-        serialization_prompt = f"""temperature,heartrate,resprate,o2sat,sbp,dbp,pain,chiefcomplaint
-{row['temperature']},{row['heartrate']},{row['resprate']},{row['o2sat']},{row['sbp']},{row['dbp']},{row['pain']},{row['chiefcomplaint']}"""
-    elif serialization=='json':
-        serialization_prompt = f"""
-temperature: {row['temperature']}
-heartrate: {row['heartrate']}
-resprate: {row['resprate']}
-o2sat: {row['o2sat']}
-sbp: {row['sbp']}
-dbp: {row['dbp']}
-pain: {row['pain']}
-chiefcomplaint: {row['chiefcomplaint']}
-"""
-    elif serialization=='natural':
-        serialization_prompt = f"""
-The patient has a temperature of {row['temperature']}°C, a heart rate of {row['heartrate']} bpm, 
-a respiratory rate of {row['resprate']} breaths per minute, oxygen saturation at {row['o2sat']}%, 
-systolic blood pressure of {row['sbp']} mmHg, diastolic blood pressure of {row['dbp']} mmHg, 
-pain level reported as {row['pain']}, and chief complaint described as "{row['chiefcomplaint']}".
-"""
-    if return_json:
-        return f"""{starting_prompt}:
-
-{serialization_prompt}
-
-Estimate their acuity from 1 to 5 based on the following guidelines: {task_description}. {cot}
-
-Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
-    else:    
-        return f"""{starting_prompt}:
-
-{serialization_prompt}
-
-Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
-        """
-        
 # Handles structuring the response
 def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, serialization_strategy, instruction_prompt, debug):
     # The logic for splitting strategy is partially handled here by passing the right parameters
@@ -189,14 +85,14 @@ def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots
         if index==0:
             return {
                 "prompt": prompt,
-                "Estimated_Acuity": response_data['acuity'],
-                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
+                "Estimated_Acuity": response_data['Acuity'],
+                "Reasoning": response_data['Reasoning'] if strategy=='CoT' else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
         else:
             return {
-                "Estimated_Acuity": response_data['acuity'],
-                "Reasoning": response_data['reasoning'] if strategy=='CoT' else None,
+                "Estimated_Acuity": response_data['Acuity'],
+                "Reasoning": response_data['Reasoning'] if strategy=='CoT' else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
     else: 
@@ -303,11 +199,10 @@ if __name__ == '__main__':
                                        return_json=args.json, 
                                        vitals_off = args.vitals_off)
                 else:
-                    prompt = create_prompt_full(row, 
+                    prompt = utils.format_instruction_prompt_for_blackbox(row, 
                                        strategy=args.strategy,
+                                       dataset = args.dataset.lower(),
                                        return_json=args.json, 
-                                       detailed_instructions=args.detailed_instructions, 
-                                       bias=args.bias,
                                        serialization=args.serialization)
                 prediction = predict(i, 
                                      row,
@@ -317,9 +212,9 @@ if __name__ == '__main__':
                                      args.strategy, 
                                      args.json, 
                                      args.k_shots, 
-                                     serialization,
+                                     utils.format_row,
                                      args.serialization,
-                                     instruction_prompt(args.dataset, args.strategy, args.json),
+                                     utils.format_instruction_prompt_for_blackbox(args.dataset, args.strategy, args.json),
                                      args.debug)
                 predictions.append(prediction)
                 new_predictions_since_last_save += 1
