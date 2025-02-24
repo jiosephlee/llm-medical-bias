@@ -5,6 +5,7 @@ from tqdm import tqdm
 import utils.predictors as predictors
 import argparse
 import utils.utils as utils
+import utils.prompts as prompts
 from datetime import datetime
 import time
 import os
@@ -67,13 +68,16 @@ Answer in valid JSON format, providing {reasoning}acuity as a single numeric val
 Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
         """
         
-# Handles structuring the response
-def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots, serialization_func, serialization_strategy, instruction_prompt, debug):
-    # The logic for splitting strategy is partially handled here by passing the right parameters
-    if strategy == 'FewShot' or strategy=='FewShotCoT' or strategy =='KATE':
-        response = predictor.predict(prompt, row, model=model, k_shots = k_shots, return_json=return_json, serialization_func = serialization_func, serialization_strategy = serialization_strategy, instruction_prompt=instruction_prompt, debug=debug)
-    elif strategy == 'ZeroShot' or strategy == 'CoT':
-        response = predictor.predict(prompt, model=model, return_json=return_json, debug=debug)
+def predict(*, index, row, predictor, model, strategy, return_json, k_shots, serialization, vitals_off, bias, debug=False):
+    prompt, response = predictor.predict(
+        row=row,
+        model=model,
+        k_shots=k_shots,
+        return_json=return_json,
+        serialization_strategy=serialization,
+        vitals_off=vitals_off,
+        bias=bias,
+        debug=debug)
     if return_json:
         try:
             response_data = json.loads(response)
@@ -86,13 +90,13 @@ def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots
             return {
                 "prompt": prompt,
                 "Estimated_Acuity": response_data['Acuity'],
-                "Reasoning": response_data['Reasoning'] if strategy=='CoT' else None,
+                "Reasoning": response_data['Reasoning'] if 'CoT' in strategy else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
         else:
             return {
                 "Estimated_Acuity": response_data['Acuity'],
-                "Reasoning": response_data['Reasoning'] if strategy=='CoT' else None,
+                "Reasoning": response_data['Reasoning'] if 'CoT' in strategy else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
     else: 
@@ -100,30 +104,31 @@ def predict(index, row, prompt, predictor, model, strategy, return_json, k_shots
             return {
                 "prompt": prompt,
                 "Estimated_Acuity": extract_acuity_from_text(response, debug=debug),
-                "Reasoning": response if strategy=='CoT' else None,
+                "Reasoning": response if 'CoT' in strategy else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
         else:
             return {
                 "Estimated_Acuity": extract_acuity_from_text(response, debug=debug),
-                "Reasoning": response if strategy=='CoT' else None,
+                "Reasoning": response if 'CoT' in strategy else None,
                 **row.to_dict()  # Include the original row's data for reference
             }
         
-def save_csv(df, savepath, model, predictive_strategy, json_param, detailed_instructions,  start_index, end_index, timestamp, serialization, k_shots=None):
+def save_csv(df, savepath, model, predictive_strategy, serialization,json_param, detailed_instructions,  start_index, end_index, timestamp, k_shots=None):
     output_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         output_filepath = output_filepath + "_json"
     if detailed_instructions:
         output_filepath = output_filepath + "_detailed"
-    if k_shots is not None:
+    if 'FewShot' in predictive_strategy or 'KATE' in predictive_strategy:
         output_filepath = output_filepath + f"_{k_shots}"
-    output_filepath = output_filepath + f"{serialization}_{start_index}_{end_index}_{timestamp}.csv"
+    output_filepath = output_filepath + f"_{serialization}_{start_index}_{end_index}_{timestamp}.csv"
     # Save the DataFrame to a CSV file
     df.to_csv(output_filepath, index=False)
     print(f"DataFrame saved to {output_filepath}")
+    return output_filepath
     
-def load_csv(savepath, model, predictive_strategy, start_index, end_index, json_param, detailed_instructions, serialization, k_shots =None):
+def load_csv(savepath, model, predictive_strategy, serialization,  json_param, detailed_instructions, start_index, end_index, timestamp, k_shots =None):
     input_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         input_filepath = input_filepath + "_json"
@@ -131,7 +136,7 @@ def load_csv(savepath, model, predictive_strategy, start_index, end_index, json_
         input_filepath = input_filepath + "_detailed"
     if k_shots is not None:
         input_filepath = input_filepath + f"_{k_shots}"
-    input_filepath = input_filepath + f"{serialization}_{start_index}_{end_index}_{timestamp}.csv"
+    input_filepath = input_filepath + f"_{serialization}_{start_index}_{end_index}_{timestamp}.csv"
     
     try:
         df = pd.read_csv(input_filepath)
@@ -141,34 +146,40 @@ def load_csv(savepath, model, predictive_strategy, start_index, end_index, json_
         print(f"File not found: {input_filepath}")
         return None
     
+# Save evaluation metrics to JSON
+def save_metrics(metrics,  parameters):
+    output_file = f"{parameters}_metrics.json"
+    with open(output_file, 'w') as f:
+        json.dump(metrics, f, indent=2)
+     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Make predictions on medical QA dataset using LLMs.")
     parser.add_argument("--dataset", type=str, required=True, choices=utils._DATASETS.keys(), help="Name of the dataset to evaluate")
-    parser.add_argument("--start", required=True, type=int, help="Start index of the samples to evaluate")
-    parser.add_argument("--end", required=True, type=int, help="End index of the samples to evaluate")
+    parser.add_argument("--start", default=0,type=int, help="Start index of the samples to evaluate")
+    parser.add_argument("--end", default=1000, type=int, help="End index of the samples to evaluate")
     parser.add_argument("--model", required=True, type=str, default="gpt-4o-mini", help="LLM model to use.")
-    parser.add_argument("--strategy", required=True, type=str, choices=["ZeroShot", 'FewShot', "CoT","FewShotCoT", "USC", "KATE"], default="standard", help="Prediction strategy to use")
-    parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+    parser.add_argument("--strategy", required=True, type=str, choices=["Vanillav0","Vanilla", 'FewShot', "AutoCoT","CoT","FewShotCoT", "USC", "KATE"], default="standard", help="Prediction strategy to use")
     parser.add_argument("--num_trials", type=int, default=5, help="Number of trials for USC strategy")
     parser.add_argument("--k_shots", type=int, default=5, help="Number of shots for Few-Shot")
     parser.add_argument("--load_predictions", type=str, help="Timestamp & model_name & # of questions to existing predictions to load")
     parser.add_argument("--json", action="store_true", help="Turns on internal usage of json formats for the LLM API")
     parser.add_argument("--detailed_instructions", action="store_true", help="Turns on detailed instructions")
     parser.add_argument("--bias", action="store_true", help="Enables bias prompt")
-    parser.add_argument("--serialization", default='spaces',type=str, choices=["spaces", 'commas', "json","natural","natural_sex_race","natural_full"], help="serialization prompt to use")
+    parser.add_argument("--serialization", default='natural',type=str, choices=["spaces", 'commas', "newline","json","natural","natural_sex_race","natural_full"], help="serialization prompt to use")
     parser.add_argument("--vitals_off", action="store_true", help="Turns on vitals off ablation prompt")
+    parser.add_argument("--debug", action="store_true", help="Enable debug mode")
 
     args = parser.parse_args()
 
     print("Loading Dataset...")
-    filepath= utils._DATASETS[args.dataset]['filepath']
+    test_filepath= utils._DATASETS[args.dataset]['test_set_filepath']
     format = utils._DATASETS[args.dataset]['format']
-    dataset = utils.load_dataset(filepath, format, args.start, args.end)
+    test_dataset = utils.load_dataset(test_filepath, format, args.start, args.end)
 
     print("Potentially loading existing predictions...")
     predictions = []
     if args.load_predictions:
-        predictions = utils.load_predictions(args.load_predictions, format=utils._DATASETS[args.dataset]['format'])
+        predictions = utils.load_predictions(args.load_predictions, format=utils._DATASETS[args.dataset]['format'], save_path="./results/checkpoints/" + args.dataset + '/')
         predictions = predictions.to_dict('records')
         num_existing_predictions = len(predictions)
         print(f"Loaded {num_existing_predictions} existing predictions.")
@@ -192,30 +203,21 @@ if __name__ == '__main__':
 
     if num_new_predictions_needed > 0:
         if utils._DATASETS[args.dataset]['format'] == 'csv':
-            for i, row in tqdm(dataset.loc[num_existing_predictions:args.end].iterrows()):
-                if args.bias:
-                    prompt = create_prompt_bias(row, 
-                                       strategy=args.strategy,
-                                       return_json=args.json, 
-                                       vitals_off = args.vitals_off)
-                else:
-                    prompt = utils.format_instruction_prompt_for_blackbox(row, 
-                                       strategy=args.strategy,
-                                       dataset = args.dataset.lower(),
-                                       return_json=args.json, 
-                                       serialization=args.serialization)
-                prediction = predict(i, 
-                                     row,
-                                     prompt, 
-                                     predictor, 
-                                     args.model, 
-                                     args.strategy, 
-                                     args.json, 
-                                     args.k_shots, 
-                                     utils.format_row,
-                                     args.serialization,
-                                     utils.format_instruction_prompt_for_blackbox(args.dataset, args.strategy, args.json),
-                                     args.debug)
+            for i, row in tqdm(test_dataset.loc[num_existing_predictions:args.end].iterrows()):
+                # Prompting and LLM Logic is all handled here
+                prediction = predict(
+                    index=i,
+                    row=row,
+                    predictor=predictor,
+                    model=args.model,
+                    strategy=args.strategy,
+                    return_json=args.json,
+                    k_shots=args.k_shots,
+                    serialization=args.serialization,
+                    vitals_off=args.vitals_off,
+                    bias=args.bias,
+                    debug=args.debug
+                )
                 predictions.append(prediction)
                 new_predictions_since_last_save += 1
                 total_predictions_made += 1
@@ -223,18 +225,18 @@ if __name__ == '__main__':
                 if new_predictions_since_last_save >= 250:
                     # Save predictions to disk
                     predictions_df = pd.DataFrame(predictions)
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    save_path = "./results/checkpoints/" + args.dataset + '/' 
+                    timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+                    save_path = "./results/checkpoints/" + args.dataset + '/'
                     os.makedirs(save_path, exist_ok=True)
-                    save_path = save_path + f'{args.dataset}'
+                    save_path = save_path + args.dataset
                     save_csv(predictions_df, save_path, 
                              args.model, 
                              args.strategy, 
+                             args.serialization,
                              args.json, 
                              args.detailed_instructions,
                              args.start,
                              args.start + total_predictions_made , 
-                             args.serialization,
                              timestamp, k_shots=args.k_shots)
                     new_predictions_since_last_save = 0
                     print(f"Saved progress after {len(predictions)} predictions.")
@@ -243,17 +245,29 @@ if __name__ == '__main__':
         print("No new predictions needed.")
 
     # Save combined predictions one last time
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    save_path = "./results/" + args.dataset + f'/{args.dataset}'
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+    save_path = "./results/" + args.dataset + '/'
     os.makedirs(save_path, exist_ok=True)
-    save_csv(predictions_df, save_path, 
+    save_path = save_path + args.dataset
+    output_filepath = save_csv(predictions_df, save_path, 
                      args.model, 
                      args.strategy, 
+                     args.serialization,
                      args.json, 
                      args.detailed_instructions,
                      args.start,
                      args.end,
-                     args.serialization, 
                     timestamp,k_shots=args.k_shots)
 
     print("Processing complete. Predictions saved.")
+    
+    # Evaluate predictions
+    print("Evaluating predictions...")
+    ground_truths = test_dataset[utils._DATASETS[args.dataset]['target']]
+    predictions = predictions_df['Estimated_Acuity']
+
+    metrics = utils.evaluate_predictions(predictions, ground_truths, ordinal=True, by_class=True)
+    print("Overall Metrics:", metrics)
+    save_metrics(metrics, output_filepath.split('.csv')[0])
+    print("Evaluation complete. Metrics and plots saved.")
+    
