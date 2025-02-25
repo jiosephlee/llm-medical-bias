@@ -54,7 +54,9 @@ _DATASETS = {
     "Triage-MIMIC": 
         {'test_set_filepath': "./data/mimic-iv-private/anchor_year_group_datasets/2017_-_2019/test_dataset.csv",
         'training_set_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/small_train_dataset.csv',
-        'training_embeddings_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/train_chiefcomplaint_embeddings_reduced.npy',
+        'full_training_set_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/train_dataset.csv',
+        'full_training_embeddings_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/train_full_chiefcomplaint_embeddings.npy',
+        'training_embeddings_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/train_chiefcomplaint_embeddings.npy',
         'format': 'csv',
         'target': 'acuity',
         'hippa': True,
@@ -90,7 +92,12 @@ _DATASETS = {
         'hippa': True,
         },
     }
-        
+
+def save_metrics(metrics,  filepath):
+    output_file = f"{filepath}_metrics.json"
+    with open(output_file, 'w') as f:
+        json.dump(metrics, f, indent=2)
+             
 def load_dataset(filepath, format, start_index, end_index):
     if not filepath:
         raise ValueError("Dataset not found in _DATASETS.")

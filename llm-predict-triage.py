@@ -114,21 +114,23 @@ def predict(*, index, row, predictor, model, strategy, return_json, k_shots, ser
                 **row.to_dict()  # Include the original row's data for reference
             }
         
-def save_csv(df, savepath, model, predictive_strategy, serialization,json_param, detailed_instructions,  start_index, end_index, timestamp, k_shots=None):
+def save_csv(df, savepath, model, predictive_strategy, serialization,json_param, detailed_instructions,  start_index, end_index, timestamp, k_shots=None, k_shots_ablation=False):
     output_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         output_filepath = output_filepath + "_json"
     if detailed_instructions:
         output_filepath = output_filepath + "_detailed"
     if 'FewShot' in predictive_strategy or 'KATE' in predictive_strategy:
-        output_filepath = output_filepath + f"_{k_shots}"
+        output_filepath = output_filepath + f"_{k_shots}_shots"
+    if k_shots_ablation:
+        output_filepath = output_filepath + "_ablation"
     output_filepath = output_filepath + f"_{serialization}_{start_index}_{end_index}_{timestamp}.csv"
     # Save the DataFrame to a CSV file
     df.to_csv(output_filepath, index=False)
     print(f"DataFrame saved to {output_filepath}")
     return output_filepath
     
-def load_csv(savepath, model, predictive_strategy, serialization,  json_param, detailed_instructions, start_index, end_index, timestamp, k_shots =None):
+def load_csv(savepath, model, predictive_strategy, serialization,  json_param, detailed_instructions, start_index, end_index, timestamp, k_shots =None, k_shots_ablation=False):
     input_filepath = f"{savepath}_{predictive_strategy}_{model}"
     if json_param:
         input_filepath = input_filepath + "_json"
@@ -136,6 +138,8 @@ def load_csv(savepath, model, predictive_strategy, serialization,  json_param, d
         input_filepath = input_filepath + "_detailed"
     if k_shots is not None:
         input_filepath = input_filepath + f"_{k_shots}"
+    if k_shots_ablation:
+        input_filepath = input_filepath + "_ablation"
     input_filepath = input_filepath + f"_{serialization}_{start_index}_{end_index}_{timestamp}.csv"
     
     try:
@@ -145,12 +149,6 @@ def load_csv(savepath, model, predictive_strategy, serialization,  json_param, d
     except FileNotFoundError:
         print(f"File not found: {input_filepath}")
         return None
-    
-# Save evaluation metrics to JSON
-def save_metrics(metrics,  parameters):
-    output_file = f"{parameters}_metrics.json"
-    with open(output_file, 'w') as f:
-        json.dump(metrics, f, indent=2)
      
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Make predictions on medical QA dataset using LLMs.")
@@ -158,7 +156,7 @@ if __name__ == '__main__':
     parser.add_argument("--start", default=0,type=int, help="Start index of the samples to evaluate")
     parser.add_argument("--end", default=1000, type=int, help="End index of the samples to evaluate")
     parser.add_argument("--model", required=True, type=str, default="gpt-4o-mini", help="LLM model to use.")
-    parser.add_argument("--strategy", required=True, type=str, choices=["Vanillav0","Vanilla", 'FewShot', "AutoCoT","CoT","FewShotCoT", "USC", "KATE"], default="standard", help="Prediction strategy to use")
+    parser.add_argument("--strategy", required=True, type=str, choices=prompts.INSTRUCTIONS['triage-mimic'].keys(), default="standard", help="Prediction strategy to use")
     parser.add_argument("--num_trials", type=int, default=5, help="Number of trials for USC strategy")
     parser.add_argument("--k_shots", type=int, default=5, help="Number of shots for Few-Shot")
     parser.add_argument("--load_predictions", type=str, help="Timestamp & model_name & # of questions to existing predictions to load")
@@ -168,6 +166,7 @@ if __name__ == '__main__':
     parser.add_argument("--serialization", default='natural',type=str, choices=["spaces", 'commas', "newline","json","natural","natural_sex_race","natural_full"], help="serialization prompt to use")
     parser.add_argument("--vitals_off", action="store_true", help="Turns on vitals off ablation prompt")
     parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+    parser.add_argument("--k_shots_ablation", action="store_true", help="Change the parameters for k_shots ablation")
 
     args = parser.parse_args()
 
@@ -188,14 +187,18 @@ if __name__ == '__main__':
     num_new_predictions_needed = (args.end - args.start) + 1 - num_existing_predictions
 
     if args.k_shots:
-        training_df = utils.load_dataset(utils._DATASETS[args.dataset]['training_set_filepath'], format, 0, 1000000)
+        if args.k_shots_ablation:
+            training_df = utils.load_dataset(utils._DATASETS[args.dataset]['full_training_set_filepath'], format, 0, 1000000)
+        else:
+            training_df = utils.load_dataset(utils._DATASETS[args.dataset]['training_set_filepath'], format, 0, 1000000)
 
     print(f"Making {num_new_predictions_needed} new predictions...")
     predictor = predictors.Predictor(args.dataset,
                                      strategy=args.strategy, 
                                      hippa=utils._DATASETS[args.dataset]['hippa'],
                                      target = utils._DATASETS[args.dataset]['target'],
-                                     training_set= training_df if args.k_shots else None)
+                                     training_set= training_df if args.k_shots else None,
+                                     k_shots_ablation=args.k_shots_ablation)
 
     # Initialize counter for saving progress
     new_predictions_since_last_save = 0
@@ -257,7 +260,8 @@ if __name__ == '__main__':
                      args.detailed_instructions,
                      args.start,
                      args.end,
-                    timestamp,k_shots=args.k_shots)
+                    timestamp,k_shots=args.k_shots,
+                    k_shots_ablation=args.k_shots_ablation)
 
     print("Processing complete. Predictions saved.")
     
@@ -268,6 +272,6 @@ if __name__ == '__main__':
 
     metrics = utils.evaluate_predictions(predictions, ground_truths, ordinal=True, by_class=True)
     print("Overall Metrics:", metrics)
-    save_metrics(metrics, output_filepath.split('.csv')[0])
+    utils.save_metrics(metrics, output_filepath.split('.csv')[0])
     print("Evaluation complete. Metrics and plots saved.")
     

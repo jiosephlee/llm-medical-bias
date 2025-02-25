@@ -13,7 +13,7 @@ class Predictor:
     2) the task-specific instructions
     3) strategy logic for each prediction
     """
-    def __init__(self, dataset, strategy="Vanilla", hippa=False, target=None, training_set=None):
+    def __init__(self, dataset, strategy="Vanilla", hippa=False, target=None, training_set=None, k_shots_ablation=False):
         """
         :param model: The LLM to use for predictions.
         :param strategy: Prediction strategy ("FewShot", "CoT", "Vanilla", "SelfConsistency").
@@ -28,7 +28,11 @@ class Predictor:
         if training_set is not None:
             model_name = 'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb'
             self.symptom_encoder = SentenceTransformer(model_name)
-            embeddings_path = utils._DATASETS[dataset]['training_embeddings_filepath']
+            if k_shots_ablation:
+                print("Using full training set embeddings")
+                embeddings_path = utils._DATASETS[dataset]['full_training_embeddings_filepath']
+            else:
+                embeddings_path = utils._DATASETS[dataset]['training_embeddings_filepath']
             self.embeddings_cache = np.load(embeddings_path,allow_pickle=True)
     
     def predict(self, *, row, model, k_shots, return_json, serialization_strategy, vitals_off, bias, debug=False):
@@ -37,9 +41,9 @@ class Predictor:
         """
         if self.strategy in ["FewShot", "FewShotCoT"]:
             return self.few_shot_prediction(row=row, model=model, k_shots=k_shots, return_json=return_json, serialization_strategy=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
-        elif self.strategy in ["KATE", "KATECoT"]:
+        elif self.strategy in ["KATE", "KATECoT", "KATEAutoCoT"]:
             return self.kate_prediction(row=row, model=model, k_shots=k_shots, return_json=return_json, serialization_strategy=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
-        elif self.strategy in ["Vanilla", "Vanillav0", "AutoCoT", "CoT"]:
+        elif self.strategy in ["Vanilla", "Vanillav0", "AutoCoT", "CoT","DemonstrationCoT"]:
             return self.zero_shot_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
         elif self.strategy in ["SelfConsistency"]:
             return self.self_consistency_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
@@ -100,16 +104,16 @@ class Predictor:
         for _ in range(num_trials):
             prompt = prompts.format_instruction_prompt_for_blackbox(
                 row=row,
-                strategy='Vanilla',
+                strategy='SelfConsistency',
                 dataset=self.dataset.lower(),
                 return_json=True,
                 serialization=serialization
             )
             
             if self.hippa:
-                response = utils.query_gpt_safe(prompt, model=model, return_json=True, debug=debug, is_prompt_full=True)
+                response = utils.query_gpt_safe(prompt, temperature = 1.0, model=model, return_json=True, debug=debug, is_prompt_full=True)
             else:
-                response = utils.query_llm_full(prompt, model=model, return_json=True, debug=debug)
+                response = utils.query_llm_full(prompt, temperature = 1.0, model=model, return_json=True, debug=debug)
             
             try:
                 response_data = json.loads(response)

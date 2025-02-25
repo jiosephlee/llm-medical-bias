@@ -8,16 +8,30 @@ run_with_delay() {
     echo "Starting experiment: $1"
     eval $1
     echo "Completed. Sleeping for for a bit..."
-    sleep 25  # 5 minute delay between runs
+    sleep 10  # 5 minute delay between runs
 }
 
-# Run CoT with natural serialization
-CMD="$BASE_CMD --strategy AutoCoT --serialization natural"
-run_with_delay "$CMD"
+# Run KATE with different numbers of shots
+for shots in 3 5 10 20 30 40 50; do
+    CMD="$BASE_CMD --strategy KATE --serialization natural --k_shots $shots --k_shots_ablation"
+    run_with_delay "$CMD"
+done
 
-# Run Vanilla with different serializations
-for serial in "natural" "spaces" "commas" "newline"; do
-    CMD="$BASE_CMD --strategy Vanilla --serialization $serial"
+# Run FewShot with different numbers of shots
+for shots in 3 5 10 20 30 40 50; do
+    CMD="$BASE_CMD --strategy FewShot --serialization natural --k_shots $shots"
+    run_with_delay "$CMD"
+done
+
+# Run FewShot with different numbers of shots
+for shots in 40; do
+    CMD="$BASE_CMD --strategy FewShotCoT --serialization natural --k_shots $shots"
+    run_with_delay "$CMD"
+done
+
+# Run FewShot with different numbers of shots
+for shots in 40; do
+    CMD="$BASE_CMD --strategy KATECoT --serialization natural --k_shots $shots"
     run_with_delay "$CMD"
 done
 

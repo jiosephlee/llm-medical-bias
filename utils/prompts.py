@@ -40,143 +40,132 @@ INSTRUCTIONS = {
             "system": "You are an expert on the Emergency Severity Index (ESI).",
             "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level"
         },
-        "vanilla": {
+        "Vanilla": {
             "system": "You are an expert on the Emergency Severity Index (ESI).",
             "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
         },
-        "autocot": 
+        "SelfConsistency": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step.
+
+** Step 1: Assess Immediate Risk for ESI Level 1 **
+
+- Is the patient dying or at immediate risk of death?
+- Does the patient require an immediate life-saving intervention?
+
+** Step 2: Evaluate Key Clinical Signs for ESI Level 2 **
+
+Assess High-Risk Situations: Identify patients with potentially life-threatening conditions who do not require immediate life-saving interventions but should not wait. Use the rule of thumb: “Would I use my last open bed for this patient?” Key indicators include:
+- Severe chest pain, suspected acute coronary syndrome (ACS)
+- Respiratory distress (e.g., severe asthma, pleural effusion)
+- Neurological deficits (e.g., stroke symptoms, meningitis suspicion)
+- Uncontrolled bleeding or significant trauma
+
+Evaluate Mental Status Changes: Classify patients with new onset confusion, lethargy, or disorientation as ESI Level 2. This includes:
+- Suspected stroke (sudden motor/speech deficits)
+- Altered mental status from metabolic, toxic, or neurological causes
+- Pediatric patients with signs of sepsis or dehydration
+
+Prioritize Severe Pain or Distress: Patients reporting severe pain (≥7/10) or severe psychological distress may qualify for Level 2 if their condition necessitates immediate intervention. Examples:
+- Sickle cell crisis or acute oncologic pain
+- Severe abdominal pain in elderly patients
+- Trauma with high pain burden requiring urgent evaluation
+
+** Step 3: Differentiate between ESI 3, 4 and 5 **
+- Resource prediction is an integral part of the ESI for patients identified as ESI level 3 (many resources), 4 (one resource), or 5 (no resources).
+- Resources include: Labs (blood, urine), ECG, X-rays, CT-MRI-ultrasound, angiography, IV fluids (hydration) , IV, IM or nebulized medications, Specialty consultation, Simple procedure (lac repair, Foley cath), Complex procedure (conscious sedation) 
+- Check Danger Zone Vitals: If the patient has very high heart rate, breathing rate, or oxygen saturation below 92%, consider upgrading to ESI Level 2. Use these thresholds:
+    - HR: >180 (infants), >160 (toddlers), >140 (children), >100 (older children/adults)
+    - RR: >50 (infants), >40 (toddlers), >30 (children), >20 (older children/adults)
+    - SaO₂: <92%
+
+** Step 4: If it's not clear by now, determine the appropriate ESI acuity level to the best of your ability. **"""
+        },
+        "AutoCoT": 
             {
             "system": "You are an expert on the Emergency Severity Index (ESI). Think carefully step by step.",
             "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
         },
-        "cot": 
+        "DemonstrationCoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Here's a demonstration of how to do this:
+
+Case: A 34-year-old obese female presents to triage complaining of generalized abdominal pain (pain scale rating: 6/10) for 2 days. She has vomited several times and states her last bowel movement was 3 days ago. She has a history of back surgery, takes no medications, and is allergic to peanuts. Vital signs: T 97.8° F, HR 104, RR 16, BP 132/80, SpO2 99 percent.
+Rationale: This patient will need a minimum of two or more resources: lab, IV fluids, perhaps IV medication for nausea, and a CT scan. The triage nurse would review the patient's vital signs and consider the heart rate. The heart rate falls just outside the accepted parameter for the age of the patient but could be due to pain or exertion. In this case, the decision should be to assign the patient to ESI level 3."""
+        },
+        "CoT": 
             {
             "system": "You are an expert on the Emergency Severity Index (ESI).",
             "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step.
 
-** Step 1: Assess Immediate Risk **
+** Step 1: Assess Immediate Risk for ESI Level 1 **
 
-Is the patient dying or at immediate risk of death? Consider: Apnea, pulselessness, severe respiratory distress, unresponsiveness, SpO2 < 90%, acute mental status changes.
+- Is the patient dying or at immediate risk of death?
+- Does the patient require an immediate life-saving intervention?
 
-** Step 2: Determine Need for Immediate Life-Saving Intervention **
+** Step 2: Evaluate Key Clinical Signs for ESI Level 2 **
 
-Does the patient require an immediate intervention to secure an airway, support breathing, or maintain circulation? If yes, classify as ESI Level 1. If no, proceed to the next step.
+Assess High-Risk Situations: Identify patients with potentially life-threatening conditions who do not require immediate life-saving interventions but should not wait. Use the rule of thumb: “Would I use my last open bed for this patient?” Key indicators include:
+- Severe chest pain, suspected acute coronary syndrome (ACS)
+- Respiratory distress (e.g., severe asthma, pleural effusion)
+- Neurological deficits (e.g., stroke symptoms, meningitis suspicion)
+- Uncontrolled bleeding or significant trauma
 
-** Step 3: Identify Critical Interventions **
+Evaluate Mental Status Changes: Classify patients with new onset confusion, lethargy, or disorientation as ESI Level 2. This includes:
+- Suspected stroke (sudden motor/speech deficits)
+- Altered mental status from metabolic, toxic, or neurological causes
+- Pediatric patients with signs of sepsis or dehydration
 
-Does the patient require any of the following life-saving interventions?
-- Airway/Breathing: BVM ventilation, intubation, surgical airway, emergent CPAP/BiPAP.
-- Electrical Therapy: Defibrillation, emergent cardioversion, external pacing.
-- Procedures: Chest needle decompression, pericardiocentesis, open thoracotomy, intraosseous access.
-- Hemodynamics: Major IV fluid resuscitation, blood administration, control of major bleeding.
-- Medications: Naloxone, D50, dopamine, atropine, adenosine.
+Prioritize Severe Pain or Distress: Patients reporting severe pain (≥7/10) or severe psychological distress may qualify for Level 2 if their condition necessitates immediate intervention. Examples:
+- Sickle cell crisis or acute oncologic pain
+- Severe abdominal pain in elderly patients
+- Trauma with high pain burden requiring urgent evaluation
 
-If yes, classify as ESI Level 1. If no, proceed to the next step.
+** Step 3: Differentiate between ESI 3, 4 and 5 **
+- Resource prediction is an integral part of the ESI for patients identified as ESI level 3 (many resources), 4 (one resource), or 5 (no resources).
+- Resources include: Labs (blood, urine), ECG, X-rays, CT-MRI-ultrasound, angiography, IV fluids (hydration) , IV, IM or nebulized medications, Specialty consultation, Simple procedure (lac repair, Foley cath), Complex procedure (conscious sedation) 
+- Check Danger Zone Vitals: If the patient has very high heart rate, breathing rate, or oxygen saturation below 92%, consider upgrading to ESI Level 2. Use these thresholds:
+    - HR: >180 (infants), >160 (toddlers), >140 (children), >100 (older children/adults)
+    - RR: >50 (infants), >40 (toddlers), >30 (children), >20 (older children/adults)
+    - SaO₂: <92%
 
-** Step 4: Evaluate Key Clinical Signs **
-
-Is the patient presenting with any of these critical conditions?
-- Cardiac Arrest
-- Respiratory Arrest
-- Severe respiratory distress (agonal/gasping respirations)
-- SpO2 < 90%
-- Severe Bradycardia/Tachycardia with hypoperfusion
-- Hypotension with signs of hypoperfusion
-- Critically injured trauma patient (unresponsive)
-- Overdose with a respiratory rate < 6
-- Anaphylactic reaction
-- Infant that is flaccid
-- Unresponsive with a strong odor of alcohol
-- Hypoglycemia with a change in mental status
-
-If yes, classify as ESI Level 1. If no, proceed to the next step. 
-
-** Step 5: Differentiate Between ESI 1 and ESI 2 **
-
-- Does the patient require immediate physician presence for survival? 
-- ESI Level 1: Requires physician at bedside immediately. 
-- ESI Level 2: Can wait briefly; nurse can initiate care (e.g., IV access, ECG, oxygen).
-
-Three broad questions are used to determine whether the patient meets level-2 criteria. 
-1. Is this a high-risk situation?
-    - Vital signs are often not helpful in the identification of high-risk patients. The patient typically presents to the ED with a chief complaint, signs and symptoms, or history suggestive of a problem or condition that is serious and, unless dealt with promptly, can deteriorate rapidly. Often patient age, past medical history, and current medications influence the perceived severity of the chief complaint. 
-    - For example, a frail elderly patient with severe abdominal pain is at a much higher risk of morbidity and mortality than a 20-year-old. The elderly patient with abdominal pain should be classified as ESI level 2, while the 20-year-old with stable vital signs will usually be classified as ESI level 3.
-2. Is the patient confused, lethargic or disoriented?
-3. Is the patient in severe pain or distress?
-- All patients who have a pain rating of 7/10 or greater should be considered for meeting ESI level-2 criteria.
-- Considered is a very important word. It is up to the discretion of the triage nurse to determine whether the clinical condition and pain rating in combination warrant a rating of ESI level 2. For example, a patient who had a heavy metal object fall on his toe may rate the pain a 10/10. Indeed, the patient may have a fracture and is experiencing severe pain. The patient probably has done nothing to try to relieve the pain prior to arrival in the ED. The correct triage level for this patient would be ESI level 4. Only one resource will be needed (an x-ray).
-- Examples of patients for whom the triage nurse could use severe pain criteria to justify an ESI level-2 rating include: A patient with 10/10 flank pain who is writhing at triage.
-
-** Step 6: Differentiate between ESI 3, 4 and 5
-Resource prediction is an integral part of the ESI for patients identified as ESI level 3, 4, or 5.
-
-** Step 7: If it's not clear by now, analyze the examples provided and identify key similarities and differences between the patient and the examples.
+** Step 4: If it's not clear by now, determine the appropriate ESI acuity level to the best of your ability. **
      """
         },
-        "kate": """Below are some example cases with their ESI acuity levels, followed by a new patient case. Please analyze the examples and use them to determine the appropriate Emergency Severity Index (ESI) acuity level for the new patient on a scale from 1 to 5.""",
-        "katecot": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step. 
-        
-Step 1: Assess Immediate Risk
+        "FewShot": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "FewShotCoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
 
-- Is the patient dying or at immediate risk of death? 
-- Consider: Apnea, pulselessness, severe respiratory distress, unresponsiveness, SpO2 < 90%, acute mental status changes.
+** Step 1: Assess the Patient's Risk & Resource Needs **
+** Step 2: Analyze and Compare with Other Patient Cases **
+** Step 3: Determine the ESI acuity level for this patient based on the examples and your assessment of the patient's clinical presentation **"""
+        },
+        "KATE": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "KATEAutoCoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI). Think carefully step by step.",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "KATECoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
 
-Step 2: Determine Need for Immediate Life-Saving Intervention
-
-- Does the patient require an immediate intervention to secure an airway, support breathing, or maintain circulation? 
-- If yes, classify as ESI Level 1. 
-- If no, proceed to the next step.
-
-Step 3: Identify Critical Interventions
-
-Does the patient require any of the following life-saving interventions?
-- Airway/Breathing: BVM ventilation, intubation, surgical airway, emergent CPAP/BiPAP.
-- Electrical Therapy: Defibrillation, emergent cardioversion, external pacing.
-- Procedures: Chest needle decompression, pericardiocentesis, open thoracotomy, intraosseous access.
-- Hemodynamics: Major IV fluid resuscitation, blood administration, control of major bleeding.
-- Medications: Naloxone, D50, dopamine, atropine, adenosine.
-
-If yes, classify as ESI Level 1. If no, proceed to the next step.
-
-Step 4: Evaluate Key Clinical Signs
-
-Is the patient presenting with any of these critical conditions?
-- Cardiac Arrest
-- Respiratory Arrest
-- Severe respiratory distress (agonal/gasping respirations)
-- SpO2 < 90%
-- Severe Bradycardia/Tachycardia with hypoperfusion
-- Hypotension with signs of hypoperfusion
-- Critically injured trauma patient (unresponsive)
-- Overdose with a respiratory rate < 6
-- Anaphylactic reaction
-- Infant that is flaccid
-- Unresponsive with a strong odor of alcohol
-- Hypoglycemia with a change in mental status
-
-If yes, classify as ESI Level 1. If no, proceed to the next step.
-
-Step 5: Differentiate Between ESI 1 and ESI 2
-
-- Does the patient require immediate physician presence for survival? 
-- ESI Level 1: Requires physician at bedside immediately. 
-- ESI Level 2: Can wait briefly; nurse can initiate care (e.g., IV access, ECG, oxygen).
-
-Step 6: Determine if the patient is ESI 2
-
-Three broad questions are used to determine whether the patient meets level-2 criteria. 
-1. Is this a high-risk situation? 
-    - Vital signs are often not helpful in the identification of high-risk patients. The patient typically presents to the ED with a chief complaint, signs and symptoms, or history suggestive of a problem or condition that is serious and, unless dealt with promptly, can deteriorate rapidly. Often patient age, past medical history, and current medications influence the perceived severity of the chief complaint. 
-    - For example, a frail elderly patient with severe abdominal pain is at a much higher risk of morbidity and mortality than a 20-year-old. The elderly patient with abdominal pain should be classified as ESI level 2, while the 20-year-old with stable vital signs will usually be classified as ESI level 3.
-2. Is the patient confused, lethargic or disoriented? 
-3. Is the patient in severe pain or distress?
-- All patients who have a pain rating of 7/10 or greater should be considered for meeting ESI level-2 criteria.
-- Considered is a very important word. It is up to the discretion of the triage nurse to determine whether the clinical condition and pain rating in combination warrant a rating of ESI level 2. For example, a patient who had a heavy metal object fall on his toe may rate the pain a 10/10. Indeed, the patient may have a fracture and is experiencing severe pain. The patient probably has done nothing to try to relieve the pain prior to arrival in the ED. The correct triage level for this patient would be ESI level 4. Only one resource will be needed (an x-ray).
-- Examples of patients for whom the triage nurse could use severe pain criteria to justify an ESI level-2 rating include: A patient with 10/10 flank pain who is writhing at triage.
-
-Step 6: If it's not clear by now, analyze the examples provided and identify key similarities and differences between the patient and the examples.
-        
-Step 7: Based on all the provided information, please determine the appropriate Emergency Severity Index (ESI) acuity level on a scale from 1 to 5."""
+** Step 1: Assess the Patient's Risk & Resource Needs **
+** Step 2: Analyze and Compare with Similar Patient Cases **
+** Step 3: Determine the ESI acuity level for this patient based on the examples and your assessment of the patient's clinical presentation **"""
+        }
     },
     "triage-ktas": {
         "vanilla": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
@@ -356,7 +345,7 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
 
 
 # Function to convert a CSV row into instruction, input, and output strings.
-def format_instruction_prompt_for_blackbox(row, strategy='vanilla', dataset='triage-mimic', serialization='natural', return_json=False, examples=None):
+def format_instruction_prompt_for_blackbox(row, strategy='Vanilla', dataset='triage-mimic', serialization='natural', return_json=False, examples=None):
     """
     Format instruction prompt based on strategy.
     
@@ -375,7 +364,6 @@ def format_instruction_prompt_for_blackbox(row, strategy='vanilla', dataset='tri
         ValueError: If strategy requires examples but none provided, or if strategy unsupported
     """
     # Validate inputs
-    strategy = strategy.lower()
     dataset = dataset.lower()
     
     if dataset not in INSTRUCTIONS:
@@ -394,17 +382,14 @@ def format_instruction_prompt_for_blackbox(row, strategy='vanilla', dataset='tri
 "Reasoning": <the step by step rationale>,
 "Acuity": <the assigned acuity level as an integer between 1 and 5>,
 """
-            if 'cot' in strategy else
+            if 'CoT' in strategy else
             """ Output your response strictly in JSON format with the following key:
 "Acuity": <the assigned acuity level as an integer between 1 and 5>"""
         )
         prompt['system'] += json_instruction
     
     # Handle different strategy types
-    EXAMPLE_REQUIRED_STRATEGIES = {'kate', 'katecot', 'fewshot', 'fewshotcot'}
-    VANILLA_STRATEGIES = {'vanilla', 'cot', 'autocot', 'vanillav0'}
-    
-    if strategy in EXAMPLE_REQUIRED_STRATEGIES:
+    if 'KATE' in strategy or 'FewShot' in strategy:
         if not examples:
             raise ValueError(f"Strategy {strategy} requires examples but none were provided")
         prompt['user'] = BLACKBOX_LLM_PROMPT_WITH_EXAMPLES.format(
@@ -412,19 +397,12 @@ def format_instruction_prompt_for_blackbox(row, strategy='vanilla', dataset='tri
             examples,
             patient_description
         )
-    elif strategy in VANILLA_STRATEGIES:
+    else:
         prompt['user'] = BLACKBOX_LLM_PROMPT.format(
             prompt['user'],
             patient_description
         )
-    elif strategy == 'selfconsistency':
-        prompt['user'] = BLACKBOX_LLM_PROMPT.format(
-            prompt['user'] + "\nPlease be decisive in your assessment.",
-            patient_description
-        )
-    else:
-        raise ValueError(f"Unsupported strategy: {strategy}")
-        
+
     return prompt
 
 def format_instruction_prompt_for_finetuning(row, EOS_TOKEN, dataset='triage-mimic', split='train'):
