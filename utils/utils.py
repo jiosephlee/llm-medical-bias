@@ -62,12 +62,12 @@ _DATASETS = {
         'hippa': True,
         },
     "Triage-KTAS": 
-        {'test_set_filepath': "./data/mimic-iv-private/anchor_year_group_datasets/2017_-_2019/test_dataset.csv",
-        'training_set_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/small_train_dataset.csv',
-        'training_embeddings_filepath':'./data/mimic-iv-private/anchor_year_group_datasets/2014_-_2016/train_chiefcomplaint_embeddings_reduced.npy',
+        {'test_set_filepath': "./data/kaggle/test.csv",
+        'training_set_filepath':'./data/kaggle/train.csv',
+        'training_embeddings_filepath':'./data/kaggle/KTAS_train_chiefcomplaint_embeddings.npy',
         'format': 'csv',
-        'target': 'acuity',
-        'hippa': False,
+        'target': 'KTAS_expert',
+        'hippa': True,
         },
     ### Legacy datasets
     "Triage-Public": 
@@ -218,8 +218,14 @@ def query_gpt_safe(prompt, model="openai-gpt-4o-high-quota-chat", return_json=Fa
             ]
         else:
             messages = [{"role": "user", "content": prompt}]
-
-        if return_json:
+        if 'o3' in model:
+            response = client_safe.chat.completions.create(
+                model=model,
+                reasoning_effort="low",
+                messages=messages,
+                response_format={"type": "json_object"}
+            )
+        elif return_json:
             response = client_safe.chat.completions.create(
                 model=model,
                 messages=messages,

@@ -168,7 +168,28 @@ Below are some example cases with their ESI acuity levels, followed by a new pat
         }
     },
     "triage-ktas": {
-        "vanilla": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
+        "Vanilla": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate KTAS acuity level on a scale from 1 to 5. KTAS 1 indicates the highest priority and KTAS 5 indicates the lowest priority."
+        },
+        "CoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority and KTAS 5 indicates the lowest priority. Let's understand the KTAS levels and solve this step by step.
+
+** Step 1: Understand KTAS Levels **
+KTAS 1: Immediate aggressive treatment needed for life-threatening conditions. Requires immediate medical examination.
+
+KTAS 2: Potential threats to life, limb or body function requiring quick intervention. Physician's/nurse's reevaluation needed within 15 minutes.
+
+KTAS 3: Conditions that could lead to serious problems potentially requiring emergency intervention. Causes significant discomfort or impacts daily functions. Physician evaluation needed within 30 minutes.
+
+KTAS 4: Condition associated with age-related factors or possibility of pain/complications. Treatment and re-verification within 1-2 hours. Physician evaluation needed within 60 minutes.
+
+KTAS 5: Conditions from chronic problems with possible exacerbation. May be delayed or scheduled. Physician evaluation needed within 120 minutes.
+
+** Step 2: Evaluate the Patient's Condition **
+** Step 3: Determine Final KTAS Level Based on Assessment **"""
+        },
         "auto_CoT": "",
         "KATE": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
         "KATE_CoT": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
@@ -206,7 +227,7 @@ def convert_arrival(arrival_transport, dataset = 'triage-mimic'):
 
 def format_row(row, dataset='triage-mimic', serialization='natural'):
     # Create a natural language description of the patient.
-    if 'triage' in dataset.lower():
+    if 'triage-mimic' in dataset.lower():
         if serialization in TEMPLATES.get('triage-mimic', {}):
             template = TEMPLATES['triage-mimic'][serialization]
             return template.format(
@@ -301,7 +322,7 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
         injury_text = ""
         if pd.notna(injury):
             if injury == 'Yes':
-                injury_text = " sustained an injury"
+                injury_text = " who sustained an injury"
         
         # Prepare the vital signs.
         vitals = {}
