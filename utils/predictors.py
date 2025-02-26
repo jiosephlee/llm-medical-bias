@@ -1,20 +1,22 @@
 import numpy as np
 import utils.utils as utils
+import utils.prompts as prompts
 from sentence_transformers import SentenceTransformer
 import pandas as pd
+import json
 
 class Predictor:
     """
-    The predictor class is soley responsible for handling different prediction strategies. 
-    It does not format the prompt for each task and so 
+    The predictor class is responsible for handling different prediction strategies, including:
+    0) appropriate prompt for the strategy
     1) task-specific serialization of each sample 
     2) the task-specific instructions
-    must be provided.
+    3) strategy logic for each prediction
     """
-    def __init__(self, dataset, strategy="ZeroShot", hippa=False, target=None, training_set=None):
+    def __init__(self, dataset, strategy="Vanilla", hippa=False, target=None, training_set=None, k_shots_ablation=False):
         """
         :param model: The LLM to use for predictions.
-        :param strategy: Prediction strategy ("FewShot", "CoT", "ZeroShot", "SelfConsistency").
+        :param strategy: Prediction strategy ("FewShot", "CoT", "Vanilla", "SelfConsistency").
         :param debug: Whether to enable debug mode.
         :param training_set: The training dataset for few-shot prompting.
         """
@@ -26,60 +28,147 @@ class Predictor:
         if training_set is not None:
             model_name = 'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb'
             self.symptom_encoder = SentenceTransformer(model_name)
-            self.embeddings_cache = np.load('./data/mimic-iv-private/symptom_embeddings.npy',allow_pickle=True)
+            if k_shots_ablation:
+                print("Using full training set embeddings")
+                embeddings_path = utils._DATASETS[dataset]['full_training_embeddings_filepath']
+            else:
+                embeddings_path = utils._DATASETS[dataset]['training_embeddings_filepath']
+            self.embeddings_cache = np.load(embeddings_path,allow_pickle=True)
     
-    def predict(self, *args, **kwargs):
+    def predict(self, *, row, model, k_shots, return_json, serialization_strategy, vitals_off, bias, debug=False):
         """
         Route prediction based on strategy.
         """
-        if self.strategy == "FewShot" or self.strategy=="FewShotCoT":
-            return self.few_shot_prediction(*args, **kwargs)
-        if self.strategy == "KATE":
-            return self.kate_prediction(*args, **kwargs)
-        elif self.strategy == "ZeroShot" or self.strategy == "CoT":
-            return self.zero_shot_prediction(*args, **kwargs)
-        elif self.strategy == "SelfConsistency":
-            return self.self_consistency_prediction(*args, **kwargs)
+        if self.strategy in ["FewShot", "FewShotCoT"]:
+            return self.few_shot_prediction(row=row, model=model, k_shots=k_shots, return_json=return_json, serialization_strategy=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
+        elif self.strategy in ["KATE", "KATECoT", "KATEAutoCoT"]:
+            return self.kate_prediction(row=row, model=model, k_shots=k_shots, return_json=return_json, serialization_strategy=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
+        elif self.strategy in ["Vanilla", "Vanillav0", "AutoCoT", "CoT","DemonstrationCoT"]:
+            return self.zero_shot_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
+        elif self.strategy in ["SelfConsistency"]:
+            return self.self_consistency_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
         else:
             raise ValueError(f"Unsupported strategy: {self.strategy}")
 
-    def zero_shot_prediction(self, prompt, **kwargs):
+    def zero_shot_prediction(self, *, row, model, return_json=False, serialization='natural', vitals_off=False, bias=False, debug=False, **kwargs):
         """Zero-shot prediction implementation."""
-        if self.hippa:
-            return utils.query_gpt_safe(prompt, **kwargs)
-        return utils.query_llm(prompt, **kwargs)
 
-    def _format_prompt_few_shots(self, test_prompt, serialize, serialization_strategy, instruction_prompt, k_shots):
-
-        formatted_examples = "\n\n".join(
-            f"Input: {serialize(ex, serialization_strategy)}\nOutput: {ex['acuity']}"
-            for i, ex in k_shots.iterrows()
+        prompt = prompts.format_instruction_prompt_for_blackbox(
+            row=row,
+            strategy=self.strategy,
+            dataset=self.dataset.lower(),
+            return_json=return_json,
+            serialization=serialization
         )
-        return f"{instruction_prompt}\n\n{formatted_examples}\n\nInput: {test_prompt}\nOutput:"
-    
-    def few_shot_prediction(self, test_prompt, serialization_func = None, instruction_prompt='', k_shots=5, **kwargs):
-        #print(self.training_set)
+        
+        if self.hippa:
+            response = utils.query_gpt_safe(prompt, model=model, return_json=return_json, debug=debug, is_prompt_full=True)
+        else:
+            response = utils.query_llm_full(prompt, model=model, return_json=return_json, debug=debug)
+        
+        return prompt, response
+
+    def few_shot_prediction(self, *, row, model, k_shots=5, return_json=False, serialization='natural', vitals_off=False, bias=False, debug=False, **kwargs):
+        """Few-shot prediction implementation."""
         if self.training_set is None:
             raise ValueError("Few-shot strategy requires a training set of examples.")
-        _, k_shots = utils.stratified_df(self.training_set, target_col=self.target,test_size=k_shots)
-        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, instruction_prompt, k_shots)
+        
+        _, examples = utils.stratified_df(self.training_set, target_col=self.target, test_size=k_shots)
+        
+        formatted_examples = "\n\n".join([
+            prompts.format_row(example, dataset=self.dataset.lower(), serialization=serialization) + 
+            f"\nAcuity Level: {example[self.target]}"
+            for _, example in examples.iterrows()
+        ])
+        
+        prompt = prompts.format_instruction_prompt_for_blackbox(
+            row=row,
+            strategy=self.strategy,
+            dataset=self.dataset.lower(),
+            return_json=return_json,
+            serialization=serialization,
+            examples=formatted_examples
+        )
+        
         if self.hippa:
-            return utils.query_gpt_safe(prompt, **kwargs)
+            response = utils.query_gpt_safe(prompt, model=model, return_json=return_json, debug=debug, is_prompt_full=True)
         else:
-            return utils.query_llm(prompt, **kwargs)
+            response = utils.query_llm_full(prompt, model=model, return_json=return_json, debug=debug)
+        
+        return prompt, response
 
-    
-    def kate_prediction(self, test_prompt, row ,serialization_func = None, serialization_strategy = 'spaces', instruction_prompt='', k_shots=5, **kwargs):
-        #print(self.training_set)
+    def self_consistency_prediction(self, *, row, model, return_json=False, serialization='natural', vitals_off=False, bias=False, debug=False, num_trials=5, **kwargs):
+        """Self-consistency prediction implementation."""
+        responses = []
+        
+        for _ in range(num_trials):
+            prompt = prompts.format_instruction_prompt_for_blackbox(
+                row=row,
+                strategy='SelfConsistency',
+                dataset=self.dataset.lower(),
+                return_json=True,
+                serialization=serialization
+            )
+            
+            if self.hippa:
+                response = utils.query_gpt_safe(prompt, temperature = 1.0, model=model, return_json=True, debug=debug, is_prompt_full=True)
+            else:
+                response = utils.query_llm_full(prompt, temperature = 1.0, model=model, return_json=True, debug=debug)
+            
+            try:
+                response_data = json.loads(response)
+                responses.append(response_data['Acuity'])
+            except (json.JSONDecodeError, KeyError) as e:
+                if debug:
+                    print(f"Error parsing response: {e}")
+                    print(f"Raw response: {response}")
+                continue
+        
+        if not responses:
+            raise ValueError("No valid responses received from any trial")
+        
+        from statistics import mode
+        final_acuity = mode(responses)
+        
+        if return_json:
+            final_response = json.dumps({
+                "Acuity": final_acuity,
+                "Reasoning": f"Based on {len(responses)} trials, the most common prediction was {final_acuity}. All predictions: {responses}"
+            })
+        else:
+            final_response = f"Based on {len(responses)} trials, the most common prediction was {final_acuity}. All predictions: {responses}"
+        
+        return prompt, final_response
+
+    def kate_prediction(self, *, row, model, k_shots=5, return_json=False, serialization='natural', vitals_off=False, bias=False, debug=False, **kwargs):
+        """KATE prediction implementation."""
         if self.training_set is None:
-            raise ValueError("Few-shot strategy requires a training set of examples.")
-        k_shots = self._retrieve_top_k_examples(row, k_shots)
-        prompt = self._format_prompt_few_shots(test_prompt, serialization_func, serialization_strategy, instruction_prompt, k_shots)
+            raise ValueError("KATE strategy requires a training set of examples.")
+        
+        examples = self._retrieve_top_k_examples(row, k_shots)
+        
+        formatted_examples = "\n\n".join([
+            prompts.format_row(example, dataset=self.dataset.lower(), serialization=serialization) + 
+            f"\nAcuity Level: {example[self.target]}"
+            for _, example in examples.iterrows()
+        ])
+        
+        prompt = prompts.format_instruction_prompt_for_blackbox(
+            row=row,
+            strategy=self.strategy,
+            dataset=self.dataset.lower(),
+            return_json=return_json,
+            serialization=serialization,
+            examples=formatted_examples
+        )
+        
         if self.hippa:
-            return utils.query_gpt_safe(prompt, **kwargs)
+            response = utils.query_gpt_safe(prompt, model=model, return_json=return_json, debug=debug, is_prompt_full=True)
         else:
-            return utils.query_llm(prompt, **kwargs)
-
+            response = utils.query_llm_full(prompt, model=model, return_json=return_json, debug=debug)
+        
+        return prompt, response
+    
     def get_top_k_similar(self, embedding, embeddings, k):
         """
         Find the top-k most similar samples to a given embedding.
@@ -126,16 +215,11 @@ class Predictor:
         top_k_vital_samples['pain'] = self.training_set.loc[top_k_indices[top_k_vital_indices], 'pain']
         
         return top_k_vital_samples
-
-    def self_consistency_prediction(self, prompt):
-        """Self-consistency prediction implementation."""
-        # Add Self-Consistency-specific logic here
-        pass
     
 # if __name__ == "__main__":
 #     # Example usage of the Predictor class
 #     model = "gpt-3.5-turbo"
-#     strategy = "ZeroShot"
+#     strategy = "Vanilla"
 #     target = "output"
 #     training_set = [
 #         {"input": "What is the capital of France?", "output": "Paris"},

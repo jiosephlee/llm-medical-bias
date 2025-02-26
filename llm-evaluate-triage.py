@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 
     print("Loading Dataset...")
-    filepath= utils._DATASETS[args.dataset]['filepath']
+    filepath= utils._DATASETS[args.dataset]['test_set_filepath']
     format = utils._DATASETS[args.dataset]['format']
     dataset = utils.load_dataset(filepath, format, args.start, args.end)
     print(len(dataset))
@@ -45,3 +45,4 @@ if __name__ == "__main__":
     save_metrics(metrics, output_dir, f"{args.parameters}")
     
     print("Evaluation complete. Metrics and plots saved.")
+    

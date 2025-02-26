@@ -1,0 +1,42 @@
+{
+  "overall": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "adjusted_accuracy": 1.0,
+    "adjusted_precision": 1.0,
+    "adjusted_recall": 1.0,
+    "adjusted_f1": 1.0,
+    "mae": 0.0,
+    "mse": 0.0,
+    "quadratic_kappa": 1.0
+  },
+  "by_class": {
+    "2.0": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "3.0": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    }
+  }
+}
