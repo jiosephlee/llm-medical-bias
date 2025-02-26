@@ -64,10 +64,11 @@ _DATASETS = {
     "Triage-KTAS": 
         {'test_set_filepath': "./data/kaggle/test.csv",
         'training_set_filepath':'./data/kaggle/train.csv',
-        'training_embeddings_filepath':'./data/kaggle/KTAS_train_chiefcomplaint_embeddings.npy',
+        'training_complaint_embeddings_filepath':'./data/kaggle/KTAS_train_chiefcomplaint_embeddings.npy',
+        'training_diagnosis_embeddings_filepath':'./data/kaggle/KTAS_train_diagnosis_embeddings.npy',
         'format': 'csv',
         'target': 'KTAS_expert',
-        'hippa': True,
+        'hippa': False,
         },
     ### Legacy datasets
     "Triage-Public": 
@@ -292,7 +293,7 @@ def query_gemini(message, model, temperature=0, max_tokens=1000):
 
     return response.text
  
-def query_gpt(prompt: str | dict, model: str, temperature: float, top_p: float, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = False):
+def query_gpt(prompt: str | dict, model: str, temperature: float, top_p: float, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = True):
     if is_prompt_full:
         # Format chat prompt with system and user messages
         messages = [

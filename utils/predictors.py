@@ -29,7 +29,9 @@ class Predictor:
             model_name = 'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb'
             self.symptom_encoder = SentenceTransformer(model_name)
             if self.dataset == 'triage-ktas':
-                self.embeddings_cache = np.load(utils._DATASETS[dataset]['full_training_embeddings_filepath'],allow_pickle=True)
+                complaint_embeddings = np.load(utils._DATASETS[dataset]['training_complaint_embeddings_filepath'], allow_pickle=True)
+                diagnosis_embeddings = np.load(utils._DATASETS[dataset]['training_diagnosis_embeddings_filepath'], allow_pickle=True)
+                self.embeddings_cache = np.concatenate([complaint_embeddings, diagnosis_embeddings], axis=1)
             else:
                 if k_shots_ablation:
                     print("Using full training set embeddings")
@@ -190,11 +192,11 @@ class Predictor:
         :return: DataFrame of top K examples.
         """
         # Get embeddings based on dataset type
-        if self.dataset == 'triage-mimic':
+        if self.dataset.lower() == 'triage-mimic':
             symptom = row['chiefcomplaint']
             combined_embedding = self.symptom_encoder.encode(symptom)
             
-        elif self.dataset == 'triage-ktas':
+        elif self.dataset.lower() == 'triage-ktas':
             # Combine chief complaint and diagnosis embeddings
             symptom = row['Chief_complain']
             diagnosis = row['Diagnosis in ED']
