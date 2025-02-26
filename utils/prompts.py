@@ -7,9 +7,9 @@ TEMPLATES = {
     "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\no2sat: {o2sat}%\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\n",
   },
   "triage-ktas": {
-    "spaces": "temperature   heartrate   resprate   sbp   dbp   pain   chiefcomplaint   diagnosis in ED\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}   {suspicion}",
-    "commas": "temperature, heartrate, resprate, sbp, dbp, pain, chiefcomplaint, diagnosis in ED\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}, {suspicion}",
-    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\ndiagnosis in ED: {suspicion}",
+    "spaces": "temperature   heartrate   resprate   sbp   dbp   pain   chiefcomplaint   diagnosis in ED   injury   arrival   mental\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}   {suspicion}   {injury}   {arrival}   {mental}",
+    "commas": "temperature, heartrate, resprate, sbp, dbp, pain, chiefcomplaint, diagnosis in ED, injury, arrival, mental\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}, {suspicion}, {injury}, {arrival}, {mental}",
+    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\ndiagnosis in ED: {suspicion}\ninjury: {injury}\narrival mode: {arrival}\nmental: {mental}",
   }
 }
 
@@ -190,17 +190,171 @@ KTAS 5: Conditions from chronic problems with possible exacerbation. May be dela
 ** Step 2: Evaluate the Patient's Condition **
 ** Step 3: Determine Final KTAS Level Based on Assessment **"""
         },
-        "auto_CoT": "",
-        "KATE": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
-        "KATE_CoT": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
+        "AutoCoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS). Think carefully step by step.",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate KTAS acuity level on a scale from 1 to 5. KTAS 1 indicates the highest priority and KTAS 5 indicates the lowest priority."
         },
+        "FewShot": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Use the examples and your knowledge of KTAS protocol to determine the appropriate KTAS acuity level for the new patient."""
+        },
+        "FewShotCoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk**
+** Step 2: Analyze and Compare with Other Patient Cases **
+** Step 3: Determine the KTAS acuity level for this patient based on the examples, KTAS protocol, and your assessment of the patient's clinical presentation **"""
+        },
+        "KATE": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Use the examples and your knowledge of KTAS protocol to determine the appropriate KTAS acuity level for the new patient."""
+        },
+        "KATECoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk**
+** Step 2: Analyze and Compare with Similar Patient Cases **
+** Step 3: Determine the KTAS acuity level for this patient based on the examples, KTAS protocol, and your assessment of the patient's clinical presentation **"""
+        },
+    },
     "triage-handbook": {
-        "vanilla": "Based on the clincial presentation, determine the Emergency Severity Index (ESI) acuity for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
-        "auto_CoT": "",
-        "CoT": "",
-        "KATE": "Based on the clincial presentation, determine the Emergency Severity Index (ESI) acuity for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
-        "KATE_CoT": "Based on the clincial presentation, determine the Emergency Severity Index (ESI) acuity for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
-    }
+        "vanillav0": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level"
+        },
+        "Vanilla": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
+        },
+        "SelfConsistency": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step.
+
+** Step 1: Assess Immediate Risk for ESI Level 1 **
+
+- Is the patient dying or at immediate risk of death?
+- Does the patient require an immediate life-saving intervention?
+
+** Step 2: Evaluate Key Clinical Signs for ESI Level 2 **
+
+Assess High-Risk Situations: Identify patients with potentially life-threatening conditions who do not require immediate life-saving interventions but should not wait. Use the rule of thumb: “Would I use my last open bed for this patient?” Key indicators include:
+- Severe chest pain, suspected acute coronary syndrome (ACS)
+- Respiratory distress (e.g., severe asthma, pleural effusion)
+- Neurological deficits (e.g., stroke symptoms, meningitis suspicion)
+- Uncontrolled bleeding or significant trauma
+
+Evaluate Mental Status Changes: Classify patients with new onset confusion, lethargy, or disorientation as ESI Level 2. This includes:
+- Suspected stroke (sudden motor/speech deficits)
+- Altered mental status from metabolic, toxic, or neurological causes
+- Pediatric patients with signs of sepsis or dehydration
+
+Prioritize Severe Pain or Distress: Patients reporting severe pain (≥7/10) or severe psychological distress may qualify for Level 2 if their condition necessitates immediate intervention. Examples:
+- Sickle cell crisis or acute oncologic pain
+- Severe abdominal pain in elderly patients
+- Trauma with high pain burden requiring urgent evaluation
+
+** Step 3: Differentiate between ESI 3, 4 and 5 **
+- Resource prediction is an integral part of the ESI for patients identified as ESI level 3 (many resources), 4 (one resource), or 5 (no resources).
+- Resources include: Labs (blood, urine), ECG, X-rays, CT-MRI-ultrasound, angiography, IV fluids (hydration) , IV, IM or nebulized medications, Specialty consultation, Simple procedure (lac repair, Foley cath), Complex procedure (conscious sedation) 
+- Check Danger Zone Vitals: If the patient has very high heart rate, breathing rate, or oxygen saturation below 92%, consider upgrading to ESI Level 2. Use these thresholds:
+    - HR: >180 (infants), >160 (toddlers), >140 (children), >100 (older children/adults)
+    - RR: >50 (infants), >40 (toddlers), >30 (children), >20 (older children/adults)
+    - SaO₂: <92%
+
+** Step 4: If it's not clear by now, determine the appropriate ESI acuity level to the best of your ability. **"""
+        },
+        "AutoCoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI). Think carefully step by step.",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
+        },
+        "DemonstrationCoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Here's a demonstration of how to do this:
+
+Case: A 34-year-old obese female presents to triage complaining of generalized abdominal pain (pain scale rating: 6/10) for 2 days. She has vomited several times and states her last bowel movement was 3 days ago. She has a history of back surgery, takes no medications, and is allergic to peanuts. Vital signs: T 97.8° F, HR 104, RR 16, BP 132/80, SpO2 99 percent.
+Rationale: This patient will need a minimum of two or more resources: lab, IV fluids, perhaps IV medication for nausea, and a CT scan. The triage nurse would review the patient's vital signs and consider the heart rate. The heart rate falls just outside the accepted parameter for the age of the patient but could be due to pain or exertion. In this case, the decision should be to assign the patient to ESI level 3."""
+        },
+        "CoT": 
+            {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). Let's first understand the problem and solve the problem step by step.
+
+** Step 1: Assess Immediate Risk for ESI Level 1 **
+
+- Is the patient dying or at immediate risk of death?
+- Does the patient require an immediate life-saving intervention?
+
+** Step 2: Evaluate Key Clinical Signs for ESI Level 2 **
+
+Assess High-Risk Situations: Identify patients with potentially life-threatening conditions who do not require immediate life-saving interventions but should not wait. Use the rule of thumb: “Would I use my last open bed for this patient?” Key indicators include:
+- Severe chest pain, suspected acute coronary syndrome (ACS)
+- Respiratory distress (e.g., severe asthma, pleural effusion)
+- Neurological deficits (e.g., stroke symptoms, meningitis suspicion)
+- Uncontrolled bleeding or significant trauma
+
+Evaluate Mental Status Changes: Classify patients with new onset confusion, lethargy, or disorientation as ESI Level 2. This includes:
+- Suspected stroke (sudden motor/speech deficits)
+- Altered mental status from metabolic, toxic, or neurological causes
+- Pediatric patients with signs of sepsis or dehydration
+
+Prioritize Severe Pain or Distress: Patients reporting severe pain (≥7/10) or severe psychological distress may qualify for Level 2 if their condition necessitates immediate intervention. Examples:
+- Sickle cell crisis or acute oncologic pain
+- Severe abdominal pain in elderly patients
+- Trauma with high pain burden requiring urgent evaluation
+
+** Step 3: Differentiate between ESI 3, 4 and 5 **
+- Resource prediction is an integral part of the ESI for patients identified as ESI level 3 (many resources), 4 (one resource), or 5 (no resources).
+- Resources include: Labs (blood, urine), ECG, X-rays, CT-MRI-ultrasound, angiography, IV fluids (hydration) , IV, IM or nebulized medications, Specialty consultation, Simple procedure (lac repair, Foley cath), Complex procedure (conscious sedation) 
+- Check Danger Zone Vitals: If the patient has very high heart rate, breathing rate, or oxygen saturation below 92%, consider upgrading to ESI Level 2. Use these thresholds:
+    - HR: >180 (infants), >160 (toddlers), >140 (children), >100 (older children/adults)
+    - RR: >50 (infants), >40 (toddlers), >30 (children), >20 (older children/adults)
+    - SaO₂: <92%
+
+** Step 4: If it's not clear by now, determine the appropriate ESI acuity level to the best of your ability. **
+     """
+        },
+        "FewShot": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "FewShotCoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk & Resource Needs **
+** Step 2: Analyze and Compare with Other Patient Cases **
+** Step 3: Determine the ESI acuity level for this patient based on the examples and your assessment of the patient's clinical presentation **"""
+        },
+        "KATE": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "KATEAutoCoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI). Think carefully step by step.",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Use the examples and your knowledge of ESI protocol to determine the appropriate ESI acuity level for the new patient."""
+        },
+        "KATECoT": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": """Your task is to determine the patient's ESI acuity based on the patient's clinical presentation, where ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their ESI acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk & Resource Needs **
+** Step 2: Analyze and Compare with Similar Patient Cases **
+** Step 3: Determine the ESI acuity level for this patient based on the examples and your assessment of the patient's clinical presentation **"""
+        }
+    },
 }
     
 def convert_arrival(arrival_transport, dataset = 'triage-mimic'):
@@ -292,7 +446,10 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
                 dbp=row.get('DBP', 'N/A'),
                 pain=row.get('NRS_pain', 'N/A'),
                 chiefcomplaint=row.get('Chief_complain', 'N/A'),
-                suspicion=row.get('Diagnosis in ED', 'N/A')
+                suspicion=row.get('Diagnosis in ED', 'N/A'),
+                injury=row.get('Injury', 'N/A'),
+                arrival=row.get('Arrival mode', 'N/A'),
+                mental=row.get('Mental', 'N/A')
             )
         # --- Triage-ktas version ---
         age = f"{int(row['Age'])}-year-old " if pd.notna(row.get("Age")) else ""
@@ -363,6 +520,8 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
             description += f" Data on {missing_str} is missing."
         
         return description
+    elif dataset.lower() == 'triage-handbook':
+        return row.get('Clinical Vignettes', 'N/A')
 
 
 # Function to convert a CSV row into instruction, input, and output strings.

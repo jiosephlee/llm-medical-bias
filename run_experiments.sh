@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base command
-BASE_CMD="python llm-predict-triage.py --dataset Triage-MIMIC --model openai-gpt-4o-high-quota-chat --json"
+BASE_CMD="python llm-predict-triage.py --dataset Triage-Handbook --model gpt-4o --json"
 
 # Function to run experiment with delay
 run_with_delay() {
@@ -11,26 +11,34 @@ run_with_delay() {
     sleep 10  # 5 minute delay between runs
 }
 
+# Run Vanilla strategy
+CMD="$BASE_CMD --strategy Vanilla --serialization natural"
+run_with_delay "$CMD"
+
+# Run CoT strategy
+CMD="$BASE_CMD --strategy CoT --serialization natural"
+run_with_delay "$CMD"
+
 # Run KATE with different numbers of shots
-for shots in 3 5 10 20 30 40 50; do
-    CMD="$BASE_CMD --strategy KATE --serialization natural --k_shots $shots --k_shots_ablation"
+for shots in 20 40; do
+    CMD="$BASE_CMD --strategy KATE --serialization natural --k_shots $shots"
     run_with_delay "$CMD"
 done
 
 # Run FewShot with different numbers of shots
-for shots in 3 5 10 20 30 40 50; do
+for shots in 20 40; do
     CMD="$BASE_CMD --strategy FewShot --serialization natural --k_shots $shots"
     run_with_delay "$CMD"
 done
 
-# Run FewShot with different numbers of shots
-for shots in 40; do
+# Run FewShotCoT with different numbers of shots
+for shots in 20 40; do
     CMD="$BASE_CMD --strategy FewShotCoT --serialization natural --k_shots $shots"
     run_with_delay "$CMD"
 done
 
-# Run FewShot with different numbers of shots
-for shots in 40; do
+# Run KATECoT with different numbers of shots
+for shots in 20 40; do
     CMD="$BASE_CMD --strategy KATECoT --serialization natural --k_shots $shots"
     run_with_delay "$CMD"
 done

@@ -17,7 +17,7 @@ from pydantic import BaseModel
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
 
-client = OpenAI()
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 client_tog = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
 
 client_safe = OpenAI(
@@ -64,9 +64,19 @@ _DATASETS = {
     "Triage-KTAS": 
         {'test_set_filepath': "./data/kaggle/test.csv",
         'training_set_filepath':'./data/kaggle/train.csv',
-        'training_embeddings_filepath':'./data/kaggle/KTAS_train_chiefcomplaint_embeddings.npy',
+        'training_complaint_embeddings_filepath':'./data/kaggle/KTAS_train_chiefcomplaint_embeddings.npy',
+        'training_diagnosis_embeddings_filepath':'./data/kaggle/KTAS_train_diagnosis_embeddings.npy',
         'format': 'csv',
         'target': 'KTAS_expert',
+        'hippa': False,
+        },
+    "Triage-Handbook": 
+        {'test_set_filepath': "./data/ESI-Handbook/train.csv",
+        'training_set_filepath':'./data/ESI-Handbook/test.csv',
+        'training_embeddings_filepath':'./data/ESI-Handbook/train_embeddings.npy',
+        'test_embeddings_filepath':'./data/ESI-Handbook/test_embeddings.npy',
+        'format': 'csv',
+        'target': 'acuity',
         'hippa': True,
         },
     ### Legacy datasets
@@ -292,7 +302,7 @@ def query_gemini(message, model, temperature=0, max_tokens=1000):
 
     return response.text
  
-def query_gpt(prompt: str | dict, model: str, temperature: float, top_p: float, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = False):
+def query_gpt(prompt: str | dict, model: str, temperature: float, top_p: float, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = True):
     if is_prompt_full:
         # Format chat prompt with system and user messages
         messages = [
@@ -351,6 +361,9 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
         try:
             if 'gpt' in model:
                 response = query_gpt(prompt, model, temperature, top_p, logprobs, return_json)
+                print(response.choices[0].message.strip())
+                return response.choices[0].message.strip()
+
             elif 'claude' in model:
                 response = query_claude(prompt, model, temperature, max_tokens)
                 if return_json:

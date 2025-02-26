@@ -28,12 +28,19 @@ class Predictor:
         if training_set is not None:
             model_name = 'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb'
             self.symptom_encoder = SentenceTransformer(model_name)
-            if k_shots_ablation:
-                print("Using full training set embeddings")
-                embeddings_path = utils._DATASETS[dataset]['full_training_embeddings_filepath']
+            if self.dataset.lower() == 'triage-ktas':
+                complaint_embeddings = np.load(utils._DATASETS[dataset]['training_complaint_embeddings_filepath'], allow_pickle=True)
+                diagnosis_embeddings = np.load(utils._DATASETS[dataset]['training_diagnosis_embeddings_filepath'], allow_pickle=True)
+                self.complaint_embeddings = complaint_embeddings
+                self.diagnosis_embeddings = diagnosis_embeddings
+                self.embeddings_cache = np.concatenate([complaint_embeddings, diagnosis_embeddings], axis=1)
             else:
-                embeddings_path = utils._DATASETS[dataset]['training_embeddings_filepath']
-            self.embeddings_cache = np.load(embeddings_path,allow_pickle=True)
+                if k_shots_ablation:
+                    print("Using full training set embeddings")
+                    embeddings_path = utils._DATASETS[dataset]['full_training_embeddings_filepath']
+                else:
+                    embeddings_path = utils._DATASETS[dataset]['training_embeddings_filepath']
+                self.embeddings_cache = np.load(embeddings_path,allow_pickle=True)
     
     def predict(self, *, row, model, k_shots, return_json, serialization_strategy, vitals_off, bias, debug=False):
         """
@@ -180,19 +187,54 @@ class Predictor:
     def _retrieve_top_k_examples(self, row, k):
         """
         Retrieve the top K most similar examples to the prompt based on Ada embeddings.
+        First searches by concatenated chief complaint and diagnosis embeddings, then refines by vital signs.
 
         :param row: The input row containing chief complaint and vital signs.
         :param k: Number of examples to retrieve.
         :return: DataFrame of top K examples.
         """
-        symptom = row['chiefcomplaint']
-        symptom_embedding = self.symptom_encoder.encode(symptom, batch_size=1, convert_to_numpy=True)
-        
-        # First narrow down to k*3 samples by symptom
-        top_k_indices, _ = self.get_top_k_similar(symptom_embedding, self.embeddings_cache, k*3)
+        # Get embeddings based on dataset type
+        if self.dataset.lower() == 'triage-mimic':
+            symptom = row['chiefcomplaint']
+            combined_embedding = self.symptom_encoder.encode(symptom)
+            # Search using combined embedding
+            top_k_indices, _ = self.get_top_k_similar(combined_embedding, self.embeddings_cache, k*3)
+            
+        elif self.dataset.lower() == 'triage-ktas':
+            # Handle cases where either symptom or diagnosis is empty/null
+            symptom = row['Chief_complain']
+            diagnosis = row['Diagnosis in ED']
+            
+            if pd.isna(symptom) or symptom == '':
+                # Only use diagnosis embedding if symptom is empty
+                combined_embedding = self.symptom_encoder.encode(diagnosis)
+                top_k_indices, _ = self.get_top_k_similar(combined_embedding, self.diagnosis_embeddings, k*3)
+            elif pd.isna(diagnosis) or diagnosis == '':
+                # Only use symptom embedding if diagnosis is empty  
+                combined_embedding = self.symptom_encoder.encode(symptom)
+                top_k_indices, _ = self.get_top_k_similar(combined_embedding, self.complaint_embeddings, k*3)
+            else:
+                # Combine both embeddings if neither is empty
+                symptom_embedding = self.symptom_encoder.encode(symptom)
+                diagnosis_embedding = self.symptom_encoder.encode(diagnosis)
+                combined_embedding = np.concatenate([symptom_embedding, diagnosis_embedding])
+                # Search using embedding
+                top_k_indices, _ = self.get_top_k_similar(combined_embedding, self.embeddings_cache, k*3)
+            
+        elif self.dataset.lower() == 'triage-handbook':
+            symptom = row['Clinical Vignettes']
+            embeddings = self.symptom_encoder.encode(symptom)
+            top_k_indices, _ = self.get_top_k_similar(embeddings, self.embeddings_cache, k*3)
+            top_k_samples = self.training_set.loc[top_k_indices]
+            # print(top_k_samples)
+            return top_k_samples
         
         # Then, narrow down to k by vitals
-        vital_sign_columns = ['temperature', 'heartrate', 'resprate', 'o2sat', 'sbp', 'dbp', 'pain']
+        if self.dataset.lower() == 'triage-mimic':
+            vital_sign_columns = ['temperature', 'heartrate', 'resprate', 'o2sat', 'sbp', 'dbp', 'pain']
+        elif self.dataset.lower() == 'triage-ktas':
+            vital_sign_columns = ['NRS_pain', 'SBP', 'DBP', 'HR', 'RR', 'BT']
+        
         numeric_vital_signs = [col for col in vital_sign_columns if pd.api.types.is_numeric_dtype(row[col])]
 
         query_vital_signs = row[numeric_vital_signs].values.astype(float)
@@ -211,8 +253,8 @@ class Predictor:
         # Retrieve top-k samples
         top_k_vital_samples = self.training_set.loc[top_k_indices[top_k_vital_indices]]
         
-        # Add the 'pain' column back to the result (unchanged)
-        top_k_vital_samples['pain'] = self.training_set.loc[top_k_indices[top_k_vital_indices], 'pain']
+        # # Add the 'pain' column back to the result (unchanged)
+        # top_k_vital_samples['pain'] = self.training_set.loc[top_k_indices[top_k_vital_indices], 'pain']
         
         return top_k_vital_samples
     
