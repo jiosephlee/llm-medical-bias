@@ -17,7 +17,7 @@ from pydantic import BaseModel
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
 
-client = OpenAI()
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 client_tog = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
 
 client_safe = OpenAI(
@@ -351,6 +351,9 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
         try:
             if 'gpt' in model:
                 response = query_gpt(prompt, model, temperature, top_p, logprobs, return_json)
+                print(response.choices[0].message.strip())
+                return response.choices[0].message.strip()
+
             elif 'claude' in model:
                 response = query_claude(prompt, model, temperature, max_tokens)
                 if return_json:

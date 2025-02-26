@@ -190,10 +190,39 @@ KTAS 5: Conditions from chronic problems with possible exacerbation. May be dela
 ** Step 2: Evaluate the Patient's Condition **
 ** Step 3: Determine Final KTAS Level Based on Assessment **"""
         },
-        "auto_CoT": "",
-        "KATE": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
-        "KATE_CoT": "Based on the clincial presentation, determine the Korean Triage and Acuity Scale (KTAS) for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
+        "AutoCoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS). Think carefully step by step.",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate KTAS acuity level on a scale from 1 to 5. KTAS 1 indicates the highest priority and KTAS 5 indicates the lowest priority."
         },
+        "FewShot": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Use the examples and your knowledge of KTAS protocol to determine the appropriate KTAS acuity level for the new patient."""
+        },
+        "FewShotCoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk**
+** Step 2: Analyze and Compare with Other Patient Cases **
+** Step 3: Determine the KTAS acuity level for this patient based on the examples, KTAS protocol, and your assessment of the patient's clinical presentation **"""
+        },
+        "KATE": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Use the examples and your knowledge of KTAS protocol to determine the appropriate KTAS acuity level for the new patient."""
+        },
+        "KATECoT": {
+            "system": "You are an expert on the Korean Triage and Acuity Scale (KTAS).",
+            "user": """Your task is to determine the patient's KTAS acuity based on the patient's clinical presentation, where KTAS 1 indicates the highest priority (requiring immediate, life-saving intervention), and KTAS 5 indicates the lowest priority (non-urgent, minimal resources needed). 
+Below are some example cases with their KTAS acuity levels, followed by a new patient case. Let's analyze the examples and solve the problem step by step. 
+
+** Step 1: Assess the Patient's Risk**
+** Step 2: Analyze and Compare with Similar Patient Cases **
+** Step 3: Determine the KTAS acuity level for this patient based on the examples, KTAS protocol, and your assessment of the patient's clinical presentation **"""
+        },
+    },
     "triage-handbook": {
         "vanilla": "Based on the clincial presentation, determine the Emergency Severity Index (ESI) acuity for the following patient from 1-5, where 1 is the highest priority and 5 is the lowest priority.",
         "auto_CoT": "",
