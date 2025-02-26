@@ -13,11 +13,11 @@ TEMPLATES = {
   }
 }
 
-ALPACA_PROMPT = """### Instruction: {}
+ALPACA_PROMPT = """### Instruction: {instruction}
 
-### Input: {}
+### Input: {input}
 
-### Response: {}"""
+### Response: {response}"""
 
 BLACKBOX_LLM_PROMPT = """### Instructions
 {}
@@ -440,9 +440,9 @@ def format_instruction_prompt_for_finetuning(row, EOS_TOKEN, dataset='triage-mim
         raise Exception("Invalid dataset name")
     
     if split == 'train':
-        text = ALPACA_PROMPT.format(instruction, patient_description, output_text) + EOS_TOKEN
+        text = ALPACA_PROMPT.format(instruction=instruction, input=patient_description, response=output_text) + EOS_TOKEN
     elif split == 'test':
-        text = ALPACA_PROMPT.format(instruction, patient_description)
+        text = ALPACA_PROMPT.format(instruction=instruction, input=patient_description, response='')
     return {"text": text}
 
 ###################
