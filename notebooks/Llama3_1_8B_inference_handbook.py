@@ -27,7 +27,7 @@ dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for
 load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be False.
 # 4bit pre quantized models we support for 4x faster downloading + no OOMs.
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name =  "./llama_3_1_8B_ESI_Handbook_10_+_ESI_Case_Examples_25, #./llama_3_1_8B_ESI_Handbook_10",
+    model_name =  "./llama_3_1_8B_ESI_Handbook_10_+_ESI_Case_Examples_25", #./llama_3_1_8B_ESI_Handbook_10",
     max_seq_length = max_seq_length,
     dtype = dtype,
     load_in_4bit = load_in_4bit,
@@ -106,7 +106,7 @@ def generate_response(input_text):
 
 # Iterate through test dataset
 for i, sample in tqdm(enumerate(test_dataset)):
-    input_text = sample['Clinical Vignettes']
+    input_text = sample['text']
     true_acuity = sample['acuity']
     predicted_acuity = generate_response(input_text)
     
