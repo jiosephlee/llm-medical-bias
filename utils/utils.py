@@ -70,6 +70,15 @@ _DATASETS = {
         'target': 'KTAS_expert',
         'hippa': False,
         },
+    "Triage-Handbook": 
+        {'test_set_filepath': "./data/ESI-Handbook/train.csv",
+        'training_set_filepath':'./data/ESI-Handbook/test.csv',
+        'training_embeddings_filepath':'./data/ESI-Handbook/train_embeddings.npy',
+        'test_embeddings_filepath':'./data/ESI-Handbook/test_embeddings.npy',
+        'format': 'csv',
+        'target': 'acuity',
+        'hippa': True,
+        },
     ### Legacy datasets
     "Triage-Public": 
         {'filepath': "./data/mimic-iv-public/triage_public.csv",
