@@ -5,7 +5,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from openai import OpenAI
 import pandas as pd
 import anthropic
-from together import Together
 import os
 import time 
 import re
@@ -15,10 +14,8 @@ from google.genai import types
 from pydantic import BaseModel
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
 
 client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
-client_tog = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
 
 client_safe = OpenAI(
     api_key=DATABRICKS_TOKEN,
@@ -344,19 +341,6 @@ def query_gpt(prompt: str | dict, model: str = 'gpt-4o-mini', temperature: float
         )
     return response
 
-def query_tog(prompt, model, max_tokens, temperature, top_p):
-    response = client_tog.chat.completions.create(
-        messages=[{"role": "user", "content": prompt}],
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        top_p=top_p,
-        top_k=1,
-        repetition_penalty=1,
-        stop=["<|eot_id|>","<|eom_id|>"],
-    )
-    return response
-
 def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, model="gpt-4o-mini", debug=False, return_json=False, logprobs=False):
     if debug:
         print(prompt)
@@ -380,8 +364,6 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
                 return response
             elif 'gemini' in model:
                 return query_gemini(prompt, model, temperature, max_tokens)
-            else:
-                response = query_tog(prompt, model, max_tokens, temperature, top_p)
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
@@ -415,10 +397,6 @@ def query_llm_full(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=
             elif 'gemini' in model:
                 full_prompt = f"{prompt['system']}\n\n{prompt['user']}"
                 return query_gemini(full_prompt, model, temperature, max_tokens)
-            else:
-                full_prompt = f"{prompt['system']}\n\n{prompt['user']}"
-                response = query_tog(full_prompt, model, max_tokens, temperature, top_p)
-
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
