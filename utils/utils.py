@@ -35,7 +35,7 @@ gemini_client = genai.Client(api_key=GEMINI_KEY)
 
 # This is for gemini to return a json object with the acuity level
 class Acuity(BaseModel):
-    acuity: int
+    Acuity: int
 
 # We store unanimously required & unique characteristics of the datasets here. Otherwise, edge cases will be handled elsewhere.
 _DATASETS = {
@@ -45,7 +45,7 @@ _DATASETS = {
         'hippa': False,
         },
     "Triage-Counterfactual": 
-        {'filepath': "./data/mimic-iv-public/triage_counterfactual.csv",
+        {'test_set_filepath': "./data/mimic-iv-public/triage_counterfactual.csv",
         'format': 'csv',
         'target': 'acuity',
         'hippa': False,
@@ -77,7 +77,7 @@ _DATASETS = {
         'test_embeddings_filepath':'./data/ESI-Handbook/test_embeddings.npy',
         'format': 'csv',
         'target': 'acuity',
-        'hippa': True,
+        'hippa': False,
         },
     ### Legacy datasets
     "Triage-Public": 
@@ -229,19 +229,25 @@ def query_gpt_safe(prompt, model="openai-gpt-4o-high-quota-chat", return_json=Fa
         else:
             messages = [{"role": "user", "content": prompt}]
         if 'o3' in model:
-            response = client_safe.chat.completions.create(
-                model=model,
-                reasoning_effort="low",
-                messages=messages,
-                response_format={"type": "json_object"}
-            )
+            if return_json:
+                response = client_safe.chat.completions.create(
+                    model=model,
+                    reasoning_effort="medium",
+                    messages=messages,
+                    response_format={"type": "json_object"}
+                )
+            else:
+                response = client_safe.chat.completions.create(
+                    model=model,
+                    reasoning_effort="medium",
+                    messages=messages,
+                )
         elif return_json:
             response = client_safe.chat.completions.create(
                 model=model,
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                top_p=0,
                 response_format={"type": "json_object"}
             )
         else:
@@ -250,7 +256,6 @@ def query_gpt_safe(prompt, model="openai-gpt-4o-high-quota-chat", return_json=Fa
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                top_p=0,
             )
         response = response.choices[0].message.content.strip()
         if debug:
@@ -302,7 +307,7 @@ def query_gemini(message, model, temperature=0, max_tokens=1000):
 
     return response.text
  
-def query_gpt(prompt: str | dict, model: str, temperature: float, top_p: float, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = True):
+def query_gpt(prompt: str | dict, model: str = 'gpt-4o-mini', temperature: float = 0, top_p: float = 0, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = False):
     if is_prompt_full:
         # Format chat prompt with system and user messages
         messages = [
@@ -359,10 +364,14 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
     curr_try_num = 0
     while curr_try_num < max_try_num:
         try:
-            if 'gpt' in model:
-                response = query_gpt(prompt, model, temperature, top_p, logprobs, return_json)
-                print(response.choices[0].message.strip())
-                return response.choices[0].message.strip()
+            if 'gpt' in model or 'o3' in model:
+                response = query_gpt(prompt, model=model, temperature=temperature, top_p=top_p, logprobs=logprobs, return_json=return_json)
+                if debug:   
+                    print(response)
+                if hasattr(response.choices[0].message, 'content'):
+                    return response.choices[0].message.content
+                else:
+                    return response.choices[0].message
 
             elif 'claude' in model:
                 response = query_claude(prompt, model, temperature, max_tokens)
@@ -373,7 +382,6 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
                 return query_gemini(prompt, model, temperature, max_tokens)
             else:
                 response = query_tog(prompt, model, max_tokens, temperature, top_p)
-
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
@@ -398,7 +406,7 @@ def query_llm_full(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=
     while curr_try_num < max_try_num:
         try:
             if 'gpt' in model:
-                response = query_gpt(prompt, model, temperature, top_p, logprobs, return_json)
+                response = query_gpt(prompt, model, temperature, top_p, logprobs, return_json, is_prompt_full=True)
             elif 'claude' in model:
                 response = query_claude(prompt, model, temperature, max_tokens)
                 if return_json:

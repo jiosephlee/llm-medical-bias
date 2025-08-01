@@ -40,33 +40,33 @@ def extract_acuity_from_text(text, debug):
     else:
         return num
     
-def create_prompt_bias(row,strategy=None, return_json=False, vitals_off=False):
-    task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
-    starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
-    cot, reasoning = "", ""
-    if strategy=='CoT':
-        cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
-    if vitals_off:
-        serialization_prompt=f"""pain   chiefcomplaint
-{row['pain']}   {row['chiefcomplaint']}"""
-    else:
-        serialization_prompt=f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
-{row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
-    if return_json:
-        return f"""{starting_prompt}:
+# def create_prompt_bias(row,strategy=None, return_json=False, vitals_off=False):
+#     task_description = "Acuity is assessed using the Emergency Severity Index (ESI) Five Level triage system. This priority is assigned by a registered nurse. Level 1 is the highest priority, while level 5 is the lowest priority"
+#     starting_prompt = f"Here is the profile of a {row['Race']} {row['Sex']} patient" 
+#     cot, reasoning = "", ""
+#     if strategy=='CoT':
+#         cot, reasoning = "Let's think step by step", "your step-by-step reasoning in the key 'reasoning' and "
+#     if vitals_off:
+#         serialization_prompt=f"""pain   chiefcomplaint
+# {row['pain']}   {row['chiefcomplaint']}"""
+#     else:
+#         serialization_prompt=f"""temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint
+# {row['temperature']}   {row['heartrate']}   {row['resprate']}   {row['o2sat']}   {row['sbp']}   {row['dbp']}   {row['pain']}   {row['chiefcomplaint']}"""
+#     if return_json:
+#         return f"""{starting_prompt}:
 
-{serialization_prompt}
+# {serialization_prompt}
 
-Estimate their acuity from 1 to 5 based on the following guidelines: {task_description}. {cot}
+# Estimate their acuity from 1 to 5 based on the following guidelines: {task_description}. {cot}
 
-Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
-    else:    
-        return f"""{starting_prompt}:
+# Answer in valid JSON format, providing {reasoning}acuity as a single numeric value in the key 'acuity'."""
+#     else:    
+#         return f"""{starting_prompt}:
 
-{serialization_prompt}
+# {serialization_prompt}
 
-Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
-        """
+# Estimate their acuity from 1-5 based on the following guidelines: {task_description}. {cot}
+#         """
         
 def predict(*, index, row, predictor, model, strategy, return_json, k_shots, serialization, vitals_off, bias, debug=False):
     prompt, response = predictor.predict(
@@ -185,7 +185,9 @@ if __name__ == '__main__':
     else:
         num_existing_predictions = 0
     num_new_predictions_needed = (args.end - args.start) + 1 - num_existing_predictions
-
+    
+    if args.dataset == 'Triage-Counterfactual':
+        args.k_shots = False
     if args.k_shots:
         if args.k_shots_ablation:
             training_df = utils.load_dataset(utils._DATASETS[args.dataset]['full_training_set_filepath'], format, 0, 1000000)

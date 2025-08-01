@@ -2,14 +2,14 @@ import pandas as pd
 
 TEMPLATES = {
   "triage-mimic": {
-    "spaces": "temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {o2sat}%   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}",
-    "commas": "temperature, heartrate, resprate, o2sat, sbp, dbp, pain, chiefcomplaint\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {o2sat}%, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}",
-    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\no2sat: {o2sat}%\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\n",
+    "spaces": "age   sex   race   arrival   temperature   heartrate   resprate   o2sat   sbp   dbp   pain   chiefcomplaint\n{age} years   {sex}   {race}   {arrival}   {temperature}°F   {heartrate} bpm   {resprate} breaths/min   {o2sat}%   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}",
+    "commas": "age, sex, race, arrival, temperature, heartrate, resprate, o2sat, sbp, dbp, pain, chiefcomplaint\n{age} years, {sex}, {race}, {arrival}, {temperature}°F, {heartrate} bpm, {resprate} breaths/min, {o2sat}%, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}",
+    "newline": "age: {age} years\nsex: {sex}\nrace: {race}\narrival: {arrival}\ntemperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\no2sat: {o2sat}%\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\n",
   },
   "triage-ktas": {
-    "spaces": "temperature   heartrate   resprate   sbp   dbp   pain   chiefcomplaint   diagnosis in ED   injury   arrival   mental\n{temperature}°F   {heartrate} bpm   {resprate} breaths/min   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}   {suspicion}   {injury}   {arrival}   {mental}",
-    "commas": "temperature, heartrate, resprate, sbp, dbp, pain, chiefcomplaint, diagnosis in ED, injury, arrival, mental\n{temperature}°F, {heartrate} bpm, {resprate} breaths/min, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}, {suspicion}, {injury}, {arrival}, {mental}",
-    "newline": "temperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\ndiagnosis in ED: {suspicion}\ninjury: {injury}\narrival mode: {arrival}\nmental: {mental}",
+    "spaces": "age   sex   temperature   heartrate   resprate   sbp   dbp   pain   chiefcomplaint   diagnosis in ED   injury   arrival   mental\n{age} years   {sex}   {temperature}°F   {heartrate} bpm   {resprate} breaths/min   {sbp} mmHg   {dbp} mmHg   {pain}   {chiefcomplaint}   {suspicion}   {injury}   {arrival}   {mental}",
+    "commas": "age, sex, temperature, heartrate, resprate, sbp, dbp, pain, chiefcomplaint, diagnosis in ED, injury, arrival, mental\n{age} years, {sex}, {temperature}°F, {heartrate} bpm, {resprate} breaths/min, {sbp} mmHg, {dbp} mmHg, {pain}, {chiefcomplaint}, {suspicion}, {injury}, {arrival}, {mental}",
+    "newline": "age: {age} years\nsex: {sex}\ntemperature: {temperature}°F\nheartrate: {heartrate} bpm\nresprate: {resprate} breaths/min\nsbp: {sbp} mmHg\ndbp: {dbp} mmHg\npain: {pain}\nchiefcomplaint: {chiefcomplaint}\ndiagnosis in ED: {suspicion}\ninjury: {injury}\narrival mode: {arrival}\nmental: {mental}",
   }
 }
 
@@ -34,7 +34,13 @@ BLACKBOX_LLM_PROMPT_WITH_EXAMPLES = """### Instructions
 ### Patient's Clinical Presentation
 {}"""
 
-INSTRUCTIONS = {
+INSTRUCTIONS = {    
+    "triage-counterfactual": {
+        "Vanilla": {
+            "system": "You are an expert on the Emergency Severity Index (ESI).",
+            "user": "Based on the patient's clinical presentation, please determine the appropriate ESI acuity level on a scale from 1 to 5. ESI 1 indicates the highest priority (requiring immediate, life-saving intervention), and ESI 5 indicates the lowest priority (non-urgent, minimal resources needed)."
+        },
+    },
     "triage-mimic": {
         "vanillav0": {
             "system": "You are an expert on the Emergency Severity Index (ESI).",
@@ -381,7 +387,7 @@ def convert_arrival(arrival_transport, dataset = 'triage-mimic'):
 
 def format_row(row, dataset='triage-mimic', serialization='natural'):
     # Create a natural language description of the patient.
-    if 'triage-mimic' in dataset.lower():
+    if 'triage-mimic' in dataset.lower() or 'triage-counterfactual' in dataset.lower():
         if serialization in TEMPLATES.get('triage-mimic', {}):
             template = TEMPLATES['triage-mimic'][serialization]
             return template.format(
@@ -392,7 +398,11 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
                 sbp=row.get('sbp', 'N/A'),
                 dbp=row.get('dbp', 'N/A'),
                 pain=row.get('pain', 'N/A'),
-                chiefcomplaint=row.get('chiefcomplaint', 'N/A')
+                chiefcomplaint=row.get('chiefcomplaint', 'N/A'),
+                age=row.get('anchor_age', 'N/A'),
+                sex=row.get('gender', 'N/A'),
+                race=row.get('race', 'N/A'),
+                arrival=row.get('arrival_transport', 'N/A')
             )
         elif serialization=='natural':
             # Handle vitals with fallback values
@@ -436,8 +446,8 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
             )
         
     elif 'ktas' in dataset.lower():
-        if serialization in TEMPLATES.get('triage-mimic', {}):
-            template = TEMPLATES['triage-mimic'][serialization]
+        if serialization in TEMPLATES.get('triage-ktas', {}):
+            template = TEMPLATES['triage-ktas'][serialization]
             return template.format(
                 temperature=row.get('BT', 'N/A'),
                 heartrate=row.get('HR', 'N/A'),
@@ -449,8 +459,10 @@ def format_row(row, dataset='triage-mimic', serialization='natural'):
                 suspicion=row.get('Diagnosis in ED', 'N/A'),
                 injury=row.get('Injury', 'N/A'),
                 arrival=row.get('Arrival mode', 'N/A'),
-                mental=row.get('Mental', 'N/A')
-            )
+                mental=row.get('Mental', 'N/A'),
+                age=row.get('Age', 'N/A'),
+                sex=row.get('Sex', 'N/A'),            
+                )
         # --- Triage-ktas version ---
         age = f"{int(row['Age'])}-year-old " if pd.notna(row.get("Age")) else ""
         

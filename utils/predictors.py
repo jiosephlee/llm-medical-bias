@@ -54,6 +54,8 @@ class Predictor:
             return self.zero_shot_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
         elif self.strategy in ["SelfConsistency"]:
             return self.self_consistency_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
+        elif self.strategy in ["MultiAgent"]:
+            return self.multi_agent_prediction(row=row, model=model, return_json=return_json, serialization=serialization_strategy, vitals_off=vitals_off, bias=bias, debug=debug)
         else:
             raise ValueError(f"Unsupported strategy: {self.strategy}")
 
