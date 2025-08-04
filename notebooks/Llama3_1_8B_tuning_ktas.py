@@ -3,7 +3,7 @@ import torch
 import re 
 from tqdm import tqdm
 from datasets import load_dataset
-from sklearn.metrics import cohen_kappa_score, confusion_matrix
+from sklearn.metrics import cohen_kappa_score, confusion_matrix, f1_score
 import numpy as np
 import pandas as pd
 from datasets import Dataset
@@ -41,7 +41,7 @@ fourbit_models = [
 ] # More models at https://huggingface.co/unsloth
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name =  "unsloth/Meta-Llama-3.1-8B-Instruct", #"./llama_3_1_8B_ESI_Handbook_10",
+    model_name =  "qwen3_8B_full_bit", #"unsloth/Meta-Llama-3.1-8B-Instruct", #"./llama_3_1_8B_ESI_Handbook_10",
     max_seq_length = max_seq_length,
     dtype = dtype,
     load_in_4bit = load_in_4bit,
@@ -50,10 +50,10 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 model = FastLanguageModel.get_peft_model(
     model,
-    r = 64, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+    r = 32, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj",],
-    lora_alpha = 16,
+    lora_alpha = 32,
     lora_dropout = 0, # Supports any, but = 0 is optimized
     bias = "none",    # Supports any, but = "none" is optimized
     # [NEW] "unsloth" uses 30% less VRAM, fits 2x larger batch sizes!
@@ -197,7 +197,7 @@ trainer = SFTTrainer(
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
-        output_dir = "llama_3_1_8B_+_2014_-_2016_Small_10_Diff_Params",
+        output_dir = "qwen3_8B_full_bit+_MIMIC_10",
         report_to = "none", # Use this for WandB etc
     ),
 )
@@ -274,6 +274,10 @@ print(f"Quadratic Weighted Kappa (QWK): {qwk_score:.4f}")
 print(f"Mean Squared Error (MSE): {mse:.4f}")
 print(f"Undertriage Rate: {undertriage_rate:.2f}%")
 print(f"Overtriage Rate: {overtriage_rate:.2f}%")
+# Compute F1 score (binary classification by default)
+f1 = f1_score(y_true, y_pred)
+
+print(f"F1 Score: {f1:.4f}")
 print(f"Outside-by-2 Rate: {outside_by_2_rate:.2f}%")
 
-model.save_pretrained("llama_3_1_8B_+_2014_-_2016_Small_10_Diff_Params")  # Local saving
+# model.save_pretrained("llama_3_1_8B_+_2014_-_2016_Small_10_Diff_Params")  # Local saving
