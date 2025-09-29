@@ -43,6 +43,7 @@ def main():
     parser.add_argument('--paraphrasing_level', type=int, default=0, choices=[0, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
     parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-1.5B", help='Name of the model to use for finetuning.')
+    parser.add_argument('--per_device_train_batch_size', type=int, default=2, help='Batch size per device during training.')
     args = parser.parse_args()
 
     max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
@@ -126,7 +127,7 @@ def main():
             dataset_num_proc = 4,
             args = UnslothTrainingArguments(
                 run_name = "CPT",
-                per_device_train_batch_size = 2,
+                per_device_train_batch_size = args.per_device_train_batch_size,
                 gradient_accumulation_steps = 8,
 
                 warmup_ratio = 0.1,
@@ -194,7 +195,7 @@ def main():
         packing = True, # Can make training 5x faster for short sequences.
         args = TrainingArguments(
             run_name=f"Finetuning-{args.dataset}",
-            per_device_train_batch_size = 2,
+            per_device_train_batch_size = args.per_device_train_batch_size,
             gradient_accumulation_steps = 4,
             num_train_epochs = 20, # Set this for 1 full training run.
             learning_rate = 2e-5,
@@ -271,7 +272,13 @@ def main():
 
     metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
     print("Overall Metrics:", metrics)
-    output_filepath = f'../results/Triage-{args.dataset.upper()}/{args.model_name.split("/")[-1]}'
+    filename_parts = [args.model_name.split("/")[-1], args.dataset]
+    if args.cpt:
+        filename_parts.append("cpt")
+        if args.paraphrasing_level > 0:
+            filename_parts.append(f"para{args.paraphrasing_level}")
+    filename = "_".join(filename_parts)
+    output_filepath = f'../results/Triage-{args.dataset.upper()}/{filename}'
     utils.save_metrics(metrics,output_filepath)
     print("Evaluation complete. Metrics and plots saved.")
 
