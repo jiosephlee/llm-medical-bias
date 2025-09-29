@@ -44,6 +44,7 @@ def main():
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
     parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-1.5B", help='Name of the model to use for finetuning.')
     parser.add_argument('--device_batch_size', type=int, default=2, help='Batch size per device during training.')
+    parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
 
     max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
@@ -55,9 +56,26 @@ def main():
         max_seq_length = 1024,   # Context length - can be longer, but uses more memory
         #load_in_4bit = load_in_4bit,     # 4bit uses much less memory
         load_in_8bit = True,    # A bit more accurate, uses 2x memory
-        full_finetuning = True, # We have full finetuning now!
+        full_finetuning = not args.peft, # We have full finetuning now!
         # token = "hf_...",      # use one if using gated models
     )
+
+    if args.peft:
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r = 32, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+            target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
+                            "gate_proj", "up_proj", "down_proj",],
+            lora_alpha = 16,
+            lora_dropout = 0, # Supports any, but = 0 is optimized
+            bias = "none",    # Supports any, but = "none" is optimized
+            # [NEW] "unsloth" uses 30% less VRAM, fits 2x larger batch sizes!
+            use_gradient_checkpointing = "unsloth", # True or "unsloth" for very long context
+            random_state = 3407,
+            use_rslora = False,  # We support rank stabilized LoRA
+            loftq_config = None, # And LoftQ
+        )
+
     EOS_TOKEN = tokenizer.eos_token
 
 
@@ -277,6 +295,8 @@ def main():
         filename_parts.append("cpt")
         if args.para > 0:
             filename_parts.append(f"para{args.para}")
+    if args.peft:
+        filename_parts.append("peft")
     filename = "_".join(filename_parts)
     output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{filename}"
     utils.save_metrics(metrics,output_filepath)
