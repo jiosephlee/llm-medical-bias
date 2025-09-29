@@ -47,6 +47,8 @@ def main():
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
 
+    assert 8 % args.device_batch_size == 0 and args.device_batch_size <= 8, "Batch size must be a divisor of 8 and not larger than 8."
+
     max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
     dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
     load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be False.
@@ -202,6 +204,13 @@ def main():
         test_dataset = test_dataset.map(lambda x: prompts.format_instruction_prompt_for_finetuning(x, EOS_TOKEN, dataset='triage-mimic',split='test'))
         true_acuity_col = 'acuity'
 
+    if args.dataset == 'handbook':
+        num_train_epochs = 20
+    elif args.dataset == 'ktas':
+        num_train_epochs = 25
+    else: # mimic
+        num_train_epochs = 10
+
     trainer = SFTTrainer(
         run_name=f"Finetuning-{args.dataset}",
         model = model,
@@ -215,7 +224,7 @@ def main():
             run_name=f"Finetuning-{args.dataset}",
             per_device_train_batch_size = args.device_batch_size,
             gradient_accumulation_steps = int(8/args.device_batch_size),
-            num_train_epochs = 20, # Set this for 1 full training run.
+            num_train_epochs = num_train_epochs, # Set this for 1 full training run.
             learning_rate = 2e-5,
             fp16 = not is_bfloat16_supported(),
             bf16 = is_bfloat16_supported(),
