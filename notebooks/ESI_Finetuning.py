@@ -93,7 +93,7 @@ def main():
         #  --- DATA for CPT -----
 
         # Load the cleaned text file
-        if args.para == 0:
+        if args.para == 1:
             handbook_path = "../data/ESI-Handbook/cleaned_handbook.txt"
         else:
             handbook_path = f"../data/ESI-Handbook/paragraphed_{args.para}x_handbook.txt"
