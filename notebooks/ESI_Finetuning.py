@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--cpt', action='store_true', help='Enable Continuous Pre-Training.')
     parser.add_argument('--para', type=int, default=0, choices=[0, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
-    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-3B-Instruct", help='Name of the model to use for finetuning.')
+    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-3B", help='Name of the model to use for finetuning.')
     parser.add_argument('--device_batch_size', type=int, default=2, help='Batch size per device during training.')
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
@@ -55,7 +55,7 @@ def main():
         model_name = args.model_name,
         max_seq_length = 1024,   # Context length - can be longer, but uses more memory
         #load_in_4bit = load_in_4bit,     # 4bit uses much less memory
-        load_in_8bit = True,    # A bit more accurate, uses 2x memory
+        load_in_8bit = False,    # A bit more accurate, uses 2x memory
         full_finetuning = not args.peft, # We have full finetuning now!
         # token = "hf_...",      # use one if using gated models
     )
@@ -66,7 +66,7 @@ def main():
             r = 32, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
             target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                             "gate_proj", "up_proj", "down_proj",],
-            lora_alpha = 16,
+            lora_alpha = 32,
             lora_dropout = 0, # Supports any, but = 0 is optimized
             bias = "none",    # Supports any, but = "none" is optimized
             # [NEW] "unsloth" uses 30% less VRAM, fits 2x larger batch sizes!
@@ -215,7 +215,7 @@ def main():
             run_name=f"Finetuning-{args.dataset}",
             per_device_train_batch_size = args.device_batch_size,
             gradient_accumulation_steps = int(8/args.device_batch_size),
-            num_train_epochs = 20, # Set this for 1 full training run.
+            num_train_epochs = 50, # Set this for 1 full training run.
             learning_rate = 2e-5,
             fp16 = not is_bfloat16_supported(),
             bf16 = is_bfloat16_supported(),

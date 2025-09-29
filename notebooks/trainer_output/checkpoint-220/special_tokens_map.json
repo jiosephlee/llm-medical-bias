@@ -15,7 +15,7 @@
     "<|video_pad|>"
   ],
   "eos_token": {
-    "content": "<|endoftext|>",
+    "content": "<|im_end|>",
     "lstrip": false,
     "normalized": false,
     "rstrip": false,
