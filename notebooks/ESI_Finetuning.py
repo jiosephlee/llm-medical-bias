@@ -129,8 +129,8 @@ def main():
                 per_device_train_batch_size = 2,
                 gradient_accumulation_steps = 8,
 
-                warmup_ratio = 0.1,
-                num_train_epochs = 20,
+                warmup_steps=10,
+                num_train_epochs = 10,
 
                 learning_rate = 2e-5,
                 embedding_learning_rate = 5e-6,
@@ -203,7 +203,7 @@ def main():
             logging_steps = 1,
             optim = "adamw_8bit",
             weight_decay = 0.1,
-            warmup_ratio=0.1,
+            warmup_steps=10,
             lr_scheduler_type = "cosine",
             seed = 3407,
             report_to = "wandb", # Use this for WandB etc
@@ -235,7 +235,7 @@ def main():
         inputs = tokenizer([input_text], return_tensors="pt").to("cuda")
         outputs = model.generate(**inputs, max_new_tokens=75, use_cache=True)
         decoded_output = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-        print(decoded_output)
+        #print(decoded_output)
         return extract_response(decoded_output)
 
     # Iterate through test dataset
@@ -271,7 +271,7 @@ def main():
 
     metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
     print("Overall Metrics:", metrics)
-    output_filepath = f'../results/Triage-{args.dataset.upper()}/{args.model_name.split("/")[-1]}'
+    output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{args.model_name.split('/')[-1]}"
     utils.save_metrics(metrics,output_filepath)
     print("Evaluation complete. Metrics and plots saved.")
 
