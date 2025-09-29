@@ -30,12 +30,12 @@ from datasets import Dataset
 max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
 dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
 load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be False.
-model_name = "Qwen2.5-7B"
+model_name = "Qwen2.5-1.5B"
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = f"unsloth/{model_name}",
     max_seq_length = 1024,   # Context length - can be longer, but uses more memory
-    load_in_4bit = load_in_4bit,     # 4bit uses much less memory
+    #load_in_4bit = load_in_4bit,     # 4bit uses much less memory
     load_in_8bit = True,    # A bit more accurate, uses 2x memory
     full_finetuning = True, # We have full finetuning now!
     # token = "hf_...",      # use one if using gated models
@@ -103,14 +103,14 @@ trainer = UnslothTrainer(
     train_dataset = handbook,
     dataset_text_field = "text",
     max_seq_length = max_seq_length,
-    dataset_num_proc = 8,
-
+    dataset_num_proc = 4,
     args = UnslothTrainingArguments(
-        per_device_train_batch_size = 1,
+        run_name = "CPT",
+        per_device_train_batch_size = 2,
         gradient_accumulation_steps = 8,
 
         warmup_ratio = 0.1,
-        num_train_epochs = 10,
+        num_train_epochs = 20,
 
         learning_rate = 2e-5,
         embedding_learning_rate = 5e-6,
@@ -119,15 +119,15 @@ trainer = UnslothTrainer(
         bf16 = is_bfloat16_supported(),
         logging_steps = 1,
         optim = "adamw_8bit",
-        weight_decay = 0.01,
+        weight_decay = 0.1,
         lr_scheduler_type = "cosine",
         seed = 3407,
-        output_dir = "outputs",
         report_to = "wandb", # Use this for WandB etc
     ),
 )
 
-trainer_stats = trainer.train()
+#trainer_stats = trainer.train()
+#print(trainer_stats)
 
 ###  ----Finetuning for ESI ---- 
 
@@ -148,35 +148,38 @@ from transformers import TrainingArguments
 from unsloth import is_bfloat16_supported
 
 trainer = SFTTrainer(
+    run_name="Post-CPT-Finetuning",
     model = model,
     tokenizer = tokenizer,
     train_dataset = dataset,
     dataset_text_field = "text",
     max_seq_length = max_seq_length,
-    dataset_num_proc = 2,
+    dataset_num_proc = 4,
     packing = True, # Can make training 5x faster for short sequences.
     args = TrainingArguments(
+        run_name="Post-CPT-Finetuning",
         per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
-        warmup_steps = 5,
-        num_train_epochs = 100, # Set this for 1 full training run.
-        # max_steps = 60,
+        num_train_epochs = 20, # Set this for 1 full training run.
         learning_rate = 2e-5,
         fp16 = not is_bfloat16_supported(),
         bf16 = is_bfloat16_supported(),
-        logging_steps = 25,
+        logging_steps = 1,
         optim = "adamw_8bit",
-        weight_decay = 0.01,
-        lr_scheduler_type = "linear",
+        weight_decay = 0.1,
+        warmup_ratio=0.1,
+        lr_scheduler_type = "cosine",
         seed = 3407,
-        output_dir = "llama_3_1_8B_+_KTAS_100",
-        report_to = "none", # Use this for WandB etc
+        report_to = "wandb", # Use this for WandB etc
     ),
 )
 
+trainer_stats = trainer.train()
+print(trainer_stats)
+
 test_df = pd.read_csv("../data/ESI-Handbook/test.csv")
 test_dataset = Dataset.from_pandas(test_df)
-test_dataset = dataset.map(lambda x: prompts.format_instruction_prompt_for_finetuning(x, EOS_TOKEN, dataset='triage-handbook',split='test'))
+test_dataset = test_dataset.map(lambda x: prompts.format_instruction_prompt_for_finetuning(x, EOS_TOKEN, dataset='triage-handbook',split='test'))
 
 
 # Inference for ESI
@@ -201,6 +204,7 @@ def generate_response(input_text):
     inputs = tokenizer([input_text], return_tensors="pt").to("cuda")
     outputs = model.generate(**inputs, max_new_tokens=75, use_cache=True)
     decoded_output = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+    print(decoded_output)
     return extract_response(decoded_output)
 
 # Iterate through test dataset
@@ -208,7 +212,7 @@ for i, sample in tqdm(enumerate(test_dataset)):
     input_text = sample['text']
     true_acuity = sample['acuity']
     predicted_acuity = generate_response(input_text)
-    
+
     if predicted_acuity is not None:
         # Uncomment for debugging if needed:
         # print(f"Sample {i}: True Acuity: {true_acuity}, Predicted: {predicted_acuity}")

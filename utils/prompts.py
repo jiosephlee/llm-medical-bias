@@ -601,9 +601,12 @@ def format_instruction_prompt_for_finetuning(row, EOS_TOKEN, dataset='triage-mim
     patient_description = format_row(row, dataset=dataset)
     
     # Define the instruction for the model.
-    if dataset=='triage-mimic' or dataset=='triage-handbook':
+    if dataset=='triage-mimic':
         instruction = "Based on the clinical presentation, determine the Emergency Severity Index (ESI) acuity for the following patient."
         output_text = f"The ESI acuity for this patient is {row['acuity']}."
+    elif dataset=='triage-handbook':
+        instruction = "Based on the clinical presentation, determine the Emergency Severity Index (ESI) acuity for the following patient."
+        output_text = f"The ESI acuity for this patient is {row['Rationale']}. "
     elif dataset=='triage-ktas':
         instruction = "Based on their clinical presentation, determine the KTAS acuity for the following patient."
         output_text = f"The KTAS acuity for this patient is {row['KTAS_expert']}."
