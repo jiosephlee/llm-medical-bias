@@ -41,7 +41,7 @@ load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be Fals
 def main():
     parser = argparse.ArgumentParser(description="Finetuning script for medical LLMs.")
     parser.add_argument('--cpt', action='store_true', help='Enable Continuous Pre-Training.')
-    parser.add_argument('--para', type=int, default=0, choices=[0, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
+    parser.add_argument('--para', type=int, default=1, choices=[1, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
     parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-3B", help='Name of the model to use for finetuning.')
     parser.add_argument('--device_batch_size', type=int, default=2, help='Batch size per device during training.')
@@ -215,7 +215,7 @@ def main():
     if args.dataset == 'handbook':
         num_train_epochs = 20
     elif args.dataset == 'ktas':
-        num_train_epochs = 25
+        num_train_epochs = 20
     else: # mimic
         num_train_epochs = 10
 
