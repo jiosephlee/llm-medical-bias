@@ -146,6 +146,11 @@ def main():
 
         ## --- CPT ---- 
 
+        if args.para > 0:
+            cpt_num_train_epochs = int(10 / args.para)
+        else:
+            cpt_num_train_epochs = 2
+
         trainer = UnslothTrainer(
             model = model,
             tokenizer = tokenizer,
@@ -159,7 +164,7 @@ def main():
                 gradient_accumulation_steps = int(16/args.device_batch_size),
 
                 warmup_steps=5,
-                num_train_epochs = 2,
+                num_train_epochs = cpt_num_train_epochs,
 
                 learning_rate = cpt_learning_rate,
                 embedding_learning_rate = 5e-6,
