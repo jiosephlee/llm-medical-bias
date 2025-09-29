@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--cpt', action='store_true', help='Enable Continuous Pre-Training.')
     parser.add_argument('--para', type=int, default=0, choices=[0, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
-    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-1.5B", help='Name of the model to use for finetuning.')
+    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-3B-Instruct", help='Name of the model to use for finetuning.')
     parser.add_argument('--device_batch_size', type=int, default=2, help='Batch size per device during training.')
     args = parser.parse_args()
 
@@ -54,7 +54,7 @@ def main():
         model_name = args.model_name,
         max_seq_length = 1024,   # Context length - can be longer, but uses more memory
         #load_in_4bit = load_in_4bit,     # 4bit uses much less memory
-        load_in_8bit = True,    # A bit more accurate, uses 2x memory
+        load_in_8bit = False,    # A bit more accurate, uses 2x memory
         full_finetuning = True, # We have full finetuning now!
         # token = "hf_...",      # use one if using gated models
     )
@@ -130,7 +130,7 @@ def main():
                 per_device_train_batch_size = args.device_batch_size,
                 gradient_accumulation_steps = int(16/args.device_batch_size),
 
-                warmup_steps=10,
+                warmup_steps=5,
                 num_train_epochs = 2,
 
                 learning_rate = 2e-5,
@@ -140,7 +140,7 @@ def main():
                 bf16 = is_bfloat16_supported(),
                 logging_steps = 1,
                 optim = "adamw_8bit",
-                weight_decay = 0.1,
+                weight_decay = 0.01,
                 lr_scheduler_type = "cosine",
                 seed = 3407,
                 report_to = "wandb", # Use this for WandB etc
@@ -203,8 +203,8 @@ def main():
             bf16 = is_bfloat16_supported(),
             logging_steps = 1,
             optim = "adamw_8bit",
-            weight_decay = 0.1,
-            warmup_steps=10,
+            weight_decay = 0.01,
+            warmup_ratio=0.1,
             lr_scheduler_type = "cosine",
             seed = 3407,
             report_to = "wandb", # Use this for WandB etc
