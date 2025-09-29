@@ -31,6 +31,7 @@ from trl import SFTTrainer
 from transformers import TrainingArguments
 from unsloth import is_bfloat16_supported
 from unsloth import UnslothTrainer, UnslothTrainingArguments
+from datetime import datetime
 
 max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
 dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
@@ -314,7 +315,9 @@ def main():
     if args.peft:
         filename_parts.append("peft")
     filename = "_".join(filename_parts)
-    output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{filename}"
+    timestamp = datetime.now().strftime("%m-%d_%H-%M")
+    filename_with_timestamp = f"{filename}_{timestamp}"
+    output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{filename_with_timestamp}"
     utils.save_metrics(metrics,output_filepath)
     print("Evaluation complete. Metrics and plots saved.")
 
