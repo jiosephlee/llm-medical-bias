@@ -57,6 +57,19 @@ def main():
         cpt_learning_rate = 2e-5
         finetuning_learning_rate = 2e-5
 
+    # Create a base name for runs and files
+    filename_parts = [args.model_name.split("/")[-1], args.dataset]
+    if args.cpt:
+        filename_parts.append("cpt")
+        if args.para > 1:
+            filename_parts.append(f"para{args.para}")
+    if args.peft:
+        filename_parts.append("peft")
+    
+    filename = "_".join(filename_parts)
+    timestamp = datetime.now().strftime("%m-%d_%H-%M")
+    filename_with_timestamp = f"{filename}_{timestamp}"
+
     max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
     dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
     load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be False.
@@ -159,7 +172,7 @@ def main():
             max_seq_length = max_seq_length,
             dataset_num_proc = 4,
             args = UnslothTrainingArguments(
-                run_name = "CPT",
+                run_name = f"CPT_{filename_with_timestamp}",
                 per_device_train_batch_size = args.device_batch_size,
                 gradient_accumulation_steps = int(16/args.device_batch_size),
 
@@ -234,7 +247,7 @@ def main():
         dataset_num_proc = 4,
         packing = True, # Can make training 5x faster for short sequences.
         args = TrainingArguments(
-            run_name=f"Finetuning-{args.dataset}",
+            run_name=f"Finetune_{filename_with_timestamp}",
             per_device_train_batch_size = args.device_batch_size,
             gradient_accumulation_steps = int(8/args.device_batch_size),
             num_train_epochs = num_train_epochs, # Set this for 1 full training run.
@@ -312,16 +325,6 @@ def main():
 
     metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
     print("Overall Metrics:", metrics)
-    filename_parts = [args.model_name.split("/")[-1], args.dataset]
-    if args.cpt:
-        filename_parts.append("cpt")
-        if args.para > 0:
-            filename_parts.append(f"para{args.para}")
-    if args.peft:
-        filename_parts.append("peft")
-    filename = "_".join(filename_parts)
-    timestamp = datetime.now().strftime("%m-%d_%H-%M")
-    filename_with_timestamp = f"{filename}_{timestamp}"
     output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{filename_with_timestamp}"
     utils.save_metrics(metrics,output_filepath)
     print("Evaluation complete. Metrics and plots saved.")
