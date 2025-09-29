@@ -49,6 +49,13 @@ def main():
 
     assert 8 % args.device_batch_size == 0 and args.device_batch_size <= 8, "Batch size must be a divisor of 8 and not larger than 8."
 
+    if args.peft:
+        cpt_learning_rate = 4e-5
+        finetuning_learning_rate = 2e-4
+    else:
+        cpt_learning_rate = 2e-5
+        finetuning_learning_rate = 2e-5
+
     max_seq_length = 1024 # Choose any! We auto support RoPE Scaling internally!
     dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
     load_in_4bit = False # Use 4bit quantization to reduce memory usage. Can be False.
@@ -153,7 +160,7 @@ def main():
                 warmup_steps=10,
                 num_train_epochs = 2,
 
-                learning_rate = 2e-5,
+                learning_rate = cpt_learning_rate,
                 embedding_learning_rate = 5e-6,
 
                 fp16 = not is_bfloat16_supported(),
@@ -225,7 +232,7 @@ def main():
             per_device_train_batch_size = args.device_batch_size,
             gradient_accumulation_steps = int(8/args.device_batch_size),
             num_train_epochs = num_train_epochs, # Set this for 1 full training run.
-            learning_rate = 2e-5,
+            learning_rate = finetuning_learning_rate,
             fp16 = not is_bfloat16_supported(),
             bf16 = is_bfloat16_supported(),
             logging_steps = 1,
