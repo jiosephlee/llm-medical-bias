@@ -43,7 +43,7 @@ def main():
     parser.add_argument('--cpt', action='store_true', help='Enable Continuous Pre-Training.')
     parser.add_argument('--para', type=int, default=1, choices=[1, 5, 10], help='Level of paraphrasing for CPT handbook. 0 for original, 5 for 5x, 10 for 10x.')
     parser.add_argument('--dataset', type=str, required=True, choices=['handbook', 'ktas', 'mimic'], help='Dataset to use for finetuning.')
-    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-3B", help='Name of the model to use for finetuning.')
+    parser.add_argument('--model_name', type=str, default="unsloth/Qwen2.5-7B", help='Name of the model to use for finetuning.')
     parser.add_argument('--device_batch_size', type=int, default=2, help='Batch size per device during training.')
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
@@ -160,7 +160,7 @@ def main():
         ## --- CPT ---- 
 
         if args.para > 0:
-            cpt_num_train_epochs = int(10 / args.para)
+            cpt_num_train_epochs = int(30 / args.para)
         else:
             cpt_num_train_epochs = 2
 
@@ -174,13 +174,13 @@ def main():
             args = UnslothTrainingArguments(
                 run_name = f"CPT_{filename_with_timestamp}",
                 per_device_train_batch_size = args.device_batch_size,
-                gradient_accumulation_steps = int(16/args.device_batch_size),
+                gradient_accumulation_steps = int(16/int(args.device_batch_size)),
 
                 warmup_steps=5,
                 num_train_epochs = cpt_num_train_epochs,
 
                 learning_rate = cpt_learning_rate,
-                embedding_learning_rate = 5e-6,
+                # embedding_learning_rate = 5e-6,
 
                 fp16 = not is_bfloat16_supported(),
                 bf16 = is_bfloat16_supported(),
@@ -194,7 +194,7 @@ def main():
         )
 
         trainer_stats = trainer.train()
-        print(trainer_stats)
+        # print(trainer_stats)
 
     ###  ----Finetuning ---- 
     true_acuity_col = 'acuity'
@@ -265,7 +265,7 @@ def main():
     )
 
     trainer_stats = trainer.train()
-    print(trainer_stats)
+    # print(trainer_stats)
 
     # Inference for ESI
 
