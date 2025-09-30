@@ -54,7 +54,7 @@ def main():
         cpt_learning_rate = 4e-5
         finetuning_learning_rate = 2e-4
     else:
-        cpt_learning_rate = 2e-5
+        cpt_learning_rate = 15e-6
         finetuning_learning_rate = 2e-5
 
     if args.dataset == 'handbook':
@@ -174,7 +174,7 @@ def main():
         if args.para > 0:
             cpt_num_train_epochs = int(30 / args.para)
         else:
-            cpt_num_train_epochs = 2
+            cpt_num_train_epochs = 30
 
         trainer = UnslothTrainer(
             model = model,
