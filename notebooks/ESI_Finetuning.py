@@ -57,8 +57,20 @@ def main():
         cpt_learning_rate = 2e-5
         finetuning_learning_rate = 2e-5
 
+    if args.dataset == 'handbook':
+        num_train_epochs = 20
+    elif args.dataset == 'ktas':
+        num_train_epochs = 20
+    else: # mimic
+        num_train_epochs = 10
+
     # Create a base name for runs and files
-    filename_parts = [args.model_name.split("/")[-1], args.dataset]
+    filename_parts = [
+        args.model_name.split("/")[-1], 
+        args.dataset,
+        f"epochs{num_train_epochs}",
+        f"lr{finetuning_learning_rate}"
+    ]
     if args.cpt:
         filename_parts.append("cpt")
         if args.para > 1:
@@ -229,13 +241,6 @@ def main():
         dataset = dataset.map(lambda x: prompts.format_instruction_prompt_for_finetuning(x, EOS_TOKEN, dataset='triage-mimic'))
         test_dataset = test_dataset.map(lambda x: prompts.format_instruction_prompt_for_finetuning(x, EOS_TOKEN, dataset='triage-mimic',split='test'))
         true_acuity_col = 'acuity'
-
-    if args.dataset == 'handbook':
-        num_train_epochs = 20
-    elif args.dataset == 'ktas':
-        num_train_epochs = 20
-    else: # mimic
-        num_train_epochs = 10
 
     trainer = SFTTrainer(
         run_name=f"Finetuning-{args.dataset}",
