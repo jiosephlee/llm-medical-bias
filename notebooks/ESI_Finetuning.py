@@ -69,7 +69,7 @@ def main():
         if args.para > 0:
             cpt_num_train_epochs = int(30 / args.para)
         else:
-            cpt_num_train_epochs = 2
+            cpt_num_train_epochs = 30
 
     # Create a base name for runs and files
     filename_parts = [
