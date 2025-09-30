@@ -64,6 +64,13 @@ def main():
     else: # mimic
         num_train_epochs = 10
 
+    cpt_num_train_epochs = 0
+    if args.cpt:
+        if args.para > 0:
+            cpt_num_train_epochs = int(30 / args.para)
+        else:
+            cpt_num_train_epochs = 2
+
     # Create a base name for runs and files
     filename_parts = [
         args.model_name.split("/")[-1], 
@@ -72,7 +79,7 @@ def main():
         f"lr{finetuning_learning_rate}"
     ]
     if args.cpt:
-        filename_parts.append("cpt")
+        filename_parts.append(f"cpt{cpt_num_train_epochs}")
         if args.para > 1:
             filename_parts.append(f"para{args.para}")
     if args.peft:
