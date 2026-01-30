@@ -260,18 +260,3 @@ class Predictor:
         
         return top_k_vital_samples
     
-# if __name__ == "__main__":
-#     # Example usage of the Predictor class
-#     model = "gpt-3.5-turbo"
-#     strategy = "Vanilla"
-#     target = "output"
-#     training_set = [
-#         {"input": "What is the capital of France?", "output": "Paris"},
-#         {"input": "What is the capital of Germany?", "output": "Berlin"},
-#         {"input": "What is the capital of Italy?", "output": "Rome"},
-#     ]
-#     prompt = "What is the capital of Spain?"
-    
-#     predictor = Predictor(strategy, target=target, training_set=training_set)
-#     response = predictor.predict(prompt, model=model)
-#     print(response) 
