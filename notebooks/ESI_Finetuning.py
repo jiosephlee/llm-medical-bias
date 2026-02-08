@@ -336,7 +336,32 @@ def main():
 
 
     metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
+    
+    # Calculate overtriage and undertriage rates
+    total_predictions = len(y_pred)
+    if total_predictions > 0:
+        overtriage_rate = overtriage / total_predictions
+        undertriage_rate = undertriage / total_predictions
+        outside_by_2_rate = outside_by_2 / total_predictions
+    else:
+        overtriage_rate = 0.0
+        undertriage_rate = 0.0
+        outside_by_2_rate = 0.0
+    
+    # Add triage metrics to results
+    metrics["overall"]["overtriage_count"] = overtriage
+    metrics["overall"]["undertriage_count"] = undertriage
+    metrics["overall"]["overtriage_rate"] = overtriage_rate
+    metrics["overall"]["undertriage_rate"] = undertriage_rate
+    metrics["overall"]["outside_by_2_count"] = outside_by_2
+    metrics["overall"]["outside_by_2_rate"] = outside_by_2_rate
+    
     print("Overall Metrics:", metrics)
+    print(f"\nTriage Analysis:")
+    print(f"  Overtriage:  {overtriage} ({overtriage_rate:.2%})")
+    print(f"  Undertriage: {undertriage} ({undertriage_rate:.2%})")
+    print(f"  Off by ≥2:   {outside_by_2} ({outside_by_2_rate:.2%})")
+    
     output_filepath = f"../results/Triage-{args.dataset.upper() if args.dataset != 'handbook' else 'Handbook'}/{filename_with_timestamp}"
     utils.save_metrics(metrics,output_filepath)
     print("Evaluation complete. Metrics and plots saved.")
