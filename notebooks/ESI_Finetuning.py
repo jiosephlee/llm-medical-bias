@@ -60,7 +60,7 @@ def main():
     if args.dataset == 'handbook':
         num_train_epochs = 20
     elif args.dataset == 'ktas':
-        num_train_epochs = 20
+        num_train_epochs = 15
     else: # mimic
         num_train_epochs = 10
 
@@ -336,7 +336,35 @@ def main():
             wrong += 1
 
 
-    metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
+    print(f"y_pred type: {type(y_pred)}, sample: {y_pred[:5]}")
+    print(f"y_true type: {type(y_true)}, sample: {y_true[:5]}")
+    print(f"Unique y_pred: {set(y_pred)}")
+    print(f"Unique y_true: {set(y_true)}")
+    try:
+        from sklearn.utils.multiclass import type_of_target
+        print(f"Type of target (y_pred): {type_of_target(y_pred)}")
+        print(f"Type of target (y_true): {type_of_target(y_true)}")
+    except Exception as e:
+        print(f"Could not check target type: {e}")
+
+    # Ensure everything is int
+    y_pred = [int(p) for p in y_pred]
+    y_true = [int(t) for t in y_true]
+
+    if len(y_pred) == 0:
+        print("No valid predictions were extracted. Skipping evaluation.")
+        metrics = {
+            "overall": {
+                "accuracy": 0.0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "overtriage_rate": 0.0,
+                "undertriage_rate": 0.0
+            }
+        }
+    else:
+        metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
     
     # Calculate overtriage and undertriage rates
     total_predictions = len(y_pred)
