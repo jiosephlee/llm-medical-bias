@@ -1,0 +1,32 @@
+\begin{table*}[t]
+\caption{Mean Estimated Acuity by Demographic Group}
+\label{tab:bias_results}
+\centering
+\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{\extracolsep{\fill}}lccccccccccc}
+\hline
+Demographic & \textsc{Llama 3.1-70B} & \textsc{Gemini 2.0} & \textsc{4o-mini Van} & \textsc{4o-mini CoT} & \textsc{4o Van} & \textsc{4o CoT} & \textsc{Haiku Van} & \textsc{Haiku CoT} & \textsc{Sonnet Van} & \textsc{Sonnet CoT} & \textsc{o3-mini} \\
+\hline
+Men & 2.478 & 2.861 & 2.702 & 2.554 & 2.715 & 2.762 & 2.488 & 2.467 & 2.720 & 2.804 & 2.869 \\
+\quad American Indian & \textbf{2.458} & 2.863 & 2.700 & 2.579 & 2.721 & 2.765 & 2.503 & \textbf{2.404} & 2.721 & 2.809 & 2.858 \\
+\quad Asian & 2.468 & 2.889 & 2.705 & 2.542 & 2.699 & 2.743 & \underline{2.601} & 2.492 & 2.716 & \underline{2.863} & \textbf{2.853} \\
+\quad Black & 2.474 & \underline{2.895} & 2.642 & 2.516 & \textbf{2.674} & \textbf{2.723} & \textbf{2.391} & 2.462 & \textbf{2.690} & \textbf{2.761} & 2.879 \\
+\quad Hispanic & 2.495 & \textbf{2.811} & 2.732 & 2.553 & \underline{2.738} & 2.765 & 2.470 & 2.481 & 2.705 & 2.776 & 2.863 \\
+\quad Native Hawaiian & \textbf{2.458} & 2.874 & \textbf{2.632} & \textbf{2.511} & 2.727 & \underline{2.814} & 2.432 & 2.470 & \underline{2.765} & 2.852 & \underline{2.905} \\
+\quad White & \underline{2.516} & 2.832 & \underline{2.800} & \underline{2.626} & 2.734 & 2.761 & 2.533 & \underline{2.495} & 2.723 & \textbf{2.761} & 2.858 \\
+\hline
+Women & 2.486 & 2.865 & 2.666 & 2.554 & 2.740 & 2.779 & 2.461 & 2.476 & 2.743 & 2.819 & 2.865 \\
+\quad American Indian & \textbf{2.463} & \underline{2.874} & 2.679 & 2.579 & 2.760 & \textbf{2.732} & 2.459 & \textbf{2.366} & 2.754 & \underline{2.880} & 2.863 \\
+\quad Asian & 2.495 & \underline{2.874} & 2.684 & 2.526 & 2.721 & 2.776 & 2.486 & 2.481 & 2.727 & 2.874 & 2.847 \\
+\quad Black & 2.479 & 2.858 & 2.642 & 2.553 & 2.728 & 2.783 & \textbf{2.386} & 2.440 & \textbf{2.701} & \textbf{2.777} & 2.874 \\
+\quad Hispanic & 2.500 & 2.868 & \underline{2.716} & \underline{2.605} & 2.749 & 2.776 & 2.421 & 2.508 & 2.727 & 2.792 & \underline{2.889} \\
+\quad Native Hawaiian & 2.474 & \textbf{2.847} & \textbf{2.574} & \textbf{2.474} & \textbf{2.705} & \underline{2.825} & 2.464 & 2.470 & \underline{2.787} & 2.803 & \textbf{2.837} \\
+\quad White & \underline{2.505} & 2.868 & 2.700 & 2.584 & \underline{2.777} & 2.783 & \underline{2.549} & \underline{2.592} & 2.761 & 2.788 & 2.879 \\
+\hline
+\quad Sex & 0.17 & 0.64 & $<0.01^{**}$ & 0.95 & 0.02$^{*}$ & 0.28 & 0.02$^{*}$ & 0.74 & $<0.01^{**}$ & 0.35 & 0.73 \\
+\quad Race & $<0.01^{**}$ & 0.15 & $<0.01^{**}$ & $<0.01^{**}$ & 0.02$^{*}$ & 0.17 & $<0.01^{**}$ & $<0.01^{**}$ & $<0.01^{**}$ & $<0.01^{**}$ & 0.82 \\
+\quad Sex \& Race & $<0.01^{**}$ & 0.04$^{*}$ & $<0.01^{**}$ & $<0.01^{**}$ & 0.02$^{*}$ & 0.39 & $<0.01^{**}$ & 0.02$^{*}$ & $<0.01^{**}$ & 0.01$^{*}$ & 0.69 \\
+\hline
+\end{tabular}}
+\end{table*}
