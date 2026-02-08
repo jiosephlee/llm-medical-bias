@@ -4,13 +4,13 @@ from sklearn.metrics import (accuracy_score, f1_score, precision_score, recall_s
 from sklearn.model_selection import StratifiedShuffleSplit
 from openai import OpenAI
 import pandas as pd
-import anthropic
+# import anthropic
 import os
 import time 
 import re
 import json 
-from google import genai
-from google.genai import types
+# from google import genai
+# from google.genai import types
 from pydantic import BaseModel
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
@@ -21,10 +21,11 @@ client_safe = OpenAI(
     api_key=DATABRICKS_TOKEN,
     base_url="https://adb-4750903324350629.9.azuredatabricks.net/serving-endpoints"
 )
+claude_client = client
 
-claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+# claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
-gemini_client = genai.Client(api_key=GEMINI_KEY)
+gemini_client = client #genai.Client(api_key=GEMINI_KEY)
 
 ###################
 ## Data Processing

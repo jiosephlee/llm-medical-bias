@@ -22,3 +22,5 @@ python ESI_Finetuning.py \
     --para 10 \
     --model_name unsloth/Qwen2.5-7B \
     --device_batch_size 4
+
+# This should take 20 minutes

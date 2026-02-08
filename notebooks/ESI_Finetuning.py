@@ -54,22 +54,22 @@ def main():
         cpt_learning_rate = 4e-5
         finetuning_learning_rate = 2e-4
     else:
-        cpt_learning_rate = 15e-6
-        finetuning_learning_rate = 2e-5
+        cpt_learning_rate = 1e-5
+        finetuning_learning_rate = 1e-5
 
     if args.dataset == 'handbook':
-        num_train_epochs = 20
+        num_train_epochs = 25
     elif args.dataset == 'ktas':
-        num_train_epochs = 20
+        num_train_epochs = 25
     else: # mimic
         num_train_epochs = 10
 
     cpt_num_train_epochs = 0
     if args.cpt:
         if args.para > 0:
-            cpt_num_train_epochs = int(30 / args.para)
+            cpt_num_train_epochs = int(10 / args.para)
         else:
-            cpt_num_train_epochs = 30
+            cpt_num_train_epochs = 10
 
     # Create a base name for runs and files
     filename_parts = [
@@ -107,7 +107,7 @@ def main():
             model,
             r = 32, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
             target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
-                            "gate_proj", "up_proj", "down_proj",],
+                            "gate_proj", "up_proj", "down_proj", "lm_head"],
             lora_alpha = 32,
             lora_dropout = 0, # Supports any, but = 0 is optimized
             bias = "none",    # Supports any, but = "none" is optimized
@@ -269,8 +269,9 @@ def main():
             logging_steps = 1,
             optim = "adamw_8bit",
             weight_decay = 0.01,
-            warmup_ratio=0.1,
-            lr_scheduler_type = "cosine",
+            #warmup_ratio=0.1,
+            warmup_steps = 5,
+            lr_scheduler_type = "linear",
             seed = 3407,
             report_to = "wandb", # Use this for WandB etc
         ),
