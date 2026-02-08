@@ -48,7 +48,7 @@ def main():
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
 
-    assert 16 % args.device_batch_size == 0 and args.device_batch_size <= 16, "Batch size must be a divisor of 8 and not larger than 8."
+    assert args.device_batch_size % 16 == 0 and args.device_batch_size <= 16, "Batch size must be a divisor of 8 and not larger than 8."
 
     if args.peft:
         cpt_learning_rate = 4e-5
@@ -200,7 +200,7 @@ def main():
 
                 learning_rate = cpt_learning_rate,
                 # embedding_learning_rate = 5e-6,
-
+                save_strategy = "no",
                 fp16 = not is_bfloat16_supported(),
                 bf16 = is_bfloat16_supported(),
                 logging_steps = 1,
@@ -268,6 +268,7 @@ def main():
             bf16 = is_bfloat16_supported(),
             logging_steps = 1,
             optim = "adamw_8bit",
+            save_strategy = "no",
             weight_decay = 0.01,
             warmup_ratio=0.1,
             lr_scheduler_type = "cosine",
