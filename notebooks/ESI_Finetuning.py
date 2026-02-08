@@ -314,7 +314,7 @@ def main():
         if predicted_acuity is not None:
             # Uncomment for debugging if needed:
             # print(f"Sample {i}: True Acuity: {true_acuity}, Predicted: {predicted_acuity}")
-            y_true.append(true_acuity)
+            y_true.append(int(true_acuity))
             y_pred.append(predicted_acuity)
             
             if predicted_acuity == true_acuity:
