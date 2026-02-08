@@ -55,7 +55,7 @@ def main():
         finetuning_learning_rate = 2e-4
     else:
         cpt_learning_rate = 15e-6
-        finetuning_learning_rate = 2e-5
+        finetuning_learning_rate = 3e-5
 
     if args.dataset == 'handbook':
         num_train_epochs = 20
@@ -287,7 +287,11 @@ def main():
     def extract_response(text):
         # This pattern looks for "Response:" and then non-greedily skips any characters until it finds a sequence of digits.
         match = re.search(r"Response:.*?(\d+)", text, re.DOTALL)
-        return int(match.group(1)) if match else None
+        if match:
+            response = int(match.group(1))
+            if 1 <= response <= 5:
+                return response
+        return -1
 
     # Initialize tracking variables
     correct = 0
@@ -336,35 +340,11 @@ def main():
             wrong += 1
 
 
-    print(f"y_pred type: {type(y_pred)}, sample: {y_pred[:5]}")
-    print(f"y_true type: {type(y_true)}, sample: {y_true[:5]}")
-    print(f"Unique y_pred: {set(y_pred)}")
-    print(f"Unique y_true: {set(y_true)}")
-    try:
-        from sklearn.utils.multiclass import type_of_target
-        print(f"Type of target (y_pred): {type_of_target(y_pred)}")
-        print(f"Type of target (y_true): {type_of_target(y_true)}")
-    except Exception as e:
-        print(f"Could not check target type: {e}")
-
     # Ensure everything is int
     y_pred = [int(p) for p in y_pred]
     y_true = [int(t) for t in y_true]
 
-    if len(y_pred) == 0:
-        print("No valid predictions were extracted. Skipping evaluation.")
-        metrics = {
-            "overall": {
-                "accuracy": 0.0,
-                "precision": 0.0,
-                "recall": 0.0,
-                "f1_score": 0.0,
-                "overtriage_rate": 0.0,
-                "undertriage_rate": 0.0
-            }
-        }
-    else:
-        metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
+    metrics = utils.evaluate_predictions(y_pred, y_true, ordinal=True, by_class=True)
     
     # Calculate overtriage and undertriage rates
     total_predictions = len(y_pred)
