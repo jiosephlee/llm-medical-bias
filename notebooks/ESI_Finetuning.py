@@ -48,7 +48,7 @@ def main():
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
 
-    assert 8 % args.device_batch_size == 0 and args.device_batch_size <= 16, "Batch size must be a divisor of 8 and not larger than 8."
+    assert 16 % args.device_batch_size == 0 and args.device_batch_size <= 16, "Batch size must be a divisor of 8 and not larger than 8."
 
     if args.peft:
         cpt_learning_rate = 4e-5
