@@ -48,7 +48,7 @@ def main():
     parser.add_argument('--peft', action='store_true', help='Enable PEFT for finetuning.')
     args = parser.parse_args()
 
-    assert 8 % args.device_batch_size == 0 and args.device_batch_size <= 8, "Batch size must be a divisor of 8 and not larger than 8."
+    assert 8 % args.device_batch_size == 0 and args.device_batch_size <= 16, "Batch size must be a divisor of 8 and not larger than 8."
 
     if args.peft:
         cpt_learning_rate = 4e-5
@@ -261,7 +261,7 @@ def main():
         args = TrainingArguments(
             run_name=f"Finetune_{filename_with_timestamp}",
             per_device_train_batch_size = args.device_batch_size,
-            gradient_accumulation_steps = int(8/args.device_batch_size),
+            gradient_accumulation_steps = int(16/args.device_batch_size),
             num_train_epochs = num_train_epochs, # Set this for 1 full training run.
             learning_rate = finetuning_learning_rate,
             fp16 = not is_bfloat16_supported(),
