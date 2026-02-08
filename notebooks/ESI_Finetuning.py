@@ -60,7 +60,7 @@ def main():
     if args.dataset == 'handbook':
         num_train_epochs = 20
     elif args.dataset == 'ktas':
-        num_train_epochs = 15
+        num_train_epochs = 20
     else: # mimic
         num_train_epochs = 10
 
