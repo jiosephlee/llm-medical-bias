@@ -9,8 +9,8 @@ import os
 import time 
 import re
 import json 
-from google import genai
-from google.genai import types
+# from google import genai
+# from google.genai import types
 from pydantic import BaseModel
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
@@ -24,7 +24,7 @@ client_safe = OpenAI(
 
 claude_client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
-gemini_client = genai.Client(api_key=GEMINI_KEY)
+# gemini_client = genai.Client(api_key=GEMINI_KEY)
 
 ###################
 ## Data Processing
@@ -289,20 +289,20 @@ def query_claude(prompt: str | dict, model: str, temperature: float, max_tokens:
         print(f"Error calling Claude: {e}")
         return None
 
-def query_gemini(message, model, temperature=0, max_tokens=1000):
-    response = gemini_client.models.generate_content(
-        model=model,
-        contents=message,
-        config=types.GenerateContentConfig(
-            temperature=temperature,
-            seed=0,
-            max_output_tokens=max_tokens,
-            response_mime_type="application/json",
-            response_schema=Acuity,
-        ),
-    )
+# def query_gemini(message, model, temperature=0, max_tokens=1000):
+#     response = gemini_client.models.generate_content(
+#         model=model,
+#         contents=message,
+#         config=types.GenerateContentConfig(
+#             temperature=temperature,
+#             seed=0,
+#             max_output_tokens=max_tokens,
+#             response_mime_type="application/json",
+#             response_schema=Acuity,
+#         ),
+#     )
 
-    return response.text
+#     return response.text
  
 def query_gpt(prompt: str | dict, model: str = 'gpt-4o-mini', temperature: float = 0, top_p: float = 0, logprobs: bool = False, return_json: bool = False, is_prompt_full: bool = False):
     if is_prompt_full:
@@ -362,8 +362,8 @@ def query_llm(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=10, m
                 if return_json:
                     return re.sub(r'(?<!\\)\n', '', response)
                 return response
-            elif 'gemini' in model:
-                return query_gemini(prompt, model, temperature, max_tokens)
+            # elif 'gemini' in model:
+            #     return query_gemini(prompt, model, temperature, max_tokens)
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
@@ -394,9 +394,9 @@ def query_llm_full(prompt, max_tokens=1000, temperature=0, top_p=0, max_try_num=
                 if return_json:
                     return re.sub(r'(?<!\\)\n', '', response)
                 return response
-            elif 'gemini' in model:
-                full_prompt = f"{prompt['system']}\n\n{prompt['user']}"
-                return query_gemini(full_prompt, model, temperature, max_tokens)
+            # elif 'gemini' in model:
+            #     full_prompt = f"{prompt['system']}\n\n{prompt['user']}"
+            #     return query_gemini(full_prompt, model, temperature, max_tokens)
             if debug:
                 print(response.choices[0].message.content.strip())
             if logprobs:
