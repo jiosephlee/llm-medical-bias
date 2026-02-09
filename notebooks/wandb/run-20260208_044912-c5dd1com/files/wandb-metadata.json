@@ -1,0 +1,133 @@
+{
+  "os":  "Linux-6.8.0-86-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.11.14",
+  "startedAt":  "2026-02-08T09:49:12.220492Z",
+  "args":  [
+    "--dataset",
+    "ktas",
+    "--model_name",
+    "unsloth/Qwen3-8B",
+    "--device_batch_size",
+    "16"
+  ],
+  "program":  "/vast/home/j/jojolee/llm-medical-bias/notebooks/ESI_Finetuning.py",
+  "codePath":  "notebooks/ESI_Finetuning.py",
+  "codePathLocal":  "ESI_Finetuning.py",
+  "git":  {
+    "remote":  "https://github.com/jiosephlee/llm-medical-bias.git",
+    "commit":  "4038a96f3623b6ff088320a2974bd790dbfcb434"
+  },
+  "email":  "jiosephlee@gmail.com",
+  "root":  "/vast/home/j/jojolee/llm-medical-bias/notebooks",
+  "host":  "dgx018",
+  "executable":  "/vast/home/j/jojolee/.conda/envs/unsloth/bin/python",
+  "cpu_count":  112,
+  "cpu_count_logical":  224,
+  "gpu":  "NVIDIA B200",
+  "gpu_count":  4,
+  "disk":  {
+    "/":  {
+      "total":  "1888556142592",
+      "used":  "73283436544"
+    }
+  },
+  "memory":  {
+    "total":  "2164173275136"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA B200",
+      "memoryTotal":  "192265846784",
+      "cudaCores":  18944,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-dd0a940f-fda9-9806-82f3-b42c4df99ec4"
+    },
+    {
+      "name":  "NVIDIA B200",
+      "memoryTotal":  "192265846784",
+      "cudaCores":  18944,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-9e293b6a-ab21-b35f-16f1-7d41ea2d2042"
+    },
+    {
+      "name":  "NVIDIA B200",
+      "memoryTotal":  "192265846784",
+      "cudaCores":  18944,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-3816d3f0-298f-2c8e-27c3-67ca01f5c014"
+    },
+    {
+      "name":  "NVIDIA B200",
+      "memoryTotal":  "192265846784",
+      "cudaCores":  18944,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-9ae49306-7b7a-9396-27b6-ccab9378778f"
+    }
+  ],
+  "cudaVersion":  "13.0",
+  "slurm":  {
+    "cluster_name":  "slurm",
+    "conf":  "/cm/shared/apps/slurm/etc/slurm/slurm.conf",
+    "cpu_bind":  "quiet,mask_cpu:0x0000000000FFFF000000000000000000000000FFFF00000000000000",
+    "cpu_bind_list":  "0x0000000000FFFF000000000000000000000000FFFF00000000000000",
+    "cpu_bind_type":  "mask_cpu:",
+    "cpu_bind_verbose":  "quiet",
+    "cpus_on_node":  "32",
+    "cpus_per_task":  "32",
+    "distribution":  "cyclic",
+    "gpus":  "4",
+    "gpus_on_node":  "4",
+    "gtids":  "0",
+    "job_account":  "myatskar-design-documents",
+    "job_cpus_per_node":  "32",
+    "job_end_time":  "1770585443",
+    "job_gid":  "1082874383",
+    "job_group":  "jojolee",
+    "job_id":  "4438432",
+    "job_name":  "bash",
+    "job_nodelist":  "dgx018",
+    "job_num_nodes":  "1",
+    "job_partition":  "dgx-b200",
+    "job_qos":  "dgx",
+    "job_start_time":  "1770542243",
+    "job_uid":  "1082874383",
+    "job_user":  "jojolee",
+    "jobid":  "4438432",
+    "launch_node_ipaddr":  "165.123.216.43",
+    "localid":  "0",
+    "mem_per_node":  "524288",
+    "mpi_type":  "pmix",
+    "nnodes":  "1",
+    "nodeid":  "0",
+    "nodelist":  "dgx018",
+    "nprocs":  "1",
+    "ntasks":  "1",
+    "oom_kill_step":  "0",
+    "pmix_mapping_serv":  "(vector,(0,1,1))",
+    "pmixp_abort_agent_port":  "33795",
+    "prio_process":  "0",
+    "procid":  "0",
+    "pty_port":  "37347",
+    "pty_win_col":  "110",
+    "pty_win_row":  "63",
+    "srun_comm_host":  "165.123.216.43",
+    "srun_comm_port":  "43625",
+    "step_gpus":  "4,5,6,7",
+    "step_id":  "0",
+    "step_launcher_port":  "43625",
+    "step_nodelist":  "dgx018",
+    "step_num_nodes":  "1",
+    "step_num_tasks":  "1",
+    "step_tasks_per_node":  "1",
+    "stepid":  "0",
+    "submit_dir":  "/vast/home/j/jojolee/therapeutic-tuning/scripts/Learning",
+    "submit_host":  "login03",
+    "task_pid":  "2312374",
+    "tasks_per_node":  "1",
+    "topology_addr":  "dgx018",
+    "topology_addr_pattern":  "node",
+    "tres_per_task":  "cpu=32",
+    "umask":  "0002"
+  },
+  "writerId":  "214b96sbk966qa0hd7s3kw8howaaol5q"
+}

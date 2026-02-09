@@ -1,0 +1,675 @@
+_name_or_path:
+    value: unsloth/Qwen3-8B
+_wandb:
+    value:
+        cli_version: 0.24.1
+        e:
+            uu77uozg69nqcdt4plah1k16pq8013go:
+                args:
+                    - --device_batch_size
+                    - "16"
+                    - --dataset
+                    - ktas
+                    - --model_name
+                    - unsloth/Qwen3-8B
+                codePath: notebooks/ESI_Finetuning.py
+                codePathLocal: ESI_Finetuning.py
+                cpu_count: 112
+                cpu_count_logical: 224
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "1888556142592"
+                        used: "73231486976"
+                email: jiosephlee@gmail.com
+                executable: /vast/home/j/jojolee/.conda/envs/unsloth/bin/python
+                git:
+                    commit: ce082683af5b614c97a7ae8ef88fa01bbddd60c2
+                    remote: https://github.com/jiosephlee/llm-medical-bias.git
+                gpu: NVIDIA B200
+                gpu_count: 4
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 18944
+                      memoryTotal: "192265846784"
+                      name: NVIDIA B200
+                      uuid: GPU-dd0a940f-fda9-9806-82f3-b42c4df99ec4
+                    - architecture: Blackwell
+                      cudaCores: 18944
+                      memoryTotal: "192265846784"
+                      name: NVIDIA B200
+                      uuid: GPU-9e293b6a-ab21-b35f-16f1-7d41ea2d2042
+                    - architecture: Blackwell
+                      cudaCores: 18944
+                      memoryTotal: "192265846784"
+                      name: NVIDIA B200
+                      uuid: GPU-3816d3f0-298f-2c8e-27c3-67ca01f5c014
+                    - architecture: Blackwell
+                      cudaCores: 18944
+                      memoryTotal: "192265846784"
+                      name: NVIDIA B200
+                      uuid: GPU-9ae49306-7b7a-9396-27b6-ccab9378778f
+                host: dgx018
+                memory:
+                    total: "2164173275136"
+                os: Linux-6.8.0-86-generic-x86_64-with-glibc2.39
+                program: /vast/home/j/jojolee/llm-medical-bias/notebooks/ESI_Finetuning.py
+                python: CPython 3.11.14
+                root: /vast/home/j/jojolee/llm-medical-bias/notebooks
+                slurm:
+                    cluster_name: slurm
+                    conf: /cm/shared/apps/slurm/etc/slurm/slurm.conf
+                    cpu_bind: quiet,mask_cpu:0x0000000000FFFF000000000000000000000000FFFF00000000000000
+                    cpu_bind_list: 0x0000000000FFFF000000000000000000000000FFFF00000000000000
+                    cpu_bind_type: 'mask_cpu:'
+                    cpu_bind_verbose: quiet
+                    cpus_on_node: "32"
+                    cpus_per_task: "32"
+                    distribution: cyclic
+                    gpus: "4"
+                    gpus_on_node: "4"
+                    gtids: "0"
+                    job_account: myatskar-design-documents
+                    job_cpus_per_node: "32"
+                    job_end_time: "1770585443"
+                    job_gid: "1082874383"
+                    job_group: jojolee
+                    job_id: "4438432"
+                    job_name: bash
+                    job_nodelist: dgx018
+                    job_num_nodes: "1"
+                    job_partition: dgx-b200
+                    job_qos: dgx
+                    job_start_time: "1770542243"
+                    job_uid: "1082874383"
+                    job_user: jojolee
+                    jobid: "4438432"
+                    launch_node_ipaddr: 165.123.216.43
+                    localid: "0"
+                    mem_per_node: "524288"
+                    mpi_type: pmix
+                    nnodes: "1"
+                    nodeid: "0"
+                    nodelist: dgx018
+                    nprocs: "1"
+                    ntasks: "1"
+                    oom_kill_step: "0"
+                    pmix_mapping_serv: (vector,(0,1,1))
+                    pmixp_abort_agent_port: "33795"
+                    prio_process: "0"
+                    procid: "0"
+                    pty_port: "37347"
+                    pty_win_col: "110"
+                    pty_win_row: "63"
+                    srun_comm_host: 165.123.216.43
+                    srun_comm_port: "43625"
+                    step_gpus: 4,5,6,7
+                    step_id: "0"
+                    step_launcher_port: "43625"
+                    step_nodelist: dgx018
+                    step_num_nodes: "1"
+                    step_num_tasks: "1"
+                    step_tasks_per_node: "1"
+                    stepid: "0"
+                    submit_dir: /vast/home/j/jojolee/therapeutic-tuning/scripts/Learning
+                    submit_host: login03
+                    task_pid: "2312374"
+                    tasks_per_node: "1"
+                    topology_addr: dgx018
+                    topology_addr_pattern: node
+                    tres_per_task: cpu=32
+                    umask: "0002"
+                startedAt: "2026-02-08T09:27:23.474282Z"
+                writerId: uu77uozg69nqcdt4plah1k16pq8013go
+        m:
+            - "1": train/global_step
+              "6":
+                - 3
+              "7": []
+            - "2": '*'
+              "5": 1
+              "6":
+                - 1
+              "7": []
+        python_version: 3.11.14
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 41
+                - 49
+                - 51
+                - 53
+                - 71
+                - 84
+                - 95
+                - 97
+                - 98
+            "2":
+                - 1
+                - 5
+                - 11
+                - 41
+                - 49
+                - 51
+                - 53
+                - 71
+                - 84
+                - 95
+                - 97
+                - 98
+            "3":
+                - 7
+                - 13
+                - 19
+                - 66
+            "4": 3.11.14
+            "5": 0.24.1
+            "6": 4.57.6
+            "9":
+                "1": transformers_trainer
+            "12": 0.24.1
+            "13": linux-x86_64
+accelerator_config:
+    value:
+        dispatch_batches: null
+        even_batches: true
+        gradient_accumulation_kwargs: null
+        non_blocking: false
+        split_batches: false
+        use_seedable_sampler: true
+activation_offloading:
+    value: false
+adafactor:
+    value: false
+adam_beta1:
+    value: 0.9
+adam_beta2:
+    value: 0.999
+adam_epsilon:
+    value: 1e-08
+add_cross_attention:
+    value: false
+architectures:
+    value:
+        - Qwen3ForCausalLM
+assistant_only_loss:
+    value: false
+attention_bias:
+    value: false
+attention_dropout:
+    value: 0
+auto_find_batch_size:
+    value: false
+average_tokens_across_devices:
+    value: true
+bad_words_ids:
+    value: null
+batch_eval_metrics:
+    value: false
+begin_suppress_tokens:
+    value: null
+bf16:
+    value: false
+bf16_full_eval:
+    value: true
+bos_token_id:
+    value: null
+chat_template_path:
+    value: null
+chunk_size_feed_forward:
+    value: 0
+completion_only_loss:
+    value: null
+cross_attention_hidden_size:
+    value: null
+data_seed:
+    value: null
+dataloader_drop_last:
+    value: false
+dataloader_num_workers:
+    value: 0
+dataloader_persistent_workers:
+    value: false
+dataloader_pin_memory:
+    value: true
+dataloader_prefetch_factor:
+    value: null
+dataset_kwargs:
+    value: null
+dataset_num_proc:
+    value: null
+dataset_text_field:
+    value: text
+ddp_backend:
+    value: null
+ddp_broadcast_buffers:
+    value: null
+ddp_bucket_cap_mb:
+    value: null
+ddp_find_unused_parameters:
+    value: null
+ddp_timeout:
+    value: 1800
+debug:
+    value: []
+decoder_start_token_id:
+    value: null
+deepspeed:
+    value: null
+disable_tqdm:
+    value: false
+diversity_penalty:
+    value: 0
+do_eval:
+    value: false
+do_predict:
+    value: false
+do_sample:
+    value: false
+do_train:
+    value: false
+dtype:
+    value: bfloat16
+early_stopping:
+    value: false
+encoder_no_repeat_ngram_size:
+    value: 0
+eos_token:
+    value: <EOS_TOKEN>
+eos_token_id:
+    value: 151645
+eval_accumulation_steps:
+    value: null
+eval_delay:
+    value: 0
+eval_do_concat_batches:
+    value: true
+eval_on_start:
+    value: false
+eval_packing:
+    value: null
+eval_steps:
+    value: null
+eval_strategy:
+    value: "no"
+eval_use_gather_object:
+    value: false
+exponential_decay_length_penalty:
+    value: null
+finetuning_task:
+    value: null
+forced_bos_token_id:
+    value: null
+forced_eos_token_id:
+    value: null
+fp16:
+    value: false
+fp16_backend:
+    value: auto
+fp16_full_eval:
+    value: false
+fp16_opt_level:
+    value: O1
+fsdp:
+    value: []
+fsdp_config:
+    value:
+        min_num_params: 0
+        xla: false
+        xla_fsdp_grad_ckpt: false
+        xla_fsdp_v2: false
+fsdp_min_num_params:
+    value: 0
+fsdp_transformer_layer_cls_to_wrap:
+    value: null
+full_determinism:
+    value: false
+gradient_accumulation_steps:
+    value: 1
+gradient_checkpointing:
+    value: false
+gradient_checkpointing_kwargs:
+    value: null
+greater_is_better:
+    value: null
+group_by_length:
+    value: false
+half_precision_backend:
+    value: auto
+head_dim:
+    value: 128
+hidden_act:
+    value: silu
+hidden_size:
+    value: 4096
+hub_always_push:
+    value: false
+hub_model_id:
+    value: null
+hub_private_repo:
+    value: null
+hub_revision:
+    value: null
+hub_strategy:
+    value: every_save
+hub_token:
+    value: <HUB_TOKEN>
+id2label:
+    value:
+        "0": LABEL_0
+        "1": LABEL_1
+ignore_data_skip:
+    value: false
+include_for_metrics:
+    value: []
+include_inputs_for_metrics:
+    value: false
+include_num_input_tokens_seen:
+    value: "no"
+include_tokens_per_second:
+    value: false
+initializer_range:
+    value: 0.02
+intermediate_size:
+    value: 12288
+is_decoder:
+    value: false
+is_encoder_decoder:
+    value: false
+jit_mode_eval:
+    value: false
+label_names:
+    value: null
+label_smoothing_factor:
+    value: 0
+label2id:
+    value:
+        LABEL_0: 0
+        LABEL_1: 1
+layer_types:
+    value:
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+        - full_attention
+learning_rate:
+    value: 2e-05
+length_column_name:
+    value: length
+length_penalty:
+    value: 1
+liger_kernel_config:
+    value: null
+load_best_model_at_end:
+    value: false
+local_rank:
+    value: 0
+log_level:
+    value: passive
+log_level_replica:
+    value: warning
+log_on_each_node:
+    value: true
+logging_dir:
+    value: trainer_output/runs/Feb08_04-26-56_dgx018
+logging_first_step:
+    value: false
+logging_nan_inf_filter:
+    value: true
+logging_steps:
+    value: 1
+logging_strategy:
+    value: steps
+loss_type:
+    value: nll
+lr_scheduler_kwargs:
+    value: null
+lr_scheduler_type:
+    value: cosine
+max_grad_norm:
+    value: 1
+max_length:
+    value: 1024
+max_position_embeddings:
+    value: 40960
+max_steps:
+    value: -1
+max_window_layers:
+    value: 36
+metric_for_best_model:
+    value: null
+min_length:
+    value: 0
+model/num_parameters:
+    value: 8190735360
+model_init_kwargs:
+    value: null
+model_type:
+    value: qwen3
+mp_parameters:
+    value: ""
+neftune_noise_alpha:
+    value: null
+no_cuda:
+    value: false
+no_repeat_ngram_size:
+    value: 0
+num_attention_heads:
+    value: 32
+num_beam_groups:
+    value: 1
+num_beams:
+    value: 1
+num_hidden_layers:
+    value: 36
+num_key_value_heads:
+    value: 8
+num_return_sequences:
+    value: 1
+num_train_epochs:
+    value: 20
+optim:
+    value: adamw_8bit
+optim_args:
+    value: null
+optim_target_modules:
+    value: null
+output_attentions:
+    value: false
+output_dir:
+    value: trainer_output
+output_hidden_states:
+    value: false
+output_scores:
+    value: false
+overwrite_output_dir:
+    value: false
+packing:
+    value: false
+packing_strategy:
+    value: bfd
+pad_to_multiple_of:
+    value: null
+pad_token:
+    value: <PAD_TOKEN>
+pad_token_id:
+    value: 151654
+padding_free:
+    value: false
+parallelism_config:
+    value: null
+past_index:
+    value: -1
+per_device_eval_batch_size:
+    value: 8
+per_device_train_batch_size:
+    value: 16
+per_gpu_eval_batch_size:
+    value: null
+per_gpu_train_batch_size:
+    value: null
+prediction_loss_only:
+    value: false
+prefix:
+    value: null
+problem_type:
+    value: null
+project:
+    value: huggingface
+push_to_hub:
+    value: false
+push_to_hub_model_id:
+    value: null
+push_to_hub_organization:
+    value: null
+push_to_hub_token:
+    value: <PUSH_TO_HUB_TOKEN>
+ray_scope:
+    value: last
+remove_invalid_values:
+    value: false
+remove_unused_columns:
+    value: true
+repetition_penalty:
+    value: 1
+report_to:
+    value:
+        - wandb
+restore_callback_states_from_checkpoint:
+    value: false
+resume_from_checkpoint:
+    value: null
+return_dict:
+    value: true
+return_dict_in_generate:
+    value: false
+rms_norm_eps:
+    value: 1e-06
+rope_scaling:
+    value: null
+rope_theta:
+    value: 1000000
+run_name:
+    value: Finetune_Qwen3-8B_ktas_epochs20_lr2e-05_02-08_04-26
+save_on_each_node:
+    value: false
+save_only_model:
+    value: false
+save_safetensors:
+    value: true
+save_steps:
+    value: 500
+save_strategy:
+    value: steps
+save_total_limit:
+    value: null
+seed:
+    value: 3407
+sep_token_id:
+    value: null
+skip_memory_metrics:
+    value: true
+sliding_window:
+    value: null
+suppress_tokens:
+    value: null
+task_specific_params:
+    value: null
+temperature:
+    value: 1
+tf_legacy_loss:
+    value: false
+tf32:
+    value: null
+tie_encoder_decoder:
+    value: false
+tie_word_embeddings:
+    value: false
+tokenizer_class:
+    value: null
+top_k:
+    value: 50
+top_p:
+    value: 1
+torch_compile:
+    value: false
+torch_compile_backend:
+    value: null
+torch_compile_mode:
+    value: null
+torch_empty_cache_steps:
+    value: null
+torchdynamo:
+    value: null
+torchscript:
+    value: false
+tpu_metrics_debug:
+    value: false
+tpu_num_cores:
+    value: null
+trackio_space_id:
+    value: trackio
+transformers_version:
+    value: 4.57.6
+typical_p:
+    value: 1
+unsloth_fixed:
+    value: true
+unsloth_version:
+    value: 2026.1.4
+use_bfloat16:
+    value: false
+use_cache:
+    value: true
+use_cpu:
+    value: false
+use_legacy_prediction_loop:
+    value: false
+use_liger_kernel:
+    value: false
+use_mps_device:
+    value: false
+use_sliding_window:
+    value: false
+vocab_size:
+    value: 151936
+warmup_ratio:
+    value: 0.1
+warmup_steps:
+    value: 0
+weight_decay:
+    value: 0.01
